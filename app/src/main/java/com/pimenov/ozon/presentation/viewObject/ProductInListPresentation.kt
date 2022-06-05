@@ -1,6 +1,6 @@
 package com.pimenov.ozon.presentation.viewObject
 
-data class  ProductInListPresentation (
+data class ProductInListPresentation (
     val guid: String,
     val image: String,
     val name: String,

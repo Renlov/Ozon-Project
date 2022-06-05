@@ -1,4 +1,4 @@
-package com.pimenov.ozon.presentation.viewObject
+package com.pimenov.ozon.data.dto
 
 data class Product(
     val guid: String,

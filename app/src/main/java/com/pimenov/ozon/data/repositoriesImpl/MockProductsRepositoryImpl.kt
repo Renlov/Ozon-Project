@@ -1,15 +1,12 @@
 package com.pimenov.ozon.data.repositoriesImpl
 
-import com.pimenov.ozon.domain.repositories.ProductsRepository
+import com.pimenov.ozon.domain.repositories.ProductRepository
 import com.pimenov.ozon.presentation.mapper.toPresentation
-import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
+import com.pimenov.ozon.presentation.viewObject.ProductPresentation
 
-class MockProductsRepositoryImpl : ProductsRepository {
-    override fun getProducts(): List<ProductInListPresentation> {
-        return dataListMock.map { it.toPresentation() }
+class MockProductsRepositoryImpl : ProductRepository{
+    override fun getProductById(guid: String): ProductPresentation {
+        return dataMock.find { it.guid == guid }?.toPresentation() ?: error("error")
     }
 
-    override fun getProductById(guid: String): ProductInListPresentation {
-        return dataListMock.find { it.guid == guid }?.toPresentation() ?: error("error")
-    }
 }

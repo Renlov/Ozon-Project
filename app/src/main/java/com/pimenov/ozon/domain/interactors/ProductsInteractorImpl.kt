@@ -1,15 +1,10 @@
 package com.pimenov.ozon.domain.interactors
 
-import com.pimenov.ozon.domain.repositories.ProductsRepository
-import com.pimenov.ozon.presentation.viewObject.Product
-import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
+import com.pimenov.ozon.domain.repositories.ProductRepository
+import com.pimenov.ozon.presentation.viewObject.ProductPresentation
 
-class ProductsInteractorImpl(private val productRepository : ProductsRepository) : ProductsInteractor {
-    override fun getProducts(): List<ProductInListPresentation> {
-        return productRepository.getProducts()
-    }
-
-    override fun getProductById(guid: String): ProductInListPresentation {
+class ProductsInteractorImpl(private val productRepository : ProductRepository) : ProductsInteractor {
+    override fun getProductById(guid: String): ProductPresentation {
         return productRepository.getProductById(guid)
     }
 }

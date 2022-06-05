@@ -1,6 +1,7 @@
 package com.pimenov.ozon.data.repositoriesImpl
 
 import com.google.gson.GsonBuilder
+import com.pimenov.ozon.data.dto.Product
 import com.pimenov.ozon.data.dto.ProductInList
 
 val mockData = """[
@@ -180,4 +181,4 @@ val mockData = """[
   }
 ]""".trimIndent()
 
-val dataMock = GsonBuilder().create().fromJson(mockData ,Array<ProductInList>::class.java).toList()
+val dataMock = GsonBuilder().create().fromJson(mockData ,Array<Product>::class.java).toList()
