@@ -1,14 +1,10 @@
 package com.pimenov.ozon.presentation.adapters
 
-import android.content.Context
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.facebook.shimmer.Shimmer
-import com.facebook.shimmer.ShimmerDrawable
-import com.pimenov.ozon.R
 import com.pimenov.ozon.databinding.ItemListRecyclerBinding
+
 import com.pimenov.ozon.presentation.utils.inflate
 import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
 

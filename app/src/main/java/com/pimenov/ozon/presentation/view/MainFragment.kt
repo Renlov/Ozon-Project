@@ -1,17 +1,15 @@
 package com.pimenov.ozon.presentation.view
 
-import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pimenov.ozon.R
 import com.pimenov.ozon.databinding.FragmentMainBinding
 import com.pimenov.ozon.di.ServiceLocatorList
 import com.pimenov.ozon.presentation.adapters.MainAdapter
-import com.pimenov.ozon.presentation.utils.CountPrefs
 import com.pimenov.ozon.presentation.utils.viewModelCreator
 import com.pimenov.ozon.presentation.viewModel.MainViewModel
 
@@ -43,12 +41,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
     private fun onClick(guid : String){
-        Log.d("spectra", guid)
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, PDPFragment.newInstance(guid))
-            .addToBackStack(null)
-            .commit()
+        val action = MainFragmentDirections.actionMainFragmentToPDPFragment(guid)
+        findNavController().navigate(action)
+
     }
-
-
 }
