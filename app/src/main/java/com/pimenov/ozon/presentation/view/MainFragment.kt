@@ -19,7 +19,7 @@ import com.pimenov.ozon.presentation.viewModel.MainViewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val viewModel: MainViewModel by viewModelCreator {
-        MainViewModel(ServiceLocator(requireContext()).productsInteractorList)
+        MainViewModel(ServiceLocator.productsInteractorList)
     }
     private val productListAdapter  by autoCleared {
         MainAdapter(::onClick)

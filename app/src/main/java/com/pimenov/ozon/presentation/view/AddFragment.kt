@@ -12,7 +12,7 @@ import com.pimenov.ozon.presentation.viewModel.AddViewModel
 
 class AddFragment : Fragment(R.layout.fragment_add) {
     private val viewModel: AddViewModel by viewModelCreator {
-        AddViewModel(ServiceLocator(requireContext()).productsInteractorList)
+        AddViewModel(ServiceLocator.productsInteractorList)
     }
     private val binding by viewBinding(FragmentAddBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

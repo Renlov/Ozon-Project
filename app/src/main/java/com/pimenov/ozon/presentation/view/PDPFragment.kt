@@ -20,7 +20,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
     private val binding by viewBinding(FragmentPDPBinding::bind)
     private val args: PDPFragmentArgs by navArgs()
     private val viewModel: PDPViewModel by viewModelCreator {
-        PDPViewModel(ServiceLocator(requireContext()).productsInteractor, ServiceLocator(requireContext()).countPrefs)
+        PDPViewModel(ServiceLocator.productsInteractor, ServiceLocator.countPrefs)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,32 +38,21 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
                 viewModel.incrementCounter(it.guid)
             }
             viewModel.counterLiveData.observe(viewLifecycleOwner) {
-                val entry = "заходов ${viewModel.counterLiveData.value}"
-                binding.productEntry.text = entry
+                binding.productEntry.text = requireContext().resources.getString(
+                    R.string.countEntry, viewModel.counterLiveData.value)
             }
         }
 
         private fun updateProduct(product: ProductVO) {
-            val availableCount = "доступно ${product.availableCount}"
-            val count = "остаток ${product.count}"
-            val weight = "вес ${product.weight?: "0"}"
-            val price = "${product.price}P"
-
             with(binding){
                 Glide.with(requireContext()).load(product.images[0]).into(productImage)
-                productPrice.text = price
+                productPrice.text = root.resources.getString(R.string.ruble, product.price)
                 productName.text = product.name
                 productRating.rating = product.rating.toFloat()
-                productAvailableCount.text = availableCount
+                productAvailableCount.text = root.resources.getString(R.string.available, product.availableCount)
                 productDescription.text = product.description
-                productWeight.text = weight
-                productCount.text = count
-
-//                if (product.additionalParams.isNotEmpty()){
-//                    ProductAdditional.visibility = View.VISIBLE
-//                    ProductAdditional.text = product.additionalParams.toString()
-//                }
-
+                productWeight.text = root.resources.getString(R.string.weightProduct, product.weight)
+                productCount.text = root.resources.getString(R.string.countAvailable, product.count)
             }
         }
 
