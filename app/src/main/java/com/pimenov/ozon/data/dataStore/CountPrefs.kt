@@ -1,4 +1,4 @@
-package com.pimenov.ozon.presentation.utils
+package com.pimenov.ozon.data.dataStore
 
 import android.content.Context
 import androidx.datastore.core.DataStore

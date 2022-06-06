@@ -1,6 +1,6 @@
-package com.pimenov.ozon.presentation.viewObject
+package com.pimenov.ozon.data.dataObject
 
-data class ProductPresentation(
+data class ProductDTO(
     val guid: String,
     val name: String,
     val price: String,

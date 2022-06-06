@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pimenov.ozon.R
 import com.pimenov.ozon.databinding.FragmentMainBinding
-import com.pimenov.ozon.di.ServiceLocatorList
+import com.pimenov.ozon.di.ServiceLocator
 import com.pimenov.ozon.presentation.adapters.MainAdapter
 import com.pimenov.ozon.presentation.utils.autoCleared
 import com.pimenov.ozon.presentation.utils.viewModelCreator
@@ -19,7 +19,7 @@ import com.pimenov.ozon.presentation.viewModel.MainViewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val viewModel: MainViewModel by viewModelCreator {
-        MainViewModel(ServiceLocatorList().productsInteractor)
+        MainViewModel(ServiceLocator(requireContext()).productsInteractorList)
     }
     private val productListAdapter  by autoCleared {
         MainAdapter(::onClick)
@@ -37,7 +37,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun observeViewModelState() {
-        viewModel.productLD.observe(viewLifecycleOwner) {
+        viewModel.productLivaData.observe(viewLifecycleOwner) {
             productListAdapter.updateList(it)
         }
     }

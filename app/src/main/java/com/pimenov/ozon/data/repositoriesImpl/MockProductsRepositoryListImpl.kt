@@ -1,13 +1,13 @@
 package com.pimenov.ozon.data.repositoriesImpl
 
+import com.pimenov.ozon.domain.domainObject.ProductInListDO
+import com.pimenov.ozon.data.mapper.toDO
 import com.pimenov.ozon.domain.repositories.ProductsRepositoryList
-import com.pimenov.ozon.presentation.mapper.toPresentation
-import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
 import java.util.*
 
 class MockProductsRepositoryListImpl : ProductsRepositoryList {
-    override fun getProducts() : List<ProductInListPresentation> {
-        return dataListMock.map { it.toPresentation() }
+    override fun getProducts() : List<ProductInListDO> {
+        return dataListMock.map { it.toDO() }
     }
 
     override fun addProduct() {

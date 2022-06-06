@@ -1,7 +1,7 @@
 package com.pimenov.ozon.domain.repositories
 
-import com.pimenov.ozon.presentation.viewObject.ProductPresentation
+import com.pimenov.ozon.domain.domainObject.ProductDO
 
 interface ProductRepository {
-    fun getProductById(guid: String): ProductPresentation
+    fun getProductById(guid: String): ProductDO
 }

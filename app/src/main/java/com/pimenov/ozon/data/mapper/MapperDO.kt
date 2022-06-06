@@ -1,23 +1,23 @@
-package com.pimenov.ozon.presentation.mapper
+package com.pimenov.ozon.data.mapper
 
-import com.pimenov.ozon.data.dto.Product
-import com.pimenov.ozon.data.dto.ProductInList
-import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
-import com.pimenov.ozon.presentation.viewObject.ProductPresentation
+import com.pimenov.ozon.data.dataObject.ProductDTO
+import com.pimenov.ozon.data.dataObject.ProductInListDTO
+import com.pimenov.ozon.domain.domainObject.ProductDO
+import com.pimenov.ozon.domain.domainObject.ProductInListDO
 
-fun ProductInList.toPresentation() : ProductInListPresentation =
-    ProductInListPresentation(
+fun ProductInListDTO.toDO() : ProductInListDO =
+    ProductInListDO(
         guid = guid,
         image = image,
         name = name,
         price = price,
-        rating = rating.toFloat(),
+        rating = rating,
         isFavorite = isFavorite,
         isInCart = isInCart
     )
 
-fun Product.toPresentation() : ProductPresentation =
-    ProductPresentation(
+fun ProductDTO.toDO() : ProductDO =
+    ProductDO(
         guid = guid,
         name = name,
         price = price,

@@ -10,18 +10,17 @@ import com.bumptech.glide.Glide
 import com.pimenov.ozon.R
 import com.pimenov.ozon.databinding.FragmentPDPBinding
 import com.pimenov.ozon.di.ServiceLocator
-import com.pimenov.ozon.presentation.utils.CountPrefs
+import com.pimenov.ozon.data.dataStore.CountPrefs
 import com.pimenov.ozon.presentation.utils.viewModelCreator
 import com.pimenov.ozon.presentation.viewModel.PDPViewModel
-import com.pimenov.ozon.presentation.viewObject.ProductPresentation
+import com.pimenov.ozon.presentation.viewObject.ProductVO
 
 
 class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
     private val binding by viewBinding(FragmentPDPBinding::bind)
     private val args: PDPFragmentArgs by navArgs()
-
     private val viewModel: PDPViewModel by viewModelCreator {
-        PDPViewModel(ServiceLocator().productsInteractor, CountPrefs(requireContext()))
+        PDPViewModel(ServiceLocator(requireContext()).productsInteractor, ServiceLocator(requireContext()).countPrefs)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,18 +33,17 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         }
 
         private fun observeViewModelState() {
-            viewModel.productLD.observe(viewLifecycleOwner) {
+            viewModel.productLiveData.observe(viewLifecycleOwner) {
                 updateProduct(it)
                 viewModel.incrementCounter(it.guid)
             }
-            viewModel.counter.observe(viewLifecycleOwner) {
-                val entry = "заходов ${viewModel.counter.value}"
+            viewModel.counterLiveData.observe(viewLifecycleOwner) {
+                val entry = "заходов ${viewModel.counterLiveData.value}"
                 binding.productEntry.text = entry
             }
         }
 
-        private fun updateProduct(product: ProductPresentation) {
-            Log.d("spectra", product.toString())
+        private fun updateProduct(product: ProductVO) {
             val availableCount = "доступно ${product.availableCount}"
             val count = "остаток ${product.count}"
             val weight = "вес ${product.weight?: "0"}"

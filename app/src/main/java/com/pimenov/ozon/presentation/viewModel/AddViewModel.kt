@@ -5,17 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pimenov.ozon.domain.interactors.ProductsInteractorList
 
-class AddViewModel(private val productInteractor : ProductsInteractorList) : ViewModel() {
-
-    private val _productCount = MutableLiveData<Int>()
-    val productCount: LiveData<Int> = _productCount
+class AddViewModel(private val productsInteractorList : ProductsInteractorList) : ViewModel() {
+    private val _productCountLivaData = MutableLiveData<Int>()
+    val productCountLivaData: LiveData<Int> = _productCountLivaData
 
     fun getProductsCount(){
-        _productCount.postValue(productInteractor.getProducts().size)
+        _productCountLivaData.postValue(productsInteractorList.getProducts().size)
     }
 
     fun addElement(){
-        productInteractor.addProduct()
+        productsInteractorList.addProduct()
         getProductsCount()
     }
 }

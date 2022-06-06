@@ -1,11 +1,11 @@
-package com.pimenov.ozon.presentation.viewObject
+package com.pimenov.ozon.domain.domainObject
 
-data class ProductInListPresentation (
+data class ProductInListDO(
     val guid: String,
     val image: String,
     val name: String,
     val price: String,
-    val rating: Float,
+    val rating: Double,
     val isFavorite: Boolean,
     val isInCart: Boolean
 )

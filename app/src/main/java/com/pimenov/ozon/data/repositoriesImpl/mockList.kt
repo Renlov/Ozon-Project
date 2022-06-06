@@ -1,7 +1,7 @@
 package com.pimenov.ozon.data.repositoriesImpl
 
 import com.google.gson.GsonBuilder
-import com.pimenov.ozon.data.dto.ProductInList
+import com.pimenov.ozon.data.dataObject.ProductInListDTO
 
 
 val mockDataList  = """
@@ -99,4 +99,4 @@ val mockDataList  = """
 ]
 """.trimIndent()
 
-var dataListMock = GsonBuilder().create().fromJson(mockDataList, Array<ProductInList>::class.java).toMutableList()
+var dataListMock = GsonBuilder().create().fromJson(mockDataList, Array<ProductInListDTO>::class.java).toMutableList()

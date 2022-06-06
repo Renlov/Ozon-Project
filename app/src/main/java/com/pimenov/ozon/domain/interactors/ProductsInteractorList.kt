@@ -1,8 +1,8 @@
 package com.pimenov.ozon.domain.interactors
 
-import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
+import com.pimenov.ozon.presentation.viewObject.ProductInListVO
 
 interface ProductsInteractorList {
-    fun getProducts(): List<ProductInListPresentation>
+    fun getProducts(): List<ProductInListVO>
     fun addProduct()
 }
