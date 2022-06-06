@@ -12,15 +12,18 @@ import com.pimenov.ozon.R
 import com.pimenov.ozon.databinding.FragmentMainBinding
 import com.pimenov.ozon.di.ServiceLocatorList
 import com.pimenov.ozon.presentation.adapters.MainAdapter
+import com.pimenov.ozon.presentation.utils.autoCleared
 import com.pimenov.ozon.presentation.utils.viewModelCreator
 import com.pimenov.ozon.presentation.viewModel.MainViewModel
 
 
-class MainFragment : Fragment(com.pimenov.ozon.R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main) {
     private val viewModel: MainViewModel by viewModelCreator {
         MainViewModel(ServiceLocatorList().productsInteractor)
     }
-    private lateinit var productListAdapter: MainAdapter
+    private val productListAdapter  by autoCleared {
+        MainAdapter(::onClick)
+    }
     private val binding by viewBinding(FragmentMainBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,7 +32,7 @@ class MainFragment : Fragment(com.pimenov.ozon.R.layout.fragment_main) {
         initList()
         viewModel.getProducts()
         binding.addActionButton.setOnClickListener {
-            findNavController().navigate(com.pimenov.ozon.R.id.action_mainFragment_to_addFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_addFragment)
         }
     }
 
@@ -40,8 +43,6 @@ class MainFragment : Fragment(com.pimenov.ozon.R.layout.fragment_main) {
     }
 
     private fun initList() {
-        productListAdapter = MainAdapter(::onClick)
-
         binding.mainRecyclerView.apply  {
             adapter = productListAdapter
             layoutManager = LinearLayoutManager(requireContext())

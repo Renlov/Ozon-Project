@@ -20,9 +20,16 @@ class AddFragment : Fragment(R.layout.fragment_add) {
     private val binding by viewBinding(FragmentAddBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.getProductsCount()
+        observeViewModelState()
         binding.addButton.setOnClickListener {
             viewModel.addElement()
+        }
+    }
+
+    private fun observeViewModelState() {
+        viewModel.productCount.observe(viewLifecycleOwner) {
+            binding.countElement.text = requireContext().resources.getString(R.string.addedElement, it)
         }
     }
 }
