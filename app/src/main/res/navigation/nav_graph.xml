@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_PDPFragment"
             app:destination="@id/PDPFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/PDPFragment"
@@ -23,4 +26,9 @@
             android:name="resultData"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.pimenov.ozon.presentation.view.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" />
 </navigation>

@@ -99,4 +99,4 @@ val mockDataList  = """
 ]
 """.trimIndent()
 
-val dataListMock = GsonBuilder().create().fromJson(mockDataList ,Array<ProductInList>::class.java).toList()
+var dataListMock = GsonBuilder().create().fromJson(mockDataList, Array<ProductInList>::class.java).toMutableList()

@@ -9,11 +9,11 @@ import com.pimenov.ozon.presentation.utils.CountPrefs
 import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
 import kotlinx.coroutines.launch
 
-class MainViewModel(productInteractor : ProductsInteractorList) : ViewModel() {
+class MainViewModel(private val productInteractor : ProductsInteractorList) : ViewModel() {
     private val _productLD = MutableLiveData<List<ProductInListPresentation>>()
     val productLD: LiveData<List<ProductInListPresentation>> = _productLD
 
-    init {
+    fun getProducts(){
         _productLD.postValue(productInteractor.getProducts())
     }
 

@@ -24,6 +24,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModelState()
         initList()
+        viewModel.getProducts()
+        binding.addActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_addFragment)
+        }
     }
 
     private fun observeViewModelState() {
@@ -43,6 +47,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun onClick(guid : String){
         val action = MainFragmentDirections.actionMainFragmentToPDPFragment(guid)
         findNavController().navigate(action)
-
     }
+
+
 }

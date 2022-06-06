@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ozonColor">#005bff</color>
     <color name="background_color">#24282f</color>
     <color name="background_item">#3c3e44</color>
 </resources>

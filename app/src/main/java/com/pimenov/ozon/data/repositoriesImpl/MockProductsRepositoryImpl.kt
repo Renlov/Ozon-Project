@@ -8,5 +8,4 @@ class MockProductsRepositoryImpl : ProductRepository{
     override fun getProductById(guid: String): ProductPresentation {
         return dataMock.find { it.guid == guid }?.toPresentation() ?: error("error")
     }
-
 }

@@ -181,4 +181,4 @@ val mockData = """[
   }
 ]""".trimIndent()
 
-val dataMock = GsonBuilder().create().fromJson(mockData ,Array<Product>::class.java).toList()
+val dataMock = GsonBuilder().create().fromJson(mockData ,Array<Product>::class.java).toMutableList()

@@ -8,7 +8,7 @@ import com.pimenov.ozon.databinding.ItemListRecyclerBinding
 import com.pimenov.ozon.presentation.utils.inflate
 import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
 
-class MainAdapter(
+class  MainAdapter(
     private val onClick: (position: String) -> Unit
 ) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
