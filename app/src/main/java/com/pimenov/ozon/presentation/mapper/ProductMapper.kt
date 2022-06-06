@@ -6,7 +6,28 @@ import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
 import com.pimenov.ozon.presentation.viewObject.ProductPresentation
 
 fun ProductInList.toPresentation() : ProductInListPresentation =
-    ProductInListPresentation(guid, image, name, price, rating.toFloat(), isFavorite, isInCart)
+    ProductInListPresentation(
+        guid = guid,
+        image = image,
+        name = name,
+        price = price,
+        rating = rating.toFloat(),
+        isFavorite = isFavorite,
+        isInCart = isInCart
+    )
 
 fun Product.toPresentation() : ProductPresentation =
-    ProductPresentation(guid, name, price, description, rating, isFavorite, isInCart, images, weight, count, availableCount, additionalParams)
+    ProductPresentation(
+        guid = guid,
+        name = name,
+        price = price,
+        description = description,
+        rating = rating,
+        isFavorite = isFavorite,
+        isInCart = isInCart,
+        images = images,
+        weight = weight,
+        count = count,
+        availableCount = availableCount,
+        additionalParams = additionalParams
+    )

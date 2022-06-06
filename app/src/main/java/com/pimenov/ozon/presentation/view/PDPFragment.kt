@@ -50,8 +50,9 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
             val count = "остаток ${product.count}"
             val weight = "вес ${product.weight?: "0"}"
             val price = "${product.price}P"
-            Glide.with(requireContext()).load(product.images[0]).into(binding.productImage)
+
             with(binding){
+                Glide.with(requireContext()).load(product.images[0]).into(productImage)
                 productPrice.text = price
                 productName.text = product.name
                 productRating.rating = product.rating.toFloat()

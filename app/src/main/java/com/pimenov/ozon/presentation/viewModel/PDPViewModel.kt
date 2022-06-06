@@ -9,7 +9,7 @@ import com.pimenov.ozon.presentation.utils.CountPrefs
 import com.pimenov.ozon.presentation.viewObject.ProductPresentation
 import kotlinx.coroutines.launch
 
-class PDPViewModel(val productInteractor : ProductsInteractor, val interactor : CountPrefs) : ViewModel() {
+class PDPViewModel(private val productInteractor : ProductsInteractor, private val interactor : CountPrefs) : ViewModel() {
 
     private val _productLD = MutableLiveData<ProductPresentation>()
     val productLD: LiveData<ProductPresentation> = _productLD

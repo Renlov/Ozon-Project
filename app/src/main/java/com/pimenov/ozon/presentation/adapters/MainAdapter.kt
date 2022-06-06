@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pimenov.ozon.R
 import com.pimenov.ozon.databinding.ItemListRecyclerBinding
-
 import com.pimenov.ozon.presentation.utils.inflate
 import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
 
@@ -18,7 +17,6 @@ class  MainAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(ItemListRecyclerBinding::inflate), onClick)
     }
-
 
     fun updateList(newItems: List<ProductInListPresentation>) {
         items = newItems
@@ -45,10 +43,10 @@ class  MainAdapter(
 
         fun bind(data: ProductInListPresentation) {
             guid = data.guid
-            Glide.with(itemView)
-                .load(data.image)
-                .into(binding.imageProductList)
             with(binding) {
+                Glide.with(itemView)
+                    .load(data.image)
+                    .into(imageProductList)
                 priceProductList.text = binding.root.resources.getString(R.string.ruble, data.price)
                 nameProductList.text = data.name
                 ratingProductList.rating = data.rating

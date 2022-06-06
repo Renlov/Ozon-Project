@@ -55,6 +55,4 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val action = MainFragmentDirections.actionMainFragmentToPDPFragment(guid)
         findNavController().navigate(action)
     }
-
-
 }
