@@ -5,7 +5,7 @@ data class ProductInListPresentation (
     val image: String,
     val name: String,
     val price: String,
-    val rating: Double,
+    val rating: Float,
     val isFavorite: Boolean,
     val isInCart: Boolean
 )

@@ -3,13 +3,14 @@ package com.pimenov.ozon.presentation.adapters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.pimenov.ozon.R
 import com.pimenov.ozon.databinding.ItemListRecyclerBinding
 
 import com.pimenov.ozon.presentation.utils.inflate
 import com.pimenov.ozon.presentation.viewObject.ProductInListPresentation
 
 class  MainAdapter(
-    private val onClick: (position: String) -> Unit
+    private val onClick: (String) -> Unit
 ) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     private var items: List<ProductInListPresentation> = emptyList()
@@ -38,23 +39,20 @@ class  MainAdapter(
 
         init {
             itemView.setOnClickListener {
-                guid?.let { guid ->
-                    onClick(guid)
-                }
+                guid?.let(onClick)
             }
         }
 
         fun bind(data: ProductInListPresentation) {
             guid = data.guid
-            val priceText = data.price + "P"
-            Glide.with(itemView).load(data.image)
+            Glide.with(itemView)
+                .load(data.image)
                 .into(binding.imageProductList)
             with(binding) {
-                priceProductList.text = priceText
+                priceProductList.text = binding.root.resources.getString(R.string.ruble, data.price)
                 nameProductList.text = data.name
-                ratingProductList.rating = data.rating.toFloat()
+                ratingProductList.rating = data.rating
             }
-
         }
     }
 }
