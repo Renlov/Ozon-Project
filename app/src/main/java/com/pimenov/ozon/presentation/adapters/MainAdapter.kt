@@ -29,20 +29,21 @@ class  MainAdapter(
 
     override fun getItemCount() = items.size
 
-    class ViewHolder(
+    inner class ViewHolder(
         private val binding: ItemListRecyclerBinding,
         onClick: (guid: String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        private var guid: String? = null
 
         init {
             itemView.setOnClickListener {
-                guid?.let(onClick)
+               items[absoluteAdapterPosition].let {
+                   onClick(it.guid)
+               }
             }
         }
 
         fun bind(data: ProductInListVO) {
-            guid = data.guid
+
             with(binding) {
                 Glide.with(itemView)
                     .load(data.image)

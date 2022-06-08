@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/homework-2.iml" filepath="$PROJECT_DIR$/.idea/homework-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ozon.iml" filepath="$PROJECT_DIR$/.idea/modules/ozon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ozon.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ozon.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ozon.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ozon.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ozon.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ozon.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ozon.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ozon.app.unitTest.iml" />
     </modules>
   </component>
 </project>
