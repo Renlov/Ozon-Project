@@ -20,8 +20,8 @@ class AddFragment : Fragment(R.layout.fragment_add) {
 
     @Inject
     lateinit var productsInteractor: ProductsInteractor
-    @Inject
-    lateinit var addProductNavigationApi : AddProductNavigationApi
+//    @Inject
+//    lateinit var addProductNavigationApi : AddProductNavigationApi
 
     private val viewModel: AddViewModel by viewModelCreator {
         AddViewModel(productsInteractor = productsInteractor)
@@ -49,11 +49,11 @@ class AddFragment : Fragment(R.layout.fragment_add) {
     }
 
     override fun onPause() {
-        if(isRemoving) {
-            if (addProductNavigationApi.isFeatureClosed(this)) {
-                AddProductFeatureComponent.resetComponent()
-            }
-        }
+//        if(isRemoving) {
+//            if (addProductNavigationApi.isFeatureClosed(this)) {
+//                AddProductFeatureComponent.resetComponent()
+//            }
+//        }
         super.onPause()
     }
 }
