@@ -6,15 +6,14 @@ import com.pimenov.feature_products_api.ProductNavigationApi
 import com.pimenov.feature_products_impl.presentation.view.MainFragment
 import dagger.Component
 
+
 @Component(
     modules = [InteractorModule::class, RepositoryModule::class],
-    dependencies = [ProductFeatureDependencies::class]
-)
+    dependencies = [ProductFeatureDependencies::class])
 @PerFeature
 abstract class ProductFeatureComponent {
 
     companion object {
-
         @Volatile
         var productFeatureComponent: ProductFeatureComponent? = null
             private set
@@ -40,7 +39,6 @@ abstract class ProductFeatureComponent {
         fun resetComponent() {
             productFeatureComponent = null
         }
-
     }
 
     abstract fun inject(fragment: MainFragment)
@@ -48,5 +46,4 @@ abstract class ProductFeatureComponent {
     @PerFeature
     @Component(dependencies = [NetworkApi::class, ProductNavigationApi::class])
     interface ProductFeatureDependenciesComponent : ProductFeatureDependencies
-
 }

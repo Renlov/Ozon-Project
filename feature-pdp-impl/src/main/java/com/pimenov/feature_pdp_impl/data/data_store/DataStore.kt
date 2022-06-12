@@ -1,17 +1,18 @@
-package com.pimenov.core_network_impl.dataStore
+package com.pimenov.feature_pdp_impl.data.data_store
 
+import android.app.Application
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
+import javax.inject.Inject
 
 
-
-class CountPrefs (context: Context) {
+class DataStore @Inject constructor(private val context: Context) {
     private val dataStore = context.DATASTORE
 
     suspend fun getCounter(guid: String): Int {

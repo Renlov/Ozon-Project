@@ -40,5 +40,4 @@ dependencies {
     implementation dagger
     kapt daggerCompiler
     implementation gson
-    implementation dataStore
 }

@@ -12,6 +12,7 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
     private val _productsLiveData = MutableLiveData<List<ProductInListVO>>()
     val productsLiveData: LiveData<List<ProductInListVO>> = _productsLiveData
 
+
     fun getProducts() {
         _productsLiveData.postValue(productsInteractor.getProducts())
     }

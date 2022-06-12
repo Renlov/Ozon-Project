@@ -1,9 +1,11 @@
 package com.pimenov.feature_pdp_impl.di
 
+import android.content.Context
 import com.pimenov.core_network_api.NetworkApi
 import com.pimenov.core_utils.di.PerFeature
 import com.pimenov.feature_pdp_api.PDPNavigationApi
 import com.pimenov.feature_pdp_impl.presentation.view.PDPFragment
+import dagger.BindsInstance
 import dagger.Component
 import java.lang.RuntimeException
 
@@ -13,6 +15,7 @@ import java.lang.RuntimeException
 )
 @PerFeature
 abstract class PDPFeatureComponent {
+
 
     companion object {
 
@@ -50,3 +53,5 @@ abstract class PDPFeatureComponent {
     @Component(dependencies = [NetworkApi::class, PDPNavigationApi::class])
     interface PDPFeatureDependenciesComponent : PDPFeatureDependencies
 }
+
+
