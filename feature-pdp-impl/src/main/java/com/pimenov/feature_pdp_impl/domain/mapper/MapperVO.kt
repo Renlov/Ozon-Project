@@ -1,10 +1,10 @@
-package com.pimenov.feature_pdp_impl.data.mapper
+package com.pimenov.feature_pdp_impl.domain.mapper
 
-import com.pimenov.core_network_api.data_object.ProductDTO
 import com.pimenov.feature_pdp_impl.domain.domain_object.ProductDO
+import com.pimenov.feature_pdp_impl.presentation.view_object.ProductVO
 
-fun ProductDTO.toDO() : ProductDO =
-    ProductDO(
+fun ProductDO.toVO() : ProductVO =
+    ProductVO(
         guid = guid,
         name = name,
         price = price,

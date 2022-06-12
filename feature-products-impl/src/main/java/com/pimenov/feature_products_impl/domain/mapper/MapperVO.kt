@@ -1,6 +1,6 @@
 package com.pimenov.feature_products_impl.domain.mapper
 
-import com.pimenov.feature_products_impl.domain_object.ProductInListDO
+import com.pimenov.feature_products_impl.domain.domain_object.ProductInListDO
 import com.pimenov.feature_products_impl.presentation.view_object.ProductInListVO
 
 

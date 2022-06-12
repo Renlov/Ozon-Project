@@ -48,6 +48,8 @@ dependencies {
     implementation project(":feature-products-impl")
     implementation project(":core-navigation-api")
     implementation project(":core-navigation-impl")
+    implementation project(":feature-pdp-api")
+    implementation project(":feature-pdp-impl")
 
 
 

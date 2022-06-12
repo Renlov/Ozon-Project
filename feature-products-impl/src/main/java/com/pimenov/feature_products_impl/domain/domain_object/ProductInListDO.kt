@@ -1,4 +1,4 @@
-package com.pimenov.feature_products_impl.domain_object
+package com.pimenov.feature_products_impl.domain.domain_object
 
 data class ProductInListDO(
     val guid: String,

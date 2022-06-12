@@ -1,7 +1,7 @@
 package com.pimenov.feature_products_impl.data.mapper
 
 import com.pimenov.core_network_api.data_object.ProductInListDTO
-import com.pimenov.feature_products_impl.domain_object.ProductInListDO
+import com.pimenov.feature_products_impl.domain.domain_object.ProductInListDO
 
 fun ProductInListDTO.toDO() : ProductInListDO =
     ProductInListDO(
