@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ozon</string>
+    <string name="add_name">Добавить</string>
+    <string name="random_add">Добавление рандомного элемента в список</string>
+    <string name="ruble">%1$s ₽</string>
+    <string name="addedElement">элементов всего: %1$d</string>
+    <string name="available">доступно %1$d</string>
+    <string name="weightProduct">вес : %1$s</string>
+    <string name="countAvailable">остаток : %1$d</string>
+    <string name="countEntry">заходов : %1$x</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -12,6 +12,15 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core-navigation-api" />
+            <option value="$PROJECT_DIR$/core-navigation-impl" />
+            <option value="$PROJECT_DIR$/core-network-api" />
+            <option value="$PROJECT_DIR$/core-network-impl" />
+            <option value="$PROJECT_DIR$/core-utils" />
+            <option value="$PROJECT_DIR$/feature-pdp-api" />
+            <option value="$PROJECT_DIR$/feature-pdp-impl" />
+            <option value="$PROJECT_DIR$/feature-products-api" />
+            <option value="$PROJECT_DIR$/feature-products-impl" />
           </set>
         </option>
       </GradleProjectSettings>
