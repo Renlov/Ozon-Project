@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class ProductNavigationImpl @Inject constructor() : ProductNavigationApi, AddProductNavigationApi {
     override fun navigateToPDP(fragment: Fragment, guid: String) {
-        FeatureInjectorProxy.initFeaturePDPDI()
+        FeatureInjectorProxy.initFeaturePDPDI(fragment.requireContext())
         val newFragment = PDPFragment.newInstance(guid)
         fragment.activity
             ?.supportFragmentManager

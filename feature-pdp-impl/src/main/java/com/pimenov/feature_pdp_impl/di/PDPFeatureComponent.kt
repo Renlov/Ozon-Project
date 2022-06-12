@@ -10,11 +10,19 @@ import dagger.Component
 import java.lang.RuntimeException
 
 @Component(
-    modules = [InteractorModule::class, RepositoryModule::class],
+    modules = [InteractorModule::class, RepositoryModule::class, DataStoreModule::class],
     dependencies = [PDPFeatureDependencies::class]
 )
 @PerFeature
 abstract class PDPFeatureComponent {
+
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun context(context: Context) : Builder
+        fun provide(provide : PDPFeatureDependencies) : Builder
+        fun build() : PDPFeatureComponent
+    }
 
 
     companion object {
@@ -23,11 +31,12 @@ abstract class PDPFeatureComponent {
         var pdpFeatureComponent: PDPFeatureComponent? = null
             private set
 
-        fun initAndGet(pdpFeatureDependencies: PDPFeatureDependencies): PDPFeatureComponent? {
+        fun initAndGet(pdpFeatureDependencies: PDPFeatureDependencies, context: Context): PDPFeatureComponent? {
             if (pdpFeatureComponent == null) {
                 synchronized(PDPFeatureComponent::class) {
                     pdpFeatureComponent = DaggerPDPFeatureComponent.builder()
-                        .pDPFeatureDependencies(pdpFeatureDependencies)
+                        .context(context)
+                        .provide(pdpFeatureDependencies)
                         .build()
                 }
             }

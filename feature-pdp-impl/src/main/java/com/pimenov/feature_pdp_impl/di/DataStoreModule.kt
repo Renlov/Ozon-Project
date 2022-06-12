@@ -10,5 +10,5 @@ import dagger.Provides
 class DataStoreModule {
 
     @Provides
-    fun bindDataStore(context : Context) = DataStore(context)
+    fun bindDataStore(context : Context): DataStore = DataStore(context)
 }
