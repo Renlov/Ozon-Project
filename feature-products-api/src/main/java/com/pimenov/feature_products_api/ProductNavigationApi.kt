@@ -5,5 +5,6 @@ import androidx.fragment.app.Fragment
 
 interface ProductNavigationApi {
     fun navigateToPDP(fragment: Fragment, guid: String)
+    fun navigateToAdd(fragment: Fragment)
     fun isFeatureClosed(fragment: Fragment): Boolean
 }

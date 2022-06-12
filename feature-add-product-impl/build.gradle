@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-android'
@@ -7,18 +7,15 @@ plugins {
 
 apply from: "../app/dependencies.gradle"
 
-
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.pimenov.ozon"
         minSdk 23
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -34,24 +31,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
     }
 }
 
 dependencies {
-
-    implementation project(":core-network-api")
-    implementation project(":core-network-impl")
     implementation project(":core-utils")
-    implementation project(":feature-products-api")
-    implementation project(":feature-products-impl")
-    implementation project(":core-navigation-api")
-    implementation project(":core-navigation-impl")
-    implementation project(":feature-pdp-api")
-    implementation project(":feature-pdp-impl")
+    implementation project(":core-network-api")
     implementation project(":feature-add-product-api")
-    implementation project(":feature-add-product-impl")
+
 
     implementation coreKtx
     implementation appCompat
@@ -61,8 +51,8 @@ dependencies {
     implementation lifecycle
     implementation liveData
     implementation glide
-    implementation bindingDelegate
-    implementation gson
     implementation dagger
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt daggerCompiler
+    implementation bindingDelegate
 }

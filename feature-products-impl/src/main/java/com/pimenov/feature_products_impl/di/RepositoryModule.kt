@@ -7,7 +7,6 @@ import dagger.Module
 
 @Module
 interface RepositoryModule {
-
     @Binds
     fun bindProductsRepository(repository: ProductsListRepositoryImpl): ProductsListRepository
 }

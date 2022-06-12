@@ -27,6 +27,14 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-utils/ozon.core-utils.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-utils/ozon.core-utils.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-utils/ozon.core-utils.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core-utils/ozon.core-utils.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-utils/ozon.core-utils.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-utils/ozon.core-utils.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-add-product-api/ozon.feature-add-product-api.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-add-product-api/ozon.feature-add-product-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-add-product-api/ozon.feature-add-product-api.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-add-product-api/ozon.feature-add-product-api.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-add-product-api/ozon.feature-add-product-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-add-product-api/ozon.feature-add-product-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-add-product-api/ozon.feature-add-product-api.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-add-product-api/ozon.feature-add-product-api.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-add-product-impl/ozon.feature-add-product-impl.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-add-product-impl/ozon.feature-add-product-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-add-product-impl/ozon.feature-add-product-impl.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-add-product-impl/ozon.feature-add-product-impl.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-add-product-impl/ozon.feature-add-product-impl.main.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-add-product-impl/ozon.feature-add-product-impl.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-add-product-impl/ozon.feature-add-product-impl.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-add-product-impl/ozon.feature-add-product-impl.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-pdp-api/ozon.feature-pdp-api.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-pdp-api/ozon.feature-pdp-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-pdp-api/ozon.feature-pdp-api.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-pdp-api/ozon.feature-pdp-api.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/feature-pdp-api/ozon.feature-pdp-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/feature-pdp-api/ozon.feature-pdp-api.main.iml" />

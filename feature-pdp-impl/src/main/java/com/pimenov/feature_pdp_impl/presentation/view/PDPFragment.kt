@@ -28,7 +28,6 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
     @Inject
     lateinit var pdpNavigationApi: PDPNavigationApi
 
-
     private val binding by viewBinding(FragmentPDPBinding::bind)
     private var productId: String ?= null
 
@@ -46,7 +45,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         arguments?.let {
             productId = it.getString(PRODUCT_ID)
         }
-        productId?.let { viewModel.getProductByGuid(it) }
+        productId?.let { getProduct(it) }
         observeViewModelState()
     }
 

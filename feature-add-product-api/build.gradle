@@ -3,6 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply from: "../app/dependencies.gradle"
+
+
 android {
     compileSdk 32
 
@@ -30,7 +33,5 @@ android {
 }
 
 dependencies {
-    implementation project(":feature-products-api")
-    implementation project(":feature-pdp-api")
-    implementation project(":feature-add-product-api")
+    implementation fragment
 }

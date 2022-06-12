@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.pimenov.core_utils.viewModelCreator
+import com.pimenov.feature_add_product_api.AddProductNavigationApi
 import com.pimenov.feature_products_api.ProductNavigationApi
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.FragmentMainBinding
@@ -26,7 +27,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     lateinit var productsInteractor: ProductsInteractor
     @Inject
     lateinit var productNavigationApi: ProductNavigationApi
-
 
     private val viewModel: ProductsListViewModel by viewModelCreator {
         ProductsListViewModel(productsInteractor = productsInteractor)
@@ -47,9 +47,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         observeViewModelState()
         initList()
         viewModel.getProducts()
-//        binding.addActionButton.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFragment_to_addFragment)
-//        }
+        binding.addActionButton.setOnClickListener {
+            productNavigationApi.navigateToAdd(fragment = this)
+        }
     }
 
     private fun observeViewModelState() {

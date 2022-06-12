@@ -17,6 +17,8 @@
             <option value="$PROJECT_DIR$/core-network-api" />
             <option value="$PROJECT_DIR$/core-network-impl" />
             <option value="$PROJECT_DIR$/core-utils" />
+            <option value="$PROJECT_DIR$/feature-add-product-api" />
+            <option value="$PROJECT_DIR$/feature-add-product-impl" />
             <option value="$PROJECT_DIR$/feature-pdp-api" />
             <option value="$PROJECT_DIR$/feature-pdp-impl" />
             <option value="$PROJECT_DIR$/feature-products-api" />
