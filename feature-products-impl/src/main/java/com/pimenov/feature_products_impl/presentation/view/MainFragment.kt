@@ -68,9 +68,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
     private fun onClick(guid : String){
-//        val action = MainFragmentDirections.actionMainFragmentToPDPFragment(guid)
-//        findNavController().navigate(action)
-        Log.d("onClick", guid)
+        productNavigationApi.navigateToPDP(fragment = this, guid = guid)
     }
 
     override fun onPause() {

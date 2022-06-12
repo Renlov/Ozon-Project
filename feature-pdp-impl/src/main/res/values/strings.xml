@@ -1,0 +1,9 @@
+<resources>
+    <string name="random_add">Добавление рандомного элемента в список</string>
+    <string name="ruble">%1$s ₽</string>
+    <string name="addedElement">элементов всего: %1$d</string>
+    <string name="available">доступно %1$d</string>
+    <string name="weightProduct">вес : %1$f</string>
+    <string name="countAvailable">остаток : %1$d</string>
+    <string name="countEntry">заходов : %1$x</string>
+</resources>

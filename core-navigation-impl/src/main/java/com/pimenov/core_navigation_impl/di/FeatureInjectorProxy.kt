@@ -1,6 +1,8 @@
 package com.pimenov.core_navigation_impl.di
 
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent
+import com.pimenov.feature_pdp_impl.di.DaggerPDPFeatureComponent_PDPFeatureDependenciesComponent
+import com.pimenov.feature_pdp_impl.di.PDPFeatureComponent
 import com.pimenov.feature_products_impl.di.DaggerProductFeatureComponent_ProductFeatureDependenciesComponent
 import com.pimenov.feature_products_impl.di.ProductFeatureComponent
 
@@ -14,13 +16,13 @@ object FeatureInjectorProxy {
         )
     }
 
-//    fun initFeaturePDPDI() {
-//        PDPFeatureComponent.initAndGet(
-//            DaggerPDPFeatureComponent_PDPFeatureDependenciesComponent.builder()
-//                .networkApi(DaggerCoreNetworkComponent.builder().build())
-//                .pDPNavigationApi(DaggerCoreNavigationComponent.builder().build().getPDPNavigation())
-//                .build()
-//        )
-//    }
+    fun initFeaturePDPDI() {
+        PDPFeatureComponent.initAndGet(
+            DaggerPDPFeatureComponent_PDPFeatureDependenciesComponent.builder()
+                .networkApi(DaggerCoreNetworkComponent.builder().build())
+                .pDPNavigationApi(DaggerCoreNavigationComponent.builder().build().getPDPNavigation())
+                .build()
+        )
+    }
 
 }
