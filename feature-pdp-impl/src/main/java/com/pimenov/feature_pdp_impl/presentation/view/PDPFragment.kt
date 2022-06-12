@@ -30,6 +30,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
     @Inject
     lateinit var pdpNavigationApi: PDPNavigationApi
 
+
     private val binding by viewBinding(FragmentPDPBinding::bind)
     private var productId: String ?= null
 
