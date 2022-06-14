@@ -7,7 +7,6 @@ import dagger.Module
 
 @Module
 interface InteractorModule {
-
     @Binds
     fun bindProductsInteractor(interactor: PDPInteractorImpl): PDPInteractor
 }

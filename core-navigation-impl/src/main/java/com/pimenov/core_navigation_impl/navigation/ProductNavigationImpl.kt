@@ -1,8 +1,6 @@
 package com.pimenov.core_navigation_impl.navigation
 
-import android.content.Context
 import androidx.fragment.app.Fragment
-import com.pimenov.feature_add_product_api.AddProductNavigationApi
 import com.pimenov.core_navigation_impl.R
 import com.pimenov.core_navigation_impl.di.FeatureInjectorProxy
 import com.pimenov.feature_add_product_impl.presentation.view.AddFragment
@@ -11,7 +9,7 @@ import com.pimenov.feature_products_api.ProductNavigationApi
 import com.pimenov.feature_products_impl.presentation.view.MainFragment
 import javax.inject.Inject
 
-class ProductNavigationImpl @Inject constructor() : ProductNavigationApi, AddProductNavigationApi {
+class ProductNavigationImpl @Inject constructor() : ProductNavigationApi {
     override fun navigateToPDP(fragment: Fragment, guid: String) {
         FeatureInjectorProxy.initFeaturePDPDI(fragment.requireContext())
         val newFragment = PDPFragment.newInstance(guid)
