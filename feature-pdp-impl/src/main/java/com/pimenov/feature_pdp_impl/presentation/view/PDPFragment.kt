@@ -4,15 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
-import com.pimenov.core_utils.viewModelCreator
 import com.pimenov.feature_pdp_api.PDPNavigationApi
 import com.pimenov.feature_pdp_impl.R
-import com.pimenov.feature_pdp_impl.data.data_store.DataStore
 import com.pimenov.feature_pdp_impl.databinding.FragmentPDPBinding
 import com.pimenov.feature_pdp_impl.di.PDPFeatureComponent
-import com.pimenov.feature_pdp_impl.domain.interactor.PDPInteractor
 import com.pimenov.feature_pdp_impl.presentation.view_models.PDPViewModel
 import com.pimenov.feature_pdp_impl.presentation.view_object.ProductVO
 import javax.inject.Inject
@@ -21,13 +19,8 @@ import javax.inject.Inject
 private const val PRODUCT_ID = "productId"
 
 class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
-
-    @Inject
-    lateinit var productsInteractor: PDPInteractor
     @Inject
     lateinit var pdpNavigationApi: PDPNavigationApi
-    @Inject
-    lateinit var dataStore: DataStore
 
 
     private val binding by viewBinding(FragmentPDPBinding::bind)
@@ -35,8 +28,8 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
 
 
 
-    private val viewModel: PDPViewModel by viewModelCreator {
-            PDPViewModel(pdpInteractor = productsInteractor, dataStore = dataStore)
+    private val viewModel: PDPViewModel by viewModels() {
+        PDPFeatureComponent.pdpFeatureComponent!!.fabric()
     }
 
     override fun onAttach(context: Context) {

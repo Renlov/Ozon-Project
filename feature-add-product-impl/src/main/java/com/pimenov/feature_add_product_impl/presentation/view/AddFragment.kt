@@ -3,29 +3,25 @@ package com.pimenov.feature_add_product_impl.presentation.view
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.pimenov.core_utils.viewModelCreator
 import com.pimenov.feature_add_product_api.AddProductNavigationApi
 import com.pimenov.feature_add_product_impl.R
 import com.pimenov.feature_add_product_impl.databinding.FragmentAddBinding
 import com.pimenov.feature_add_product_impl.di.AddProductFeatureComponent
-import com.pimenov.feature_add_product_impl.domain.interactor.ProductsInteractor
 import com.pimenov.feature_add_product_impl.presentation.view_models.AddViewModel
 import javax.inject.Inject
 
 class AddFragment : Fragment(R.layout.fragment_add) {
 
     @Inject
-    lateinit var productsInteractor: ProductsInteractor
-//    @Inject
-//    lateinit var addProductNavigationApi : AddProductNavigationApi
+    lateinit var addProductNavigationApi : AddProductNavigationApi
 
-    private val viewModel: AddViewModel by viewModelCreator {
-        AddViewModel(productsInteractor = productsInteractor)
+    private val viewModel: AddViewModel by viewModels {
+        AddProductFeatureComponent.productFeatureComponent!!.fabric()
     }
+
     private val binding by viewBinding(FragmentAddBinding::bind)
 
     override fun onAttach(context: Context) {
@@ -49,11 +45,11 @@ class AddFragment : Fragment(R.layout.fragment_add) {
     }
 
     override fun onPause() {
-//        if(isRemoving) {
-//            if (addProductNavigationApi.isFeatureClosed(this)) {
-//                AddProductFeatureComponent.resetComponent()
-//            }
-//        }
+        if(isRemoving) {
+            if (addProductNavigationApi.isFeatureClosed(this)) {
+                AddProductFeatureComponent.resetComponent()
+            }
+        }
         super.onPause()
     }
 }

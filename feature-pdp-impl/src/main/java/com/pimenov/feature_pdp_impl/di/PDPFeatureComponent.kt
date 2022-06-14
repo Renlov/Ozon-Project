@@ -2,6 +2,7 @@ package com.pimenov.feature_pdp_impl.di
 
 import android.content.Context
 import com.pimenov.core_network_api.NetworkApi
+import com.pimenov.core_utils.ViewModelFactory
 import com.pimenov.core_utils.di.PerFeature
 import com.pimenov.feature_pdp_api.PDPNavigationApi
 import com.pimenov.feature_pdp_impl.presentation.view.PDPFragment
@@ -10,11 +11,13 @@ import dagger.Component
 import java.lang.RuntimeException
 
 @Component(
-    modules = [InteractorModule::class, RepositoryModule::class, DataStoreModule::class],
+    modules = [InteractorModule::class, RepositoryModule::class, DataStoreModule::class, ViewModelModule::class],
     dependencies = [PDPFeatureDependencies::class]
 )
 @PerFeature
 abstract class PDPFeatureComponent {
+
+    abstract fun fabric() : ViewModelFactory
 
     @Component.Builder
     interface Builder {

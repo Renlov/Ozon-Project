@@ -1,17 +1,20 @@
 package com.pimenov.feature_add_product_impl.di
 
 import com.pimenov.core_network_api.NetworkApi
+import com.pimenov.core_utils.ViewModelFactory
 import com.pimenov.core_utils.di.PerFeature
 import com.pimenov.feature_add_product_api.AddProductNavigationApi
 import com.pimenov.feature_add_product_impl.presentation.view.AddFragment
 import dagger.Component
 
 @Component(
-    modules = [InteractorModule::class, RepositoryModule::class],
+    modules = [InteractorModule::class, RepositoryModule::class, ViewModelModule::class],
     dependencies = [AddProductFeatureDependencies::class]
 )
 @PerFeature
 abstract class AddProductFeatureComponent {
+
+    abstract fun fabric() : ViewModelFactory
 
     companion object {
 

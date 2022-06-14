@@ -56,4 +56,5 @@ dependencies {
     implementation dagger
     implementation bindingDelegate
     kapt daggerCompiler
+    implementation fragment
 }

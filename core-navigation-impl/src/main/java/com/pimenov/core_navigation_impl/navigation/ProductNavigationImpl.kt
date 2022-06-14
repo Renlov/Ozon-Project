@@ -33,7 +33,6 @@ class ProductNavigationImpl @Inject constructor() : ProductNavigationApi, AddPro
             ?.commit()
     }
 
-
     override fun isFeatureClosed(fragment: Fragment): Boolean {
         return if(fragment.javaClass.simpleName != MainFragment::class.simpleName) {
             fragment.activity?.supportFragmentManager?.findFragmentByTag(MainFragment::class.java.simpleName) == null
