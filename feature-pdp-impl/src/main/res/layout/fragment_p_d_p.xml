@@ -106,5 +106,4 @@
         app:layout_constraintStart_toEndOf="@+id/productRating"
         app:layout_constraintTop_toTopOf="@+id/productRating" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
