@@ -21,19 +21,12 @@ import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-//    @Inject
-//    lateinit var productsInteractor: ProductsInteractor
     @Inject
     lateinit var productNavigationApi: ProductNavigationApi
-
-//    private val viewModel: ProductsListViewModel by viewModelCreator {
-//        ProductsListViewModel(productsInteractor = productsInteractor)
-//    }
 
     private val viewModel : ProductsListViewModel by viewModels() {
         ProductFeatureComponent.productFeatureComponent!!.fabric()
     }
-
 
     private val productListAdapter  by autoCleared {
         MainAdapter(::onClick)
