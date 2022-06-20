@@ -1,13 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'kotlin-android'
 }
-
-apply from: "../app/dependencies.gradle"
-
-
 
 android {
     compileSdk 32
@@ -36,13 +30,5 @@ android {
 }
 
 dependencies {
-    implementation project(":core-network-api")
-    implementation dagger
-    implementation retrofit
-    implementation converter_gson
-    implementation okhttp
-    kapt daggerCompiler
-    implementation gson
-    implementation worker
-    implementation liveData
+
 }

@@ -2,6 +2,7 @@ package com.pimenov.feature_products_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -40,17 +41,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("spectra","onCreate")
         observeViewModelState()
         initList()
-        viewModel.getProducts()
         binding.addActionButton.setOnClickListener {
             productNavigationApi.navigateToAdd(fragment = this)
         }
     }
 
     private fun observeViewModelState() {
-        viewModel.productsLiveData.observe(viewLifecycleOwner) {
-            productListAdapter.updateList(it)
+        viewModel.getProducts().observe(viewLifecycleOwner) {
+            productListAdapter.submitList(it)
         }
     }
 

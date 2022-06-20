@@ -19,7 +19,10 @@ ext {
             bindingDelegate  : '1.5.6',
             gson             : '2.8.9',
             dataStore        : '1.0.0',
-            legacy           : '1.0.0'
+            legacy           : '1.0.0',
+            retrofit         : '2.9.0',
+            okhttp           : '4.9.3',
+            worker           : '2.7.1'
     ]
 
     coreKtx = "androidx.core:core-ktx:${versions.coreKtx}"
@@ -56,6 +59,14 @@ ext {
     dataStore = "androidx.datastore:datastore-preferences:${versions.dataStore}"
 
     legacy =  "androidx.legacy:legacy-support-v4:${versions.legacy}"
+
+    retrofit = "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    converter_gson = "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+    converter_moshi = "com.squareup.retrofit2:converter-moshi:${versions.retrofit}"
+
+    okhttp = "com.squareup.okhttp3:okhttp-bom:${versions.okhttp}"
+
+    worker = "androidx.work:work-runtime:${versions.worker}"
 
 
 

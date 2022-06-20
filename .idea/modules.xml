@@ -7,6 +7,14 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ozon.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ozon.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ozon.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ozon.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ozon.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ozon.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-datastore-api/ozon.core-datastore-api.iml" filepath="$PROJECT_DIR$/.idea/modules/core-datastore-api/ozon.core-datastore-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-datastore-api/ozon.core-datastore-api.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-datastore-api/ozon.core-datastore-api.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-datastore-api/ozon.core-datastore-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core-datastore-api/ozon.core-datastore-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-datastore-api/ozon.core-datastore-api.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-datastore-api/ozon.core-datastore-api.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-datastore-impl/ozon.core-datastore-impl.iml" filepath="$PROJECT_DIR$/.idea/modules/core-datastore-impl/ozon.core-datastore-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-datastore-impl/ozon.core-datastore-impl.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-datastore-impl/ozon.core-datastore-impl.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-datastore-impl/ozon.core-datastore-impl.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core-datastore-impl/ozon.core-datastore-impl.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-datastore-impl/ozon.core-datastore-impl.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-datastore-impl/ozon.core-datastore-impl.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-navigation-api/ozon.core-navigation-api.iml" filepath="$PROJECT_DIR$/.idea/modules/core-navigation-api/ozon.core-navigation-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-navigation-api/ozon.core-navigation-api.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-navigation-api/ozon.core-navigation-api.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-navigation-api/ozon.core-navigation-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core-navigation-api/ozon.core-navigation-api.main.iml" />
