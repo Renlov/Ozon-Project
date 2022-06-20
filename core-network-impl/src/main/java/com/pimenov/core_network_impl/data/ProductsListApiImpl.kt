@@ -15,8 +15,8 @@ import retrofit2.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ProductsListApiImpl @Inject constructor(val workManager: WorkManager): ProductsApi {
-    override fun getProductInLists() : LiveData<List<ProductInListDTO>?> {
+class ProductsListApiImpl @Inject constructor(): ProductsApi {
+    override fun getAllProduct(): LiveData<List<ProductInListDTO>?> {
         val requestProductList = OneTimeWorkRequest.Builder(ProductInListWorker::class.java)
             .setBackoffCriteria(BackoffPolicy.LINEAR, 10,TimeUnit.SECONDS)
             .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
@@ -35,32 +35,5 @@ class ProductsListApiImpl @Inject constructor(val workManager: WorkManager): Pro
                 }
             }else null
         }
-    }
-
-    override fun getProducts(): LiveData<List<ProductDTO>?> {
-        val request = OneTimeWorkRequest.Builder(ProductInListWorker::class.java)
-            .setBackoffCriteria(BackoffPolicy.LINEAR, 10,TimeUnit.SECONDS)
-            .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
-            .build()
-        val workerManager = WorkManager.getInstance()
-        workerManager.enqueue(request)
-
-        return Transformations.map(workerManager.getWorkInfoByIdLiveData(request.id)){
-            GsonBuilder().create().fromJson(it.outputData.getString(WorkerKeys.KEY_RESPONSE_PRODUCT_LIST).toString() ,Array<ProductDTO>::class.java).toMutableList()
-        }
-    }
-
-    override fun getProductById(guid: String): ProductDTO {
-        return ProductDTO("aa", "aa", "rf", "ff", 4.0, false, false, arrayListOf(), 0.1, 2, 2, mapOf())
-    }
-
-    override fun addProduct() {
-        Log.d("spectra", "add")
-//        val product = dataListMock.random()
-//        val newGuid = UUID.randomUUID().toString()
-//
-//        dataMock.add(dataMock.find { it.guid == product.guid }?.copy(guid = newGuid) ?: error("error"))
-//        val newProduct = product.copy(guid = newGuid)
-//        dataListMock.add(newProduct)
     }
 }

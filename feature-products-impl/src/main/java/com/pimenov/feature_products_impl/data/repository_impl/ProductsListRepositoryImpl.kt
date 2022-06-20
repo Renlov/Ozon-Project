@@ -11,14 +11,10 @@ import javax.inject.Inject
 
 class ProductsListRepositoryImpl @Inject constructor(private val productApi: ProductsApi) : ProductsListRepository {
     override fun getProductsList(): LiveData<List<ProductInListDO>?> {
-        return Transformations.map(productApi.getProductInLists()) {
+        return Transformations.map(productApi.getAllProduct()) {
             it?.map { productInList ->
                 productInList.toDO()
             }
         }
-    }
-
-    override fun addProduct() {
-        return productApi.addProduct()
     }
 }

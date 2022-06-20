@@ -9,9 +9,4 @@ class ProductsListRepositoryImpl @Inject constructor(private val productListApi:
         //return productListApi.getProducts().size
         return 1
     }
-
-
-    override fun addProduct() {
-        return productListApi.addProduct()
-    }
 }

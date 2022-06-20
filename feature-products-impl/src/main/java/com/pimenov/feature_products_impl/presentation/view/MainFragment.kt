@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
+import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
 import com.pimenov.feature_products_api.ProductNavigationApi
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.FragmentMainBinding
@@ -24,6 +26,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     @Inject
     lateinit var productNavigationApi: ProductNavigationApi
+
 
     private val viewModel : ProductsListViewModel by viewModels() {
         ProductFeatureComponent.productFeatureComponent!!.fabric()

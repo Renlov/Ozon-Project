@@ -43,6 +43,9 @@ dependencies {
     implementation project(":feature-pdp-impl")
     implementation project(":feature-add-product-api")
     implementation project(":feature-add-product-impl")
+    implementation project(":core-datastore-api")
+    implementation project(":core-datastore-impl")
+
 
     implementation coreKtx
     implementation appCompat
@@ -50,4 +53,5 @@ dependencies {
     implementation material
     implementation constraintLayout
     kapt daggerCompiler
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.21"
 }

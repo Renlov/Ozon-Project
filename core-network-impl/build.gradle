@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation project(":core-network-api")
+    implementation project(":core-datastore-api")
     implementation dagger
     implementation retrofit
     implementation converter_gson

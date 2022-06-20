@@ -5,28 +5,25 @@ import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
-import com.pimenov.core_network_impl.data.ServiceApi
-import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent
+import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
+import com.pimenov.core_network_impl.di.CoreNetworkComponent
+import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
 import com.pimenov.core_network_impl.workers.keys.WorkerKeys
-import retrofit2.*
-import javax.inject.Inject
+
 
 class ProductInListWorker(context: Context, parameters: WorkerParameters) : Worker(context, parameters) {
 
-    @Inject
-    lateinit var retrofit: Retrofit
+    companion object{
+        val appComponent: CoreNetworkComponent = CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder().build())!!
+
+    }
+
 
     override fun doWork(): Result {
-        DaggerCoreNetworkComponent.create().inject(this)
-        val retrofit = DaggerCoreNetworkComponent.create().retrofit()
-        val serviceApi = retrofit.create(ServiceApi::class.java)
-        val response = serviceApi.getListProducts().execute()
-        return if (response.isSuccessful) {
-            val newList = Gson().toJson(response.body())
-            val data = Data.Builder()
-                .putString(WorkerKeys.KEY_RESPONSE_PRODUCT_LIST, newList)
-                .build()
-            Result.success(data)
-        } else return Result.retry()
+
+        val data = Data.Builder()
+            .putString(WorkerKeys.KEY_RESPONSE_PRODUCT_LIST, Gson().toJson(appComponent.getRepository().getProductsInList()))
+            .build()
+        return Result.success(data)
     }
 }

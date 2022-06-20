@@ -1,7 +1,10 @@
 package com.pimenov.core_navigation_impl.di
 
 import android.content.Context
+import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
+import com.pimenov.core_network_impl.di.CoreNetworkComponent
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent
+import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
 import com.pimenov.feature_add_product_impl.di.AddProductFeatureComponent
 import com.pimenov.feature_add_product_impl.di.DaggerAddProductFeatureComponent_AddProductFeatureDependenciesComponent
 import com.pimenov.feature_pdp_impl.di.DaggerPDPFeatureComponent_PDPFeatureDependenciesComponent

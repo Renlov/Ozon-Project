@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 interface ProductsInteractor {
     fun getProducts(): LiveData<List<ProductInListVO>>
-    fun addProduct()
 }
 
 class ProductsInteractorImpl @Inject constructor(private val repository: ProductsListRepository): ProductsInteractor {
@@ -23,11 +22,6 @@ class ProductsInteractorImpl @Inject constructor(private val repository: Product
                     productInList.toVO()
                 } ?: listOf()
             }
-
         }
-    }
-
-    override fun addProduct() {
-        return repository.addProduct()
     }
 }

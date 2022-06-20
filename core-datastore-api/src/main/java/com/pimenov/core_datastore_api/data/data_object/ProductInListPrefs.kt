@@ -1,6 +1,6 @@
 package com.pimenov.core_datastore_api.data.data_object
 
-data class ProductInListDTO(
+data class ProductInListPrefs(
     val guid: String,
     val image: String,
     val name: String,
