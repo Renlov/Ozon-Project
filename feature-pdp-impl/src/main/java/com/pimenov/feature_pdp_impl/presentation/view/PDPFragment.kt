@@ -39,7 +39,6 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         arguments?.let {
 
             productId = it.getString(PRODUCT_ID)
-            Log.d("spectra", productId!!)
             viewModel.getCounter(productId ?: "error" )
         }
         productId?.let { getProduct(it) }

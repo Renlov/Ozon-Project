@@ -67,7 +67,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
     private fun onClick(guid : String){
-        Log.d("spectra", guid)
         productNavigationApi.navigateToPDP(fragment = this, guid = guid)
     }
 
