@@ -2,6 +2,7 @@ package com.pimenov.feature_pdp_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -16,8 +17,6 @@ import com.pimenov.feature_pdp_impl.presentation.view_object.ProductVO
 import javax.inject.Inject
 
 
-private const val PRODUCT_ID = "productId"
-
 class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
     @Inject
     lateinit var pdpNavigationApi: PDPNavigationApi
@@ -25,8 +24,6 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
 
     private val binding by viewBinding(FragmentPDPBinding::bind)
     private var productId: String ?= null
-
-
 
     private val viewModel: PDPViewModel by viewModels() {
         PDPFeatureComponent.pdpFeatureComponent!!.fabric()
@@ -40,7 +37,9 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
+
             productId = it.getString(PRODUCT_ID)
+            Log.d("spectra", productId!!)
             viewModel.getCounter(productId ?: "error" )
         }
         productId?.let { getProduct(it) }
@@ -77,6 +76,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
 
 
     companion object {
+        private const val PRODUCT_ID = "productId"
         @JvmStatic
         fun newInstance(productId: String) =
             PDPFragment().apply {
@@ -94,4 +94,6 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         }
         super.onPause()
     }
+
+
 }

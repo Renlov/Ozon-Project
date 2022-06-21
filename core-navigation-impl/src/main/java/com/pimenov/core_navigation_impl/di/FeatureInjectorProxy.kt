@@ -32,6 +32,7 @@ object FeatureInjectorProxy {
             DaggerPDPFeatureComponent_PDPFeatureDependenciesComponent.builder()
                 .networkApi(CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder().databaseApi(CoreDatabaseComponent.initAndGet(context)).build()))
                 .pDPNavigationApi(DaggerCoreNavigationComponent.builder().build().getPDPNavigation())
+                .databaseApi(CoreDatabaseComponent.initAndGet(context))
                 .build(),
             context
         )

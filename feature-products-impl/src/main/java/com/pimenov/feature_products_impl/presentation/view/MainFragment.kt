@@ -44,7 +44,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("spectra","onCreate")
         observeViewModelState()
         initList()
         binding.addActionButton.setOnClickListener {
@@ -68,6 +67,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
     private fun onClick(guid : String){
+        Log.d("spectra", guid)
         productNavigationApi.navigateToPDP(fragment = this, guid = guid)
     }
 

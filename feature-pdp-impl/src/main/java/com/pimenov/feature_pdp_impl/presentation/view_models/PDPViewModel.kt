@@ -25,7 +25,6 @@ class PDPViewModel @Inject constructor(private val pdpInteractor: PDPInteractor,
     }
 
 
-
     fun incrementCounter(guid: String) {
         viewModelScope.launch {
             dataStore.incrementCounter(guid)
