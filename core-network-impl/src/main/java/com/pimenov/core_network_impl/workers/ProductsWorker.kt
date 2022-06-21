@@ -4,23 +4,21 @@ package com.pimenov.core_network_impl.workers
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
+import com.pimenov.core_network_impl.data.ProductRepository
+import com.pimenov.core_network_impl.di.CoreNetworkComponent
+import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
 
 
 class ProductsWorker(context: Context, parameters: WorkerParameters) : Worker(context, parameters) {
 
+    val productRepository: ProductRepository = CoreNetworkComponent.initAndGet(
+        DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder()
+        .databaseApi(CoreDatabaseComponent.initAndGet(context)).build())!!
+        .getRepository()
+
     override fun doWork(): Result {
-//        DaggerCoreNetworkComponent.create().inject(this)
-//        val retrofit = DaggerCoreNetworkComponent.create().retrofit()
-//        val serviceApi = retrofit.create(ServiceApi::class.java)
-//
-//        val response = serviceApi.getProducts().execute()
-//        return if (response.isSuccessful) {
-//            val newList = Gson().toJson(response.body())
-//            val data = Data.Builder()
-//                .putString(WorkerKeys.KEY_RESPONSE_PRODUCTS, newList)
-//                .build()
-//            Result.success(data)
-//        } else return Result.retry()
-        return Result.success()
+
+        return if (productRepository.getProducts() != null) Result.success() else Result.failure()
     }
 }

@@ -12,11 +12,11 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetworkModule::class, ApiModule::class, Repository::class],
+@Component(modules = [NetworkModule::class, ApiModule::class],
     dependencies = [CoreNetworkDependencies::class])
-interface  CoreNetworkComponent : NetworkApi {
+interface CoreNetworkComponent : NetworkApi {
 
-    fun getRepository(): ProductRepository
+     fun getRepository(): ProductRepository
 
     companion object {
         @Volatile
@@ -53,11 +53,5 @@ interface  CoreNetworkComponent : NetworkApi {
 
 interface CoreNetworkDependencies {
     fun getDatabase(): ProductDatabase
-}
-
-@Module
-interface Repository{
-    @Binds
-    fun provideRepository(repository: RepositoryImpl): ProductRepository
 }
 

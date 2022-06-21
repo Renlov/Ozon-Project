@@ -51,6 +51,6 @@ abstract class ProductFeatureComponent {
     abstract fun inject(fragment: MainFragment)
 
     @PerFeature
-    @Component(dependencies = [NetworkApi::class, ProductNavigationApi::class])
+    @Component(dependencies = [NetworkApi::class, ProductNavigationApi::class, DatabaseApi::class])
     interface ProductFeatureDependenciesComponent : ProductFeatureDependencies
 }

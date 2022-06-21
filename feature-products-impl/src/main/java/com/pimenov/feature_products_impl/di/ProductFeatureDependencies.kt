@@ -8,4 +8,5 @@ import com.pimenov.feature_products_api.ProductNavigationApi
 interface ProductFeatureDependencies {
     fun productsApiDependence() : ProductsApi
     fun productNavigationApiDependence(): ProductNavigationApi
+    fun productDatabase() : ProductDatabase
 }

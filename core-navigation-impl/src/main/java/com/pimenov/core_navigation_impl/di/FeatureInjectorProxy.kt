@@ -2,6 +2,7 @@ package com.pimenov.core_navigation_impl.di
 
 import android.content.Context
 import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
+import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
 import com.pimenov.core_network_impl.di.CoreNetworkComponent
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
@@ -13,19 +14,23 @@ import com.pimenov.feature_products_impl.di.DaggerProductFeatureComponent_Produc
 import com.pimenov.feature_products_impl.di.ProductFeatureComponent
 
 object FeatureInjectorProxy {
-    fun initFeatureProductsDI() {
+
+        fun initFeatureProductsDI(context: Context) {
         ProductFeatureComponent.initAndGet(
             DaggerProductFeatureComponent_ProductFeatureDependenciesComponent.builder()
-                .networkApi(DaggerCoreNetworkComponent.builder().build())
+                .networkApi(CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder().databaseApi(CoreDatabaseComponent.initAndGet(context)).build()))
                 .productNavigationApi(DaggerCoreNavigationComponent.builder().build().getProductNavigation())
+                .databaseApi(CoreDatabaseComponent.initAndGet(context))
                 .build()
         )
     }
 
+
+
     fun initFeaturePDPDI(context: Context) {
         PDPFeatureComponent.initAndGet(
             DaggerPDPFeatureComponent_PDPFeatureDependenciesComponent.builder()
-                .networkApi(DaggerCoreNetworkComponent.builder().build())
+                .networkApi(CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder().databaseApi(CoreDatabaseComponent.initAndGet(context)).build()))
                 .pDPNavigationApi(DaggerCoreNavigationComponent.builder().build().getPDPNavigation())
                 .build(),
             context
