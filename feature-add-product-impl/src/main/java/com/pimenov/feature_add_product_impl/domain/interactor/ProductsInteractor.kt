@@ -5,10 +5,15 @@ import javax.inject.Inject
 
 interface ProductsInteractor {
     fun getCountProductInList() : Int
+    fun addRandomProduct()
 }
 
 class ProductsInteractorImpl @Inject constructor(private val repository: ProductsListRepository): ProductsInteractor {
     override fun getCountProductInList(): Int {
         return repository.getCountProductInList()
+    }
+
+    override fun addRandomProduct() {
+        return repository.addRandomProduct()
     }
 }

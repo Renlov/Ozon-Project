@@ -41,6 +41,7 @@ dependencies {
     implementation project(":core-utils")
     implementation project(":core-network-api")
     implementation project(":feature-add-product-api")
+    implementation project(":core-datastore-api")
 
 
     implementation coreKtx

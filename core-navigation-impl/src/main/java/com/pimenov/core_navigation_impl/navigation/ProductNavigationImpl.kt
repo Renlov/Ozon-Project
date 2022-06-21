@@ -22,7 +22,7 @@ class ProductNavigationImpl @Inject constructor() : ProductNavigationApi {
     }
 
     override fun navigateToAdd(fragment: Fragment) {
-        FeatureInjectorProxy.initFeatureAddDI()
+        FeatureInjectorProxy.initFeatureAddDI(fragment.requireContext())
         fragment.activity
             ?.supportFragmentManager
             ?.beginTransaction()

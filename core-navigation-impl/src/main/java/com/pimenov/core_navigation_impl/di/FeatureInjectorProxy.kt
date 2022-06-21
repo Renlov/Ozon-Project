@@ -38,11 +38,12 @@ object FeatureInjectorProxy {
         )
     }
 
-    fun initFeatureAddDI() {
+    fun initFeatureAddDI(context: Context) {
         AddProductFeatureComponent.initAndGet(
             DaggerAddProductFeatureComponent_AddProductFeatureDependenciesComponent.builder()
-                .networkApi(DaggerCoreNetworkComponent.builder().build())
+                .networkApi(CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder().databaseApi(CoreDatabaseComponent.initAndGet(context)).build()))
                 .addProductNavigationApi(DaggerCoreNavigationComponent.builder().build().getAddProductNavigation())
+                .databaseApi(CoreDatabaseComponent.initAndGet(context))
                 .build()
         )
     }

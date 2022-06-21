@@ -1,6 +1,7 @@
 package com.pimenov.core_datastore_impl.data
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.pimenov.core_datastore_api.data.data_object.ProductPrefs
@@ -14,11 +15,13 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
     private val sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE)
 
     override fun addProductInList(list: List<ProductInListPrefs>) {
+        Log.d("spectra", "addProductInList")
         sharedPreferences.edit().putString(PREFERENCE_PRODUCT_LIST, Gson().toJson((getProductList() + list).toSet()))
             .apply()
     }
 
     override fun getProductList(): List<ProductInListPrefs> {
+        Log.d("spectra", "getProductList")
         return sharedPreferences.getString(PREFERENCE_PRODUCT_LIST, null)?.let { json ->
             GsonBuilder().create().fromJson(json, Array<ProductInListPrefs>::class.java).toMutableList()
         } ?: emptyList()
@@ -38,7 +41,13 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         return getProducts().find { it.guid == guid }
     }
 
+    override fun getCountDatabase(): Int {
+        Log.d("spectra", "getCountDatabase")
+        return getProductList().size
+    }
+
     override fun addProductRandom() {
+        Log.d("spectra", "addProductRandom")
         val productInList = getProductList().toMutableList()
         val productList = getProducts().toMutableList()
 

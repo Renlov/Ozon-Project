@@ -15,6 +15,7 @@ class AddViewModel @Inject constructor(private val productsInteractor : Products
     }
 
     fun addElement(){
+        productsInteractor.addRandomProduct()
         getProductsCount()
     }
 }
