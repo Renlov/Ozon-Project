@@ -1,10 +1,9 @@
 package com.pimenov.feature_products_impl.data.repository_impl
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
-import com.pimenov.core_network_api.ProductsApi
+import com.pimenov.core_network_api.WorkerApi
 import com.pimenov.feature_products_impl.data.mapper.toDO
 import com.pimenov.feature_products_impl.data.mapper.toProductInListDO
 import com.pimenov.feature_products_impl.data.mapper.toProductInListPrefs
@@ -12,7 +11,7 @@ import com.pimenov.feature_products_impl.domain.repository.ProductsListRepositor
 import com.pimenov.feature_products_impl.domain.domain_object.ProductInListDO
 import javax.inject.Inject
 
-class ProductsListRepositoryImpl @Inject constructor(private val productApi: ProductsApi, private val database : ProductDatabase) : ProductsListRepository {
+class ProductsListRepositoryImpl @Inject constructor(private val productApi: WorkerApi, private val database : ProductDatabase) : ProductsListRepository {
 
     override fun getProductsList(): LiveData<List<ProductInListDO>> {
         return Transformations.map(productApi.getAllProduct()) { list ->

@@ -1,12 +1,10 @@
 package com.pimenov.core_network_impl.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.work.*
 import com.google.gson.GsonBuilder
-import com.pimenov.core_network_api.ProductsApi
-import com.pimenov.core_network_api.data_object.ProductDTO
+import com.pimenov.core_network_api.WorkerApi
 import com.pimenov.core_network_api.data_object.ProductInListDTO
 import com.pimenov.core_network_impl.workers.ProductInListWorker
 import com.pimenov.core_network_impl.workers.ProductsWorker
@@ -15,7 +13,7 @@ import retrofit2.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ProductsListApiImpl @Inject constructor(): ProductsApi {
+class ProductsListApiImpl @Inject constructor(): WorkerApi {
     override fun getAllProduct(): LiveData<List<ProductInListDTO>?> {
         val requestProductList = OneTimeWorkRequest.Builder(ProductInListWorker::class.java)
             .setBackoffCriteria(BackoffPolicy.LINEAR, 10,TimeUnit.SECONDS)
