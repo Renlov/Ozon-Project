@@ -18,17 +18,26 @@ interface CoreNetworkComponent : NetworkApi {
 
      fun getRepository(): ProductRepository
 
+     @Component.Builder
+    interface Builder{
+        @BindsInstance
+        fun workManager(workManager: WorkManager) : Builder
+        fun dependencies(dependencies: CoreNetworkDependencies) : Builder
+        fun build(): CoreNetworkComponent
+    }
+
     companion object {
         @Volatile
         var coreNetworkComponent: CoreNetworkComponent? = null
             private set
 
-        fun initAndGet(coreNetworkDependencies: CoreNetworkDependencies): CoreNetworkComponent? {
+        fun initAndGet(coreNetworkDependencies: CoreNetworkDependencies, workManager : WorkManager): CoreNetworkComponent? {
             if (coreNetworkComponent == null) {
                 synchronized(CoreNetworkComponent::class) {
                     coreNetworkComponent = DaggerCoreNetworkComponent.builder()
-                        .coreNetworkDependencies(coreNetworkDependencies)
-                        .build()
+                        .dependencies(coreNetworkDependencies)
+                        .workManager(workManager)
+                       .build()
                 }
             }
             return coreNetworkComponent

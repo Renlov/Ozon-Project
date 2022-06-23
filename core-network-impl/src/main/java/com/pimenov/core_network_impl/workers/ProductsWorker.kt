@@ -2,6 +2,7 @@ package com.pimenov.core_network_impl.workers
 
 
 import android.content.Context
+import androidx.work.WorkManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
@@ -12,13 +13,12 @@ import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDe
 
 class ProductsWorker(context: Context, parameters: WorkerParameters) : Worker(context, parameters) {
 
-    val productRepository: ProductRepository = CoreNetworkComponent.initAndGet(
+    private val productRepository: ProductRepository = CoreNetworkComponent.initAndGet(
         DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder()
-        .databaseApi(CoreDatabaseComponent.initAndGet(context)).build())!!
+        .databaseApi(CoreDatabaseComponent.initAndGet(context)).build(), WorkManager.getInstance(context))!!
         .getRepository()
 
     override fun doWork(): Result {
-
         return if (productRepository.getProducts() != null) Result.success() else Result.failure()
     }
 }

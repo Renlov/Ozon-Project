@@ -2,6 +2,7 @@ package com.pimenov.core_datastore_impl.data
 
 import android.content.Context
 import android.util.Log
+import android.util.Log.i
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.pimenov.core_datastore_api.data.data_object.ProductPrefs

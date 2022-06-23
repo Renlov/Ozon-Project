@@ -49,6 +49,7 @@ dependencies {
 
     implementation coreKtx
     implementation appCompat
+    implementation worker
     implementation dagger
     implementation material
     implementation constraintLayout

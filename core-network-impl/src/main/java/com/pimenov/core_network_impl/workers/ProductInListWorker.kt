@@ -1,23 +1,23 @@
 package com.pimenov.core_network_impl.workers
 
 import android.content.Context
-import androidx.work.Data
-import androidx.work.Worker
-import androidx.work.WorkerParameters
+import androidx.work.*
 import com.google.gson.Gson
-import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
 import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
 import com.pimenov.core_network_impl.data.ProductRepository
-import com.pimenov.core_network_impl.data.RepositoryImpl
 import com.pimenov.core_network_impl.di.CoreNetworkComponent
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
 import com.pimenov.core_network_impl.workers.keys.WorkerKeys
+import javax.inject.Inject
 
 
-class ProductInListWorker(context: Context, parameters: WorkerParameters) : Worker(context, parameters) {
+class ProductInListWorker(
+    context: Context,
+    parameters: WorkerParameters,
+) : Worker(context, parameters) {
 
-    val productRepository: ProductRepository = CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder()
-        .databaseApi(CoreDatabaseComponent.initAndGet(context)).build())!!
+    private val productRepository: ProductRepository = CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder()
+        .databaseApi(CoreDatabaseComponent.initAndGet(context)).build(), WorkManager.getInstance(context))!!
         .getRepository()
 
     override fun doWork(): Result {
@@ -27,3 +27,15 @@ class ProductInListWorker(context: Context, parameters: WorkerParameters) : Work
         return Result.success(data)
     }
 }
+
+//class Factory @Inject constructor(private val productRepository: ProductRepository) :
+//    WorkerFactory() {
+//    override fun createWorker(
+//        appContext: Context,
+//        workerClassName: String,
+//        workerParameters: WorkerParameters
+//    ): ListenableWorker {
+//        return ProductInListWorker(appContext, workerParameters, productRepository)
+//    }
+//}
+//
