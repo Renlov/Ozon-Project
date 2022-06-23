@@ -39,7 +39,7 @@ class AddFragment : Fragment(R.layout.fragment_add) {
     }
 
     private fun observeViewModelState() {
-        viewModel.getProductsCount().observe(viewLifecycleOwner) {
+        viewModel.productCountLivaData.observe(viewLifecycleOwner) {
             binding.countElement.text = requireContext().resources.getString(R.string.addedElement, it)
         }
     }

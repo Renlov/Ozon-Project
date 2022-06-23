@@ -1,8 +1,8 @@
-package com.pimenov.core_network_impl.data
+package com.pimenov.core_network_api
 
 import com.pimenov.core_network_api.data_object.ProductDTO
 import com.pimenov.core_network_api.data_object.ProductInListDTO
-import retrofit2.*
+import retrofit2.Call
 import retrofit2.http.GET
 
 interface ServiceApi {

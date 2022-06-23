@@ -2,7 +2,7 @@ package com.pimenov.core_network_impl.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.pimenov.core_network_impl.data.ServiceApi
+import com.pimenov.core_network_api.ServiceApi
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable

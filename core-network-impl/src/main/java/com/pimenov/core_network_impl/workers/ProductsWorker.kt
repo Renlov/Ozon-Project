@@ -6,7 +6,7 @@ import androidx.work.WorkManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
-import com.pimenov.core_network_impl.data.ProductRepository
+import com.pimenov.core_network_api.ProductRepository
 import com.pimenov.core_network_impl.di.CoreNetworkComponent
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
 

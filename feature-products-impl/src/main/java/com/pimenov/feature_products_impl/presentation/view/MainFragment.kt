@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -20,6 +21,7 @@ import com.pimenov.feature_products_impl.domain.interactor.ProductsInteractor
 import com.pimenov.feature_products_impl.presentation.adapters.MainAdapter
 import com.pimenov.feature_products_impl.presentation.utils.autoCleared
 import com.pimenov.feature_products_impl.presentation.view_models.ProductsListViewModel
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -52,9 +54,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun observeViewModelState() {
-        viewModel.getProducts().observe(viewLifecycleOwner) {
-            productListAdapter.submitList(it)
+            viewModel.productsLiveData.observe(viewLifecycleOwner){
+                productListAdapter.submitList(it)
+
         }
+
     }
 
     private fun initList() {
