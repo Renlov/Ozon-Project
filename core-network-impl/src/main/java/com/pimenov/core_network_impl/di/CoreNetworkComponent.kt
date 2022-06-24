@@ -4,7 +4,7 @@ import androidx.work.WorkManager
 import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
 import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
 import com.pimenov.core_network_api.NetworkApi
-import com.pimenov.core_network_api.WorkerManagerProduct
+import com.pimenov.core_network_api.WorkerApi
 import com.pimenov.core_network_api.ProductRepository
 import dagger.*
 import javax.inject.Singleton
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 interface CoreNetworkComponent : NetworkApi {
 
      fun getRepository(): ProductRepository
-     fun getWorkManager() : WorkerManagerProduct
+     fun getWorkManager() : WorkerApi
 
      @Component.Builder
     interface Builder{
