@@ -19,6 +19,11 @@ class ProductsWorker(context: Context, parameters: WorkerParameters) : Worker(co
         .getRepository()
 
     override fun doWork(): Result {
-        return Result.success() //if (productRepository.getProducts() != null) Result.success() else Result.failure()
+        return try{
+            productRepository.getProducts()
+            Result.success()
+        } catch (e : Exception){
+            Result.failure()
+        }
     }
 }

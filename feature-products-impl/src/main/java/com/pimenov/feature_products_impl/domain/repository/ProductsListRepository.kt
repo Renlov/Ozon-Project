@@ -5,5 +5,6 @@ import com.pimenov.feature_products_impl.domain.domain_object.ProductInListDO
 
 
 interface ProductsListRepository {
-    suspend fun getProductsList () : LiveData<List<ProductInListDO>?>
+    fun getData()
+    val productListLiveData : LiveData<List<ProductInListDO>?>
 }

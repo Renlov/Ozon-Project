@@ -44,18 +44,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         ProductFeatureComponent.productFeatureComponent?.inject(this)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = runBlocking {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        CoroutineScope(Dispatchers.IO).launch {
-            observeViewModelState()
-        }
+        observeViewModelState()
         initList()
         binding.addActionButton.setOnClickListener {
-            productNavigationApi.navigateToAdd(fragment = requireParentFragment())
+            productNavigationApi.navigateToAdd(fragment = this)
         }
     }
 
-    private suspend fun observeViewModelState() {
+    private fun observeViewModelState() {
         viewModel.getProducts().observe(viewLifecycleOwner){
             productListAdapter.submitList(it)
         }

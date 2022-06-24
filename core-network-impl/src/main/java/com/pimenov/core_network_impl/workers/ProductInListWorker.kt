@@ -1,6 +1,7 @@
 package com.pimenov.core_network_impl.workers
 
 import android.content.Context
+import android.util.Log
 import androidx.work.*
 import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
 import com.pimenov.core_network_api.ProductRepository
@@ -20,10 +21,7 @@ class ProductInListWorker(
 
     override fun doWork(): Result {
         return try {
-            runBlocking {
-                productRepository.getProductsInList()
-
-            }
+            productRepository.getProductsInList()
             Result.success()
         } catch (e: Exception){
             Result.retry()

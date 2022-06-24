@@ -1,5 +1,6 @@
 package com.pimenov.core_network_impl.data
 
+import android.util.Log
 import androidx.work.*
 import com.pimenov.core_network_api.WorkerManagerProduct
 import com.pimenov.core_network_impl.workers.ProductInListWorker
@@ -13,9 +14,6 @@ class WorkManagerImpl @Inject constructor(private val workManager: WorkManager):
     override fun getAllProduct() {
         val requestProductList = OneTimeWorkRequest.Builder(ProductInListWorker::class.java)
             .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.SECONDS)
-            .setConstraints(
-                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            )
             .build()
 
         val requestProducts = OneTimeWorkRequest.Builder(ProductsWorker::class.java).build()
@@ -24,6 +22,9 @@ class WorkManagerImpl @Inject constructor(private val workManager: WorkManager):
             ExistingWorkPolicy.KEEP,
             requestProductList
         ).then(requestProducts).enqueue()
+        Log.d("spectra", workManager.getWorkInfoById(requestProductList.id).toString())
+        Log.d("spectra", workManager.getWorkInfoById(requestProducts.id).toString())
+
     }
 }
 

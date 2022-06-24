@@ -10,18 +10,15 @@ import com.pimenov.feature_products_impl.domain.interactor.ProductsInteractor
 import com.pimenov.feature_products_impl.presentation.view_object.ProductInListVO
 import javax.inject.Inject
 
-class ProductsListViewModel@Inject constructor(private val productsInteractor: ProductsInteractor,
-                                               workerManagerProduct: WorkerManagerProduct) : ViewModel() {
+class ProductsListViewModel@Inject constructor(private val productsInteractor: ProductsInteractor) : ViewModel() {
 
-//    private val _productsLiveData = MutableLiveData<List<ProductInListVO>>()
-//    val productsLiveData: LiveData<List<ProductInListVO>> = _productsLiveData
 
     init {
-        workerManagerProduct.getAllProduct()
+        productsInteractor.getData()
     }
 
 
-    suspend fun getProducts() : LiveData<List<ProductInListVO>?> {
-       return productsInteractor.getProducts()
+    fun getProducts() : LiveData<List<ProductInListVO>?> {
+       return productsInteractor.productListLiveData
     }
 }

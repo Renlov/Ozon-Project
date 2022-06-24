@@ -19,25 +19,22 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val productsApi: ServiceApi,
     private val database: ProductDatabase,
-    private val gson: Gson
 ) : ProductRepository {
-    override suspend fun getProductsInList() : List<ProductInListDTO>? {
-        return productsApi.getListProducts().execute().body()?.also {
+
+    private val _productListLiveData = MutableLiveData<List<ProductInListDTO>?>()
+    override val productListLiveData: LiveData<List<ProductInListDTO>?> = _productListLiveData
+
+
+    override fun getProductsInList() {
+        productsApi.getListProducts().execute().body()?.also {
+            _productListLiveData.postValue(it)
             database.addProductInList(it.map { it.toProductInListDTOSharedPrefs() })
         }?.let { database.getProductList().map { it.toProductInListDTO() } }
     }
 
-    override suspend fun getProducts() : List<ProductDTO>? {
-        return productsApi.getProducts().execute().body()?.also {
+    override fun getProducts() {
+        productsApi.getProducts().execute().body()?.also {
             database.addProducts(it.map { it.toProductDTOSharedPrefs()})
         }
-    }
-
-    override suspend fun getObservableProductList(): LiveData<List<ProductInListDTO>?> {
-        return MutableLiveData<List<ProductInListDTO>>(getProductsInList())
-    }
-
-    override suspend fun getObservableProducts(): LiveData<List<ProductDTO>?> {
-        return MutableLiveData<List<ProductDTO>>(getProducts())
     }
 }

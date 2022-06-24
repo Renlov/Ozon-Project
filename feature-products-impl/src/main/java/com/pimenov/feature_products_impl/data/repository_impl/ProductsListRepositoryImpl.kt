@@ -13,13 +13,17 @@ import com.pimenov.feature_products_impl.domain.repository.ProductsListRepositor
 import com.pimenov.feature_products_impl.domain.domain_object.ProductInListDO
 import javax.inject.Inject
 
-class ProductsListRepositoryImpl @Inject constructor(private val productRepository: ProductRepository) : ProductsListRepository {
+class ProductsListRepositoryImpl @Inject constructor(private val productRepository: ProductRepository,
+                                                     private val workerManagerProduct: WorkerManagerProduct) : ProductsListRepository {
 
-    override suspend fun getProductsList(): LiveData<List<ProductInListDO>?> {
-        return Transformations.map(productRepository.getObservableProductList()) {
+    override fun getData() {
+        workerManagerProduct.getAllProduct()
+    }
+
+    override val productListLiveData: LiveData<List<ProductInListDO>?>
+        get() = productRepository.productListLiveData.map {
             it?.map {
                 it.toDO()
             }
         }
-    }
 }
