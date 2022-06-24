@@ -10,7 +10,7 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
         productsInteractor.getData()
     }
 
-    fun getProducts() : LiveData<List<ProductInListVO>?> {
-       return productsInteractor.productListLiveData
+    fun getProducts(): LiveData<List<ProductInListVO>?> {
+        return productsInteractor.productListLiveData
     }
 }

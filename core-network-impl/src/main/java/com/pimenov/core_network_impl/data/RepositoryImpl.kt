@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.Transformations.map
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
@@ -29,7 +30,7 @@ class RepositoryImpl @Inject constructor(
         productsApi.getListProducts().execute().body()?.also {
             _productListLiveData.postValue(it)
             database.addProductInList(it.map { it.toProductInListDTOSharedPrefs() })
-        }?.let { database.getProductList().map { it.toProductInListDTO() } }
+        }?.let { _productListLiveData.postValue(database.getProductList().map { it.toProductInListDTO() }) }
     }
 
     override fun getProducts() {
