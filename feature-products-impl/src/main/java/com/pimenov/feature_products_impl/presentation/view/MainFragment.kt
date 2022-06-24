@@ -21,7 +21,7 @@ import com.pimenov.feature_products_impl.domain.interactor.ProductsInteractor
 import com.pimenov.feature_products_impl.presentation.adapters.MainAdapter
 import com.pimenov.feature_products_impl.presentation.utils.autoCleared
 import com.pimenov.feature_products_impl.presentation.view_models.ProductsListViewModel
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -44,21 +44,21 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         ProductFeatureComponent.productFeatureComponent?.inject(this)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = runBlocking {
         super.onViewCreated(view, savedInstanceState)
-        observeViewModelState()
+        CoroutineScope(Dispatchers.IO).launch {
+            observeViewModelState()
+        }
         initList()
         binding.addActionButton.setOnClickListener {
-            productNavigationApi.navigateToAdd(fragment = this)
+            productNavigationApi.navigateToAdd(fragment = requireParentFragment())
         }
     }
 
-    private fun observeViewModelState() {
-            viewModel.productsLiveData.observe(viewLifecycleOwner){
-                productListAdapter.submitList(it)
-
+    private suspend fun observeViewModelState() {
+        viewModel.getProducts().observe(viewLifecycleOwner){
+            productListAdapter.submitList(it)
         }
-
     }
 
     private fun initList() {

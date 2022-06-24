@@ -11,13 +11,20 @@ import com.pimenov.feature_products_impl.presentation.view_object.ProductInListV
 import javax.inject.Inject
 
 interface ProductsInteractor {
-    fun getProducts(): List<ProductInListVO>?
+    suspend fun getProducts(): LiveData<List<ProductInListVO>?>
 }
 
 class ProductsInteractorImpl @Inject constructor(private val repository: ProductsListRepository): ProductsInteractor {
-    override fun getProducts(): List<ProductInListVO>? {
-        return repository.getProductsList()?.map {
-            it.toVO()
+    //    override fun getProducts(): List<ProductInListVO>? {
+//        return repository.getProductsList()?.map {
+//            it.toVO()
+//        }
+//    }
+    override suspend fun getProducts(): LiveData<List<ProductInListVO>?> {
+        return Transformations.map(repository.getProductsList()){
+            it?.map {
+                it.toVO()
+            }
         }
     }
 }

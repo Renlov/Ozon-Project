@@ -6,6 +6,7 @@ import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
 import com.pimenov.core_network_api.ProductRepository
 import com.pimenov.core_network_impl.di.CoreNetworkComponent
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
+import kotlinx.coroutines.runBlocking
 
 
 class ProductInListWorker(
@@ -18,7 +19,14 @@ class ProductInListWorker(
         .getRepository()
 
     override fun doWork(): Result {
-        return if (productRepository.getProductsInList() != null) Result.success() else Result.retry()
+        return try {
+            runBlocking {
+                productRepository.getProductsInList()
 
+            }
+            Result.success()
+        } catch (e: Exception){
+            Result.retry()
+        }
     }
 }
