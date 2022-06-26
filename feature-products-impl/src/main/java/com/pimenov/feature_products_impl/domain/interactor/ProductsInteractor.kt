@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 interface ProductsInteractor {
     suspend fun getData()
-    suspend fun productListStateFlow() : Flow<List<ProductInListVO>>
+     fun productListStateFlow() : Flow<List<ProductInListVO>>
 }
 
 class ProductsInteractorImpl @Inject constructor(private val repository: ProductsListRepository): ProductsInteractor {
@@ -23,12 +23,11 @@ class ProductsInteractorImpl @Inject constructor(private val repository: Product
         repository.getData()
     }
 
-    override suspend fun productListStateFlow(): Flow<List<ProductInListVO>> = flow{
-        repository.productListStateFlow().map {
-            Log.d("!!!", "ProductsInteractorImpl list is  " + it.toString())
-            emit(it!!.map {
+    override fun productListStateFlow(): Flow<List<ProductInListVO>> {
+        return repository.productListStateFlow().map {
+            it!!.map {
                 it.toVO()
-            })
+            }
         }
     }
 }
