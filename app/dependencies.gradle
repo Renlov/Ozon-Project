@@ -23,8 +23,12 @@ ext {
             retrofit         : '2.9.0',
             okhttp           : '4.9.3',
             worker           : '2.7.1',
-            workerCoroutines : '2.7.1'
+            workerCoroutines : '2.7.1',
+            coroutines        : '1.6.1'
     ]
+
+    coroutines = ['core'   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}",
+                  'android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"]
 
     coreKtx = "androidx.core:core-ktx:${versions.coreKtx}"
 
@@ -70,6 +74,8 @@ ext {
     worker = "androidx.work:work-runtime:${versions.worker}"
 
     workerCoroutines = "androidx.work:work-runtime-ktx:${versions.workerCoroutines}"
+
+
 
 
 

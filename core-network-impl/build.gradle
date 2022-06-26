@@ -48,4 +48,6 @@ dependencies {
     implementation gson
     implementation liveData
     implementation workerCoroutines
+    implementation coroutines.values()
+
 }

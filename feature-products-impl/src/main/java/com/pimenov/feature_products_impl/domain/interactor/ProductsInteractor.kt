@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 interface ProductsInteractor {
     suspend fun getData()
-    val productListStateFlow : SharedFlow<List<ProductInListVO>?>
+    suspend fun productListStateFlow() : Flow<List<ProductInListVO>>
 }
 
 class ProductsInteractorImpl @Inject constructor(private val repository: ProductsListRepository): ProductsInteractor {
@@ -23,13 +23,12 @@ class ProductsInteractorImpl @Inject constructor(private val repository: Product
         repository.getData()
     }
 
-    private val scope = CoroutineScope(Dispatchers.IO)
-
-    override val productListStateFlow: SharedFlow<List<ProductInListVO>?>
-        get() = repository.productListStateFlow.map {
-            it?.map {
+    override suspend fun productListStateFlow(): Flow<List<ProductInListVO>> = flow{
+        repository.productListStateFlow().map {
+            Log.d("!!!", "ProductsInteractorImpl list is  " + it.toString())
+            emit(it!!.map {
                 it.toVO()
-            }
-        }.shareIn(scope, started = SharingStarted.Lazily)
-
+            })
+        }
+    }
 }

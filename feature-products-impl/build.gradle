@@ -58,4 +58,5 @@ dependencies {
     implementation bindingDelegate
     kapt daggerCompiler
     implementation fragment
+    implementation coroutines.values()
 }

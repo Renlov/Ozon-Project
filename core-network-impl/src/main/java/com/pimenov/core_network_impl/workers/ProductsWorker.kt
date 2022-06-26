@@ -23,8 +23,7 @@ class ProductsWorker(context: Context, parameters: WorkerParameters) : Coroutine
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try{
-            Log.d("spectra", ProductsWorker::class.java.name)
-
+            Log.d("!!!", "worker2 is try")
             productRepository.getProducts()
             Result.success()
         } catch (e : Exception){

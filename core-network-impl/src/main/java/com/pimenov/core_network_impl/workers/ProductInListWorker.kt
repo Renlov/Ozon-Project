@@ -24,6 +24,7 @@ class ProductInListWorker(
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO){
         try {
+            Log.d("!!!", "worker1 is try")
             productRepository.getProductsInList()
             Result.success()
         } catch (e: Exception){

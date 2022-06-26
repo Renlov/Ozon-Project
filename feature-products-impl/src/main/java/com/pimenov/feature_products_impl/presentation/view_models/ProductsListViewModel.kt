@@ -1,6 +1,5 @@
 package com.pimenov.feature_products_impl.presentation.view_models
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.pimenov.feature_products_impl.domain.interactor.ProductsInteractor
 import com.pimenov.feature_products_impl.presentation.view_object.ProductInListVO
@@ -10,13 +9,20 @@ import javax.inject.Inject
 
 class ProductsListViewModel@Inject constructor(private val productsInteractor: ProductsInteractor) : ViewModel() {
 
-    private var _productInListStateFlow = productsInteractor.productListStateFlow
-    val productInListStateFlow : SharedFlow<List<ProductInListVO>?> = _productInListStateFlow
+    private var _productInListSharedFlow = MutableStateFlow<List<ProductInListVO>>(emptyList())
+    val productInListSharedFlow : SharedFlow<List<ProductInListVO>?> = _productInListSharedFlow
+
+    suspend fun getData(){
+        productsInteractor.getData()
+    }
 
     init {
-        Log.d("spectra", "viewModel")
         viewModelScope.launch {
-            productsInteractor.getData()
+            productsInteractor.productListStateFlow().onEach {
+                if (it != null) {
+                    _productInListSharedFlow.emit(it)
+                }
+            }
         }
     }
 }
