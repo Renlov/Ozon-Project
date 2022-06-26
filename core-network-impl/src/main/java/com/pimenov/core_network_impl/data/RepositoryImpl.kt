@@ -15,6 +15,15 @@ import com.pimenov.core_network_api.ServiceApi
 import com.pimenov.core_network_impl.mapper.toProductDTOSharedPrefs
 import com.pimenov.core_network_impl.mapper.toProductInListDTO
 import com.pimenov.core_network_impl.mapper.toProductInListDTOSharedPrefs
+import com.pimenov.core_network_impl.workers.ProductsWorker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -22,18 +31,19 @@ class RepositoryImpl @Inject constructor(
     private val database: ProductDatabase,
 ) : ProductRepository {
 
-    private val _productListLiveData = MutableLiveData<List<ProductInListDTO>?>()
-    override val productListLiveData: LiveData<List<ProductInListDTO>?> = _productListLiveData
+    private val _productListStateFlow = MutableSharedFlow<List<ProductInListDTO>?>()
+    override val productListStateFlow: SharedFlow<List<ProductInListDTO>?> = _productListStateFlow.asSharedFlow()
 
 
-    override fun getProductsInList() {
+    override suspend fun getProductsInList() {
         productsApi.getListProducts().execute().body()?.also {
-            _productListLiveData.postValue(it)
+            _productListStateFlow.emit(it)
             database.addProductInList(it.map { it.toProductInListDTOSharedPrefs() })
-        }?.let { _productListLiveData.postValue(database.getProductList().map { it.toProductInListDTO() }) }
+        } ?: _productListStateFlow.emit(database.getProductList().map { it.toProductInListDTO() })
+
     }
 
-    override fun getProducts() {
+    override suspend fun getProducts() {
         productsApi.getProducts().execute().body()?.also {
             database.addProducts(it.map { it.toProductDTOSharedPrefs()})
         }

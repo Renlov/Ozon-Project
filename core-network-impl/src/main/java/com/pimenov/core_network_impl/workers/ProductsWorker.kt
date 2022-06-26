@@ -2,24 +2,29 @@ package com.pimenov.core_network_impl.workers
 
 
 import android.content.Context
+import android.util.Log
+import androidx.work.CoroutineWorker
 import androidx.work.WorkManager
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
 import com.pimenov.core_network_api.ProductRepository
 import com.pimenov.core_network_impl.di.CoreNetworkComponent
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
-class ProductsWorker(context: Context, parameters: WorkerParameters) : Worker(context, parameters) {
+class ProductsWorker(context: Context, parameters: WorkerParameters) : CoroutineWorker(context, parameters) {
 
     private val productRepository: ProductRepository = CoreNetworkComponent.initAndGet(
         DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder()
-        .databaseApi(CoreDatabaseComponent.initAndGet(context)).build(), WorkManager.getInstance(context))!!
+        .databaseApi(CoreDatabaseComponent.initAndGet(context)).build(), WorkManager.getInstance())!!
         .getRepository()
 
-    override fun doWork(): Result {
-        return try{
+    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        try{
+            Log.d("spectra", ProductsWorker::class.java.name)
+
             productRepository.getProducts()
             Result.success()
         } catch (e : Exception){

@@ -46,6 +46,6 @@ dependencies {
     implementation okhttp
     kapt daggerCompiler
     implementation gson
-    implementation worker
     implementation liveData
+    implementation workerCoroutines
 }

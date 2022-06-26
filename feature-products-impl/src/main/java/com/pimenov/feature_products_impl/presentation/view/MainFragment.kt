@@ -8,6 +8,7 @@ import android.view.View
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -22,6 +23,9 @@ import com.pimenov.feature_products_impl.presentation.adapters.MainAdapter
 import com.pimenov.feature_products_impl.presentation.utils.autoCleared
 import com.pimenov.feature_products_impl.presentation.view_models.ProductsListViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -44,17 +48,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         ProductFeatureComponent.productFeatureComponent?.inject(this)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)  {
         super.onViewCreated(view, savedInstanceState)
-        observeViewModelState()
+        Log.d("spectra", "start")
+        CoroutineScope(Dispatchers.IO).launch {
+            observeViewModelState()
+        }
         initList()
         binding.addActionButton.setOnClickListener {
             productNavigationApi.navigateToAdd(fragment = this)
         }
     }
 
-    private fun observeViewModelState() {
-        viewModel.getProducts().observe(viewLifecycleOwner){
+    private suspend fun observeViewModelState() {
+        viewModel.productInListStateFlow.collect{
             productListAdapter.submitList(it)
         }
     }

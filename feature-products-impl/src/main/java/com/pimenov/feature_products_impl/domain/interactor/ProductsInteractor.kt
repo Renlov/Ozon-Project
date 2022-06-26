@@ -8,23 +8,28 @@ import com.pimenov.feature_products_impl.data.mapper.toDO
 import com.pimenov.feature_products_impl.domain.mapper.toVO
 import com.pimenov.feature_products_impl.domain.repository.ProductsListRepository
 import com.pimenov.feature_products_impl.presentation.view_object.ProductInListVO
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 interface ProductsInteractor {
-    fun getData()
-    val productListLiveData : LiveData<List<ProductInListVO>?>
+    suspend fun getData()
+    val productListStateFlow : SharedFlow<List<ProductInListVO>?>
 }
 
 class ProductsInteractorImpl @Inject constructor(private val repository: ProductsListRepository): ProductsInteractor {
-    override fun getData() {
+    override suspend fun getData() {
         repository.getData()
     }
 
-    override val productListLiveData: LiveData<List<ProductInListVO>?>
-        get() = repository.productListLiveData.map {
+    private val scope = CoroutineScope(Dispatchers.IO)
+
+    override val productListStateFlow: SharedFlow<List<ProductInListVO>?>
+        get() = repository.productListStateFlow.map {
             it?.map {
                 it.toVO()
             }
-        }
+        }.shareIn(scope, started = SharingStarted.Lazily)
 
 }
