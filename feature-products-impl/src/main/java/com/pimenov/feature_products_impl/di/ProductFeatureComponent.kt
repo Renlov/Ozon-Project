@@ -1,6 +1,7 @@
 package com.pimenov.feature_products_impl.di
 
 import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
+import com.pimenov.core_network_api.FlowDataApi
 import com.pimenov.core_network_api.NetworkApi
 import com.pimenov.core_utils.ViewModelFactory
 import com.pimenov.core_utils.di.PerFeature

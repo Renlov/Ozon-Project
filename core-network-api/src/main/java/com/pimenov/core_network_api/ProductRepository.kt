@@ -6,5 +6,4 @@ import kotlinx.coroutines.flow.SharedFlow
 interface ProductRepository {
     suspend fun getProductsInList()
     suspend fun getProducts()
-    val productListSharedFlow : SharedFlow<List<ProductInListDTO>?>
 }

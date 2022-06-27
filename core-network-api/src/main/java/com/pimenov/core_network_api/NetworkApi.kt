@@ -4,4 +4,5 @@ interface NetworkApi {
     fun getProductsApi(): WorkerApi
     fun getServiceApi() : ServiceApi
     fun getProductRepository() : ProductRepository
+    fun getFlowData() : FlowDataApi
 }

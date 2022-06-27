@@ -3,6 +3,7 @@ package com.pimenov.core_network_impl.di
 import androidx.work.WorkManager
 import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
 import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
+import com.pimenov.core_network_api.FlowDataApi
 import com.pimenov.core_network_api.NetworkApi
 import com.pimenov.core_network_api.WorkerApi
 import com.pimenov.core_network_api.ProductRepository
