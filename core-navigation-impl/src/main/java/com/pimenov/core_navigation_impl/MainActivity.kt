@@ -20,14 +20,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding by viewBinding(ActivityMainBinding::bind)
 
     private val snackBar: Snackbar by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
-        Snackbar.make(this, binding.root, "Internet not found...", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(this, binding.root, getString(R.string.Internet_state), Snackbar.LENGTH_INDEFINITE)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val connectivityManager: ConnectivityManager = getSystemService(ConnectivityManager::class.java)
-        toggleSnackbar(connectivityManager.isDefaultNetworkActive)
+        toggleSnackbar(!connectivityManager.isActiveNetworkMetered)
         connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 toggleSnackbar(true)
