@@ -25,9 +25,9 @@ class ProductsInteractorImpl @Inject constructor(private val repository: Product
 
     override fun productListStateFlow(): Flow<List<ProductInListVO>> {
         return repository.productListStateFlow().map {
-            it!!.map {
+            it?.map {
                 it.toVO()
-            }
+            } ?: emptyList()
         }
     }
 }

@@ -16,9 +16,9 @@ class ProductsListRepositoryImpl @Inject constructor(private val productReposito
 
     override fun productListStateFlow(): Flow<List<ProductInListDO>> {
         return productRepository.productListSharedFlow.map {
-            it!!.map {
+            it?.map {
                 it.toDO()
-            }
+            } ?: emptyList()
         }
     }
 }
