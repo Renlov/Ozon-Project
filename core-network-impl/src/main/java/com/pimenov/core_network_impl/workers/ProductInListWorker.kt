@@ -1,7 +1,6 @@
 package com.pimenov.core_network_impl.workers
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
@@ -15,17 +14,15 @@ import kotlinx.coroutines.withContext
 
 class ProductInListWorker(
     context: Context,
-    params: WorkerParameters
-) : CoroutineWorker(context, params) {
+    params: WorkerParameters) : CoroutineWorker(context, params) {
 
-    private val productRepository: ProductRepository = CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder()
+    private val productRepositoryApi: ProductRepository = CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder()
         .databaseApi(CoreDatabaseComponent.initAndGet(context)).build(), WorkManager.getInstance(context))!!
         .getRepository()
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO){
         try {
-            Log.d("!!!", "worker1 is try")
-            productRepository.getProductsInList()
+            productRepositoryApi.getProductsInList()
             Result.success()
         } catch (e: Exception){
             Result.retry()

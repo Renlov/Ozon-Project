@@ -6,6 +6,7 @@ import com.pimenov.core_network_impl.data.WorkManagerImpl
 import com.pimenov.core_network_impl.data.RepositoryImpl
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
 
 @Module
 interface NetworkModule {
@@ -13,5 +14,6 @@ interface NetworkModule {
     fun bindProductApi(api : WorkManagerImpl) : WorkerApi
 
     @Binds
+    @Singleton
     fun bindRepository(repository: RepositoryImpl): ProductRepository
 }

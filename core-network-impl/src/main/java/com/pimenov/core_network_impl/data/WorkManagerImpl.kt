@@ -1,6 +1,5 @@
 package com.pimenov.core_network_impl.data
 
-import android.util.Log
 import androidx.work.*
 import com.pimenov.core_network_api.WorkerApi
 import com.pimenov.core_network_impl.workers.ProductInListWorker

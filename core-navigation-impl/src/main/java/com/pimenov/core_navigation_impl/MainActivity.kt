@@ -26,10 +26,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        navigateProduct()
-        val connectivityManager: ConnectivityManager =
-            getSystemService(ConnectivityManager::class.java)
+        val connectivityManager: ConnectivityManager = getSystemService(ConnectivityManager::class.java)
         toggleSnackbar(connectivityManager.isDefaultNetworkActive)
         connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
@@ -45,7 +42,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
             }
         })
-
+        navigateProduct()
     }
 
     private fun navigateProduct() {

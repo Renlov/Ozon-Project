@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface ProductsListRepository {
     suspend fun getData()
-    suspend fun productListStateFlow() : Flow<List<ProductInListDO>?>
+    fun productListStateFlow() : Flow<List<ProductInListDO>?>
 }

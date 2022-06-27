@@ -9,5 +9,5 @@ interface ProductFeatureDependencies {
     fun productsApiDependence() : WorkerApi
     fun productNavigationApiDependence(): ProductNavigationApi
     fun productDatabase() : ProductDatabase
-    fun productRepository() : ProductRepository
+    fun getProductRepository() : ProductRepository
 }

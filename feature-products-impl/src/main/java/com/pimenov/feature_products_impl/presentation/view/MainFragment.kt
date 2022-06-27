@@ -58,13 +58,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private suspend fun observeViewModelState() {
         viewLifecycleOwner.lifecycleScope.launch {
             while (isActive){
-                //extendion 300_000
                 viewModel.getData()
-                delay(300_000)
+                delay(getMinutesFromMills(5))
             }
         }
         viewModel.productInListSharedFlow.onEach{
-            Log.d("!!!" , "Fragment list is  " + it.toString())
             productListAdapter.submitList(it)}
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -89,5 +87,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
         super.onPause()
+    }
+    private fun getMinutesFromMills(minutes : Int) : Long{
+        return minutes.toLong() * 1000L * 60L
+
     }
 }
