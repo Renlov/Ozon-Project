@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 
 interface FlowDataApi {
-    val productListSharedFlow : SharedFlow<List<ProductInListDTO>?>
+    val productListSharedFlow : SharedFlow<List<ProductInListDTO>>
     val _productListSharedFlow : MutableSharedFlow<List<ProductInListDTO>>
 }
