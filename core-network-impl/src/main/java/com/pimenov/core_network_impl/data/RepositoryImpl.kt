@@ -26,7 +26,6 @@ class RepositoryImpl @Inject constructor(
         try {
             val list = productsApi.getListProducts()
             database.addProductInList(list.map { it.toProductInListDTOSharedPrefs() })
-            Log.d("spectra", "repository"+flowDataApi.productListSharedFlow.toString())
             val listToEmit = list + database.getProductAdditional().map { it.toProductInListDTO() }
             flowDataApi._productListSharedFlow.emit(listToEmit)
         }catch (e : Exception){

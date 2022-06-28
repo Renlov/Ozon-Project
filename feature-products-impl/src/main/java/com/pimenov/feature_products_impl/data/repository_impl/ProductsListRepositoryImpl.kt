@@ -17,11 +17,10 @@ class ProductsListRepositoryImpl @Inject constructor(private val flowDataApi: Fl
     }
 
     override fun productListStateFlow(): Flow<List<ProductInListDO>> {
-        Log.d("spectra", flowDataApi.productListSharedFlow.toString())
         return flowDataApi.productListSharedFlow.map {
-            it?.map {
+            it.map {
                 it.toDO()
-            } ?: emptyList()
+            }
         }
     }
 }
