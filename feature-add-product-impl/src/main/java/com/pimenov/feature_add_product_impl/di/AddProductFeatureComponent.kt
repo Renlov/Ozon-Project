@@ -1,5 +1,6 @@
 package com.pimenov.feature_add_product_impl.di
 
+import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
 import com.pimenov.core_network_api.NetworkApi
 import com.pimenov.core_utils.ViewModelFactory
 import com.pimenov.core_utils.di.PerFeature
@@ -49,6 +50,6 @@ abstract class AddProductFeatureComponent {
     abstract fun inject(fragment: AddFragment)
 
     @PerFeature
-    @Component(dependencies = [NetworkApi::class, AddProductNavigationApi::class])
+    @Component(dependencies = [NetworkApi::class, AddProductNavigationApi::class, DatabaseApi::class])
     interface AddProductFeatureDependenciesComponent : AddProductFeatureDependencies
 }

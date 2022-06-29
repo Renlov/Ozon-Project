@@ -1,20 +1,25 @@
 package com.pimenov.feature_products_impl.presentation.view_models
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.pimenov.feature_products_api.ProductNavigationApi
+import android.util.Log
+import androidx.lifecycle.*
 import com.pimenov.feature_products_impl.domain.interactor.ProductsInteractor
 import com.pimenov.feature_products_impl.presentation.view_object.ProductInListVO
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductsListViewModel@Inject constructor(private val productsInteractor: ProductsInteractor) : ViewModel() {
 
-    private val _productsLiveData = MutableLiveData<List<ProductInListVO>>()
-    val productsLiveData: LiveData<List<ProductInListVO>> = _productsLiveData
+    private var _productInListSharedFlow = MutableStateFlow<List<ProductInListVO>>(emptyList())
+    val productInListSharedFlow : SharedFlow<List<ProductInListVO>> = _productInListSharedFlow
 
+    suspend fun getData(){
+        productsInteractor.getData()
+    }
 
-    fun getProducts() {
-        _productsLiveData.postValue(productsInteractor.getProducts())
+    init {
+        productsInteractor.productListStateFlow().onEach {
+            _productInListSharedFlow.emit(it)
+        }.launchIn(viewModelScope)
     }
 }

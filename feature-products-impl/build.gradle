@@ -43,6 +43,7 @@ dependencies {
     implementation project(":core-network-api")
     implementation project(":feature-products-api")
     implementation project(":feature-add-product-api")
+    implementation project(":core-datastore-api")
 
 
     implementation coreKtx
@@ -57,4 +58,5 @@ dependencies {
     implementation bindingDelegate
     kapt daggerCompiler
     implementation fragment
+    implementation coroutines.values()
 }

@@ -1,6 +1,7 @@
 package com.pimenov.feature_pdp_impl.di
 
 import android.content.Context
+import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
 import com.pimenov.core_network_api.NetworkApi
 import com.pimenov.core_utils.ViewModelFactory
 import com.pimenov.core_utils.di.PerFeature
@@ -62,7 +63,7 @@ abstract class PDPFeatureComponent {
     abstract fun inject(fragment: PDPFragment)
 
     @PerFeature
-    @Component(dependencies = [NetworkApi::class, PDPNavigationApi::class])
+    @Component(dependencies = [NetworkApi::class, PDPNavigationApi::class, DatabaseApi::class])
     interface PDPFeatureDependenciesComponent : PDPFeatureDependencies
 }
 

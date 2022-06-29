@@ -1,10 +1,14 @@
 package com.pimenov.feature_products_impl.di
 
-import android.content.Context
-import com.pimenov.core_network_api.ProductsListApi
+import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
+import com.pimenov.core_network_api.FlowDataApi
+import com.pimenov.core_network_api.ProductRepository
+import com.pimenov.core_network_api.WorkerApi
 import com.pimenov.feature_products_api.ProductNavigationApi
 
 interface ProductFeatureDependencies {
-    fun productsApi():ProductsListApi
-    fun productNavigationApi(): ProductNavigationApi
+    fun productsApiDependence() : WorkerApi
+    fun productNavigationApiDependence(): ProductNavigationApi
+    fun productDatabase() : ProductDatabase
+    fun productFlowData() : FlowDataApi
 }
