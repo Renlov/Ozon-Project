@@ -15,6 +15,7 @@ import com.pimenov.feature_products_impl.presentation.adapters.additional_adapte
 import com.pimenov.feature_products_impl.presentation.adapters.diff_util.ProductListDiffUtil
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.adapters.view_holders.BaseViewHolder
+import kotlinx.android.synthetic.main.item_list_recycler.view.*
 
 
 class MainAdapter(private val onClick: (String) -> Unit)
@@ -32,6 +33,7 @@ class MainAdapter(private val onClick: (String) -> Unit)
             itemView.setOnClickListener {
                 currentProduct?.let(onClick)
             }
+
             with(binding.imageRecycler){
                 adapter = imageAdapter
                 layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
