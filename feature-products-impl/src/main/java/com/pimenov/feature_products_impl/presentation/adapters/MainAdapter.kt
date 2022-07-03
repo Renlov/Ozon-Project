@@ -1,12 +1,17 @@
 package com.pimenov.feature_products_impl.presentation.adapters
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.pimenov.feature_products_impl.presentation.utils.inflate
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.ItemHeaderRecyclerBinding
 import com.pimenov.feature_products_impl.databinding.ItemListRecyclerBinding
+import com.pimenov.feature_products_impl.presentation.adapters.additional_adapters.ImageAdapter
 import com.pimenov.feature_products_impl.presentation.adapters.diff_util.ProductListDiffUtil
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.adapters.view_holders.BaseViewHolder
@@ -22,18 +27,22 @@ class MainAdapter(private val onClick: (String) -> Unit)
 
         private var currentProduct: String? = null
 
-        //private val imageAdapter = ProductImageAdapter { currentProduct?.let(onClick) }
-
+        private val imageAdapter = ImageAdapter()
         init {
             itemView.setOnClickListener {
                 currentProduct?.let(onClick)
+            }
+            with(binding.imageRecycler){
+                adapter = imageAdapter
+                layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
+                PagerSnapHelper().attachToRecyclerView(this)
             }
         }
 
         override fun bindModel(model: BaseRvModel.ProductInListRv) {
             currentProduct = model.guid
             with(binding) {
-                Glide.with(itemView).load(model.image[0]).into(imageProductList)
+                imageAdapter.submitList(model.image)
                 priceProductList.text = binding.root.resources.getString(R.string.ruble, model.price)
                 nameProductList.text = model.name
                 ratingProductList.rating = model.rating

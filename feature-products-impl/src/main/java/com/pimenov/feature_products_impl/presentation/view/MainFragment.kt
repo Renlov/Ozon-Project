@@ -2,7 +2,6 @@ package com.pimenov.feature_products_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -19,7 +18,6 @@ import com.pimenov.feature_products_impl.presentation.adapters.MainAdapter
 import com.pimenov.feature_products_impl.presentation.utils.autoCleared
 import com.pimenov.feature_products_impl.presentation.view_models.ProductsListViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
