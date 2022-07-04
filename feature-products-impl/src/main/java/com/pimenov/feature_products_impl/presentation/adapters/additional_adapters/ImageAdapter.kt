@@ -1,5 +1,6 @@
 package com.pimenov.feature_products_impl.presentation.adapters.additional_adapters
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,6 +18,17 @@ class ImageAdapter(private var images: List<String> = emptyList()
         holder.bind(images[position])
     }
 
+    override fun onBindViewHolder(holder: ImageViewHolder, position: Int, payloads: MutableList<Any>) {
+//        if (payloads.isEmpty()){
+//            super.onBindViewHolder(holder, position, payloads)
+//        } else {
+//            if (payloads[0] == true){
+//                holder.
+//            }
+//        }
+        super.onBindViewHolder(holder, position, payloads)
+    }
+
     override fun getItemCount(): Int = images.size
 
     fun submitList(newImages: List<String>) {
@@ -24,9 +36,14 @@ class ImageAdapter(private var images: List<String> = emptyList()
         notifyDataSetChanged()
     }
 
+
+
     inner class ImageViewHolder(private val binding: ItemImageRecyclerBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(image : String){
             Glide.with(binding.root).load(image).into(binding.imageProductList)
         }
+//
+//        fun bindImage(image: String){
+//        }
     }
 }

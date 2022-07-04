@@ -8,11 +8,8 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class ProductsListViewModel@Inject constructor(private val productsInteractor: ProductsInteractor) : ViewModel() {
-
     private var _productInListSharedFlow = MutableStateFlow<List<BaseRvModel>>(emptyList())
     val productInListSharedFlow : SharedFlow<List<BaseRvModel>> = _productInListSharedFlow
-
-
 
     suspend fun getData(){
         productsInteractor.getData()

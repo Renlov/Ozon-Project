@@ -3,8 +3,7 @@ package com.pimenov.feature_products_impl.presentation.adapters.recycler_models
 import com.pimenov.feature_products_impl.R
 
 sealed class BaseRvModel(val viewType : Int) {
-    data class HeaderRv(val header: String) : BaseRvModel(R.layout.item_header_recycler) {
-    }
+    data class HeaderRv(val header: String) : BaseRvModel(R.layout.item_header_recycler)
 
     data class ProductInListRv(
         val guid: String,
@@ -14,6 +13,5 @@ sealed class BaseRvModel(val viewType : Int) {
         val rating: Float,
         val isFavorite: Boolean,
         val isInCart: Boolean
-    ) : BaseRvModel(R.layout.item_list_recycler) {
-    }
+    ) : BaseRvModel(R.layout.item_list_recycler)
 }

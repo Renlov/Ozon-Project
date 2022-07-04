@@ -88,6 +88,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productRating" />
 
+
+
     <TextView
         android:visibility="gone"
         android:id="@+id/ProductAdditional"

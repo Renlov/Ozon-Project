@@ -1,13 +1,10 @@
 package com.pimenov.feature_products_impl.presentation.adapters
 
-import android.util.Log
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.bumptech.glide.Glide
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.pimenov.feature_products_impl.presentation.utils.inflate
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.ItemHeaderRecyclerBinding
 import com.pimenov.feature_products_impl.databinding.ItemListRecyclerBinding
@@ -15,7 +12,7 @@ import com.pimenov.feature_products_impl.presentation.adapters.additional_adapte
 import com.pimenov.feature_products_impl.presentation.adapters.diff_util.ProductListDiffUtil
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.adapters.view_holders.BaseViewHolder
-import kotlinx.android.synthetic.main.item_list_recycler.view.*
+import com.pimenov.feature_products_impl.presentation.utils.inflate
 
 
 class MainAdapter(private val onClick: (String) -> Unit)
@@ -27,15 +24,19 @@ class MainAdapter(private val onClick: (String) -> Unit)
     ) : BaseViewHolder<BaseRvModel.ProductInListRv>(binding.root){
 
         private var currentProduct: String? = null
-
+        var viewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
         private val imageAdapter = ImageAdapter()
+
         init {
             itemView.setOnClickListener {
                 currentProduct?.let(onClick)
             }
 
+
+
             with(binding.imageRecycler){
                 adapter = imageAdapter
+                setRecycledViewPool(viewPool)
                 layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
                 PagerSnapHelper().attachToRecyclerView(this)
             }
