@@ -51,7 +51,6 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
                 }
             }
         }
-
     }
 }
 

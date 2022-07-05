@@ -2,7 +2,6 @@ package com.pimenov.feature_pdp_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -37,22 +36,26 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-
             productId = it.getString(PRODUCT_ID)
-            viewModel.getCounter(productId ?: "error" )
+            viewModel.getCounterProduct(productId ?: "error" )
         }
-        productId?.let { getProduct(it) }
+        productId?.let {
+            getProduct(it)
+        }
         observeViewModelState()
     }
 
     private fun observeViewModelState() {
         viewModel.productLiveData.observe(viewLifecycleOwner) {
             updateProduct(it)
-            viewModel.incrementCounter(it.guid)
+            viewModel.incrementCounterProduct(it.guid)
         }
-        viewModel.counterLiveData.observe(viewLifecycleOwner) {
+        viewModel.counterProductLiveData.observe(viewLifecycleOwner) {
             binding.productEntry.text = requireContext().resources.getString(
-                R.string.countEntry, viewModel.counterLiveData.value)
+                R.string.countEntry, viewModel.counterProductLiveData.value)
+        }
+        viewModel.countLiveData.observe(viewLifecycleOwner){
+
         }
     }
 
