@@ -3,7 +3,7 @@ package com.pimenov.feature_products_impl.presentation.adapters.mappers
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.view_object.ProductInListVO
 
-fun List<ProductInListVO>.toRV() : List<BaseRvModel> {
+fun List<ProductInListVO>.toRV(): List<BaseRvModel> {
     val cheap = this.filter {
         it.price.toInt() < 100
     }.map {
@@ -22,7 +22,7 @@ fun List<ProductInListVO>.toRV() : List<BaseRvModel> {
     }
 }
 
-fun ProductInListVO.toRvModel() : BaseRvModel.ProductInListRv =
+fun ProductInListVO.toRvModel(): BaseRvModel.ProductInListRv =
     BaseRvModel.ProductInListRv(
         guid = guid,
         image = image,
@@ -30,6 +30,8 @@ fun ProductInListVO.toRvModel() : BaseRvModel.ProductInListRv =
         price = price,
         rating = rating,
         isFavorite = isFavorite,
-        isInCart = isInCart)
+        isInCart = isInCart,
+        isLoading = false
+    )
 
 

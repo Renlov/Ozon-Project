@@ -4,7 +4,7 @@ data class ProductInListDTO(
     val guid: String,
     val image: List<String>,
     val isFavorite: Boolean,
-    val isInCart: Boolean,
+    var isInCart: Boolean,
     val name: String,
     val price: String,
     val rating: Double

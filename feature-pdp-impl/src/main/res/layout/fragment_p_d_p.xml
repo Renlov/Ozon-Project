@@ -88,8 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productRating" />
 
-
-
     <TextView
         android:visibility="gone"
         android:id="@+id/ProductAdditional"
@@ -107,5 +105,12 @@
         app:layout_constraintBottom_toBottomOf="@+id/productRating"
         app:layout_constraintStart_toEndOf="@+id/productRating"
         app:layout_constraintTop_toTopOf="@+id/productRating" />
+
+    <com.pimenov.feature_pdp_impl.presentation.view_custom.ButtonInCart
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

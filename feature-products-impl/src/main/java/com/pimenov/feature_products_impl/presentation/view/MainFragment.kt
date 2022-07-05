@@ -33,8 +33,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private val productListAdapter  by autoCleared {
-        MainAdapter(::onClick)
+        MainAdapter(::onClick, ::onClickInCart)
     }
+
+
     private val binding by viewBinding(FragmentMainBinding::bind)
 
     override fun onAttach(context: Context) {
@@ -77,6 +79,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun onClick(guid : String){
         productNavigationApi.navigateToPDP(fragment = this, guid = guid)
     }
+
+    private fun onClickInCart(guidId: String) {
+        viewModel.setInCart(guidId)
+    }
+
 
     override fun onPause() {
         if(isRemoving) {

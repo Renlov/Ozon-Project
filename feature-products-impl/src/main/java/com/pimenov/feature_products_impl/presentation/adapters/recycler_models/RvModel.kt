@@ -12,6 +12,7 @@ sealed class BaseRvModel(val viewType : Int) {
         val price: String,
         val rating: Float,
         val isFavorite: Boolean,
-        val isInCart: Boolean
+        val isInCart: Boolean,
+        val isLoading: Boolean
     ) : BaseRvModel(R.layout.item_list_recycler)
 }
