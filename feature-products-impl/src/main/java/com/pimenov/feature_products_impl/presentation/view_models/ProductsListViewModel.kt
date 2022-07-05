@@ -33,7 +33,7 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
                 _productInListSharedFlow.value.map { model ->
                     val newModel =  if (model is BaseRvModel.ProductInListRv){
                         if (guidId == model.guid){
-                            model.copy(isLoading = true)
+                            model.copy(isLoading = !model.isInCart)
                         } else model
                     } else model
                     newModel
