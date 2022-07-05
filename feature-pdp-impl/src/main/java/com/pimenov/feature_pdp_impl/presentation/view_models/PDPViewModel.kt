@@ -18,12 +18,13 @@ class PDPViewModel @Inject constructor(private val pdpInteractor: PDPInteractor,
     private val _counterProductLiveData = MutableLiveData<Int>()
     val counterProductLiveData: LiveData<Int> = _counterProductLiveData
 
-    private val _counterLiveData = MutableLiveData<Int>()
-    val countLiveData: LiveData<Int> = _counterLiveData
+    private val _counterLiveData = MutableLiveData<Int?>()
+    val countLiveData: LiveData<Int?> = _counterLiveData
 
 
     fun getProductByGuid(guid : String) {
         _productLiveData.postValue(pdpInteractor.getProductById(guid))
+        _counterLiveData.postValue(pdpInteractor.getProductById(guid).availableCount)
     }
 
 
@@ -37,17 +38,5 @@ class PDPViewModel @Inject constructor(private val pdpInteractor: PDPInteractor,
         viewModelScope.launch {
             _counterProductLiveData.postValue(dataStore.getCounter(guid))
         }
-    }
-
-    fun getCount(guid : String){
-
-    }
-
-    fun increaseCount(){
-
-    }
-
-    fun decreaseCount(){
-
     }
 }

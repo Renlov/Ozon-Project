@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -23,6 +24,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
 
     private val binding by viewBinding(FragmentPDPBinding::bind)
     private var productId: String ?= null
+    private var countProduct : Int ?= null
 
     private val viewModel: PDPViewModel by viewModels() {
         PDPFeatureComponent.pdpFeatureComponent!!.fabric()
@@ -43,6 +45,17 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
             getProduct(it)
         }
         observeViewModelState()
+
+        binding.countButton.binding.buttonCart.setOnClickListener {
+            binding.countButton.getCounter()
+        }
+        binding.countButton.binding.buttonMinus.setOnClickListener {
+            binding.countButton.decreaseCount(countProduct ?: 0)
+        }
+        binding.countButton.binding.buttonPlus.setOnClickListener {
+            binding.countButton.increaseCount(countProduct ?: 0)
+        }
+
     }
 
     private fun observeViewModelState() {
@@ -55,7 +68,10 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
                 R.string.countEntry, viewModel.counterProductLiveData.value)
         }
         viewModel.countLiveData.observe(viewLifecycleOwner){
-
+            if (it == 0){
+                binding.countButton.isAvailable()
+            }
+            countProduct = it
         }
     }
 
