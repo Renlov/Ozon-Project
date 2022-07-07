@@ -24,10 +24,9 @@ class ButtonInList @JvmOverloads constructor(
         renderViewState(false, false)
     }
 
-
-    private enum class ButtonState(val text: Int, val color: Int) {
-        IN_CART_OFF(R.string.inCartOff, R.color.ozonColor),
-        IN_CART_ON(R.string.inCartOn, R.color.ozonColorOn)
+    private sealed class ButtonState(val text: Int, val color: Int){
+        class InCartOff : ButtonState(R.string.inCartOff, R.color.ozonColor)
+        class InCartOn : ButtonState(R.string.inCartOn, R.color.ozonColorOn)
     }
 
     fun renderViewState(isInCart: Boolean, isLoading: Boolean) {
@@ -37,11 +36,11 @@ class ButtonInList @JvmOverloads constructor(
                 progressBarState.isVisible = false
                 btnCartOn.setBackgroundColor(
                     resources.getColor(
-                        ButtonState.IN_CART_ON.color,
+                        ButtonState.InCartOn().color,
                         null
                     )
                 )
-                btnCartOn.text = resources.getString(ButtonState.IN_CART_ON.text)
+                btnCartOn.text = resources.getString(ButtonState.InCartOn().text)
             } else if (isLoading) {
                 btnCartOn.isVisible = false
                 progressBarState.isVisible = true
@@ -50,11 +49,11 @@ class ButtonInList @JvmOverloads constructor(
                 progressBarState.isVisible = false
                 btnCartOn.setBackgroundColor(
                     resources.getColor(
-                        ButtonState.IN_CART_OFF.color,
+                        ButtonState.InCartOff().color,
                         null
                     )
                 )
-                btnCartOn.text = resources.getString(ButtonState.IN_CART_OFF.text)
+                btnCartOn.text = resources.getString(ButtonState.InCartOff().text)
             }
         }
     }

@@ -18,10 +18,6 @@ class ImageAdapter(private var images: List<String> = emptyList()
         holder.bind(images[position])
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isEmpty()) super.onBindViewHolder(holder, position, payloads)
-    }
-
     override fun getItemCount(): Int = images.size
 
     fun submitList(newImages: List<String>) {

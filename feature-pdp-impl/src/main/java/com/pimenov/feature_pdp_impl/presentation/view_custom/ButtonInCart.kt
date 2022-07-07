@@ -21,10 +21,10 @@ class ButtonInCart @JvmOverloads constructor(
     private var count = 0
 
     init {
-        getButton()
+        showButton()
     }
 
-    private fun getButton() {
+    private fun showButton() {
         count = 0
         with(_binding) {
             buttonCart.visibility = View.VISIBLE
@@ -34,7 +34,7 @@ class ButtonInCart @JvmOverloads constructor(
         }
     }
 
-    fun getCounter() {
+    fun showCounter() {
         count++
         with(_binding) {
             buttonCart.visibility = View.GONE
@@ -62,6 +62,6 @@ class ButtonInCart @JvmOverloads constructor(
         count--
         if (dataCount > count && count != 0){
             binding.countProduct.text = count.toString()
-        } else getButton()
+        } else showButton()
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -47,7 +46,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         observeViewModelState()
 
         binding.countButton.binding.buttonCart.setOnClickListener {
-            binding.countButton.getCounter()
+            binding.countButton.showCounter()
         }
         binding.countButton.binding.buttonMinus.setOnClickListener {
             binding.countButton.decreaseCount(countProduct ?: 0)

@@ -1,20 +1,15 @@
 package com.pimenov.feature_products_impl.presentation.adapters
 
-import android.util.Log
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.*
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.ItemHeaderRecyclerBinding
 import com.pimenov.feature_products_impl.databinding.ItemListRecyclerBinding
 import com.pimenov.feature_products_impl.presentation.adapters.additional_adapters.ImageAdapter
-import com.pimenov.feature_products_impl.presentation.adapters.diff_util.ProductListDiffUtil
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.adapters.view_holders.BaseViewHolder
 import com.pimenov.feature_products_impl.presentation.utils.inflate
-import kotlinx.android.synthetic.main.item_list_recycler.view.*
 
 
 class MainAdapter(
@@ -62,6 +57,13 @@ class MainAdapter(
                 }
             }
         }
+        fun bindInCart(isInCart: Boolean){
+            binding.btnCart.binding.btnCartOn.isVisible = isInCart
+        }
+
+        fun bindLoading(isLoading : Boolean){
+            binding.btnCart.binding.progressBarState.isVisible = isLoading
+        }
     }
 
     inner class HeaderViewHolder(private val binding: ItemHeaderRecyclerBinding) :
@@ -70,7 +72,6 @@ class MainAdapter(
             binding.headerTitle.text = model.header
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return when (viewType) {
@@ -92,10 +93,56 @@ class MainAdapter(
         holder.bind(currentList[position])
     }
 
+    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isEmpty()) super.onBindViewHolder(holder, position, payloads)
+        (holder as? ProductInLiveViewHolder)?.let { curHolder ->
+            val item = (currentList[position] as? BaseRvModel.ProductInListRv) ?: return
+            payloads.forEach { payload ->
+                when(payload){
+                    PRODUCT_IN_CART -> curHolder.bindInCart(item.isInCart)
+                    PRODUCT_LOADING -> curHolder.bindLoading(item.isLoading)
+                    else ->super.onBindViewHolder(holder, position, payloads)
+                }
+            }
+        }
+    }
+
+
     override fun getItemCount() = currentList.size
 
     override fun getItemViewType(position: Int): Int {
         return currentList[position].viewType
+    }
+    class ProductListDiffUtil : DiffUtil.ItemCallback<BaseRvModel>() {
+
+        override fun areItemsTheSame(oldItem: BaseRvModel, newItem: BaseRvModel): Boolean {
+            return if (oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv) {
+                oldItem.guid == newItem.guid
+            } else true
+        }
+
+        override fun areContentsTheSame(oldItem: BaseRvModel, newItem: BaseRvModel): Boolean {
+            return if (oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv) {
+                oldItem.isInCart == newItem.isInCart
+                        && oldItem.name == newItem.name
+                        && oldItem.rating == newItem.rating
+                        && oldItem.isFavorite
+                        && newItem.isFavorite
+                        && oldItem.price == newItem.price && oldItem.isLoading == newItem.isLoading
+            } else true
+        }
+
+        override fun getChangePayload(oldItem: BaseRvModel, newItem: BaseRvModel): Any? {
+            return if(oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv){
+                if (oldItem.isInCart != newItem.isInCart) return PRODUCT_IN_CART
+                if (oldItem.isLoading != newItem.isLoading) return PRODUCT_LOADING
+                null
+            } else null
+        }
+    }
+    private companion object{
+        const val PRODUCT_IN_CART = 1
+        const val PRODUCT_LOADING = 2
     }
 }
 
