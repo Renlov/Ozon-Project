@@ -39,7 +39,7 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
                     newModel
                 }
             }
-            delay(1000)
+            delay(SECOND_FOR_WAITING)
             _productInListSharedFlow.value = withContext(Dispatchers.IO){
                 _productInListSharedFlow.value.map { model ->
                     val newModel =  if (model is BaseRvModel.ProductInListRv){
@@ -51,6 +51,10 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
                 }
             }
         }
+    }
+
+    companion object{
+        const val SECOND_FOR_WAITING = 1000L
     }
 }
 
