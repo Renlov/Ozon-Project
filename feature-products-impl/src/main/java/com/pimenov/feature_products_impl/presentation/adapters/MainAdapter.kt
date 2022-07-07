@@ -5,13 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.*
+import com.pimenov.core_utils.recyclerUtils.inflate
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.ItemHeaderRecyclerBinding
 import com.pimenov.feature_products_impl.databinding.ItemListRecyclerBinding
 import com.pimenov.feature_products_impl.presentation.adapters.additional_adapters.ImageAdapter
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.adapters.view_holders.BaseViewHolder
-import com.pimenov.feature_products_impl.presentation.utils.inflate
 
 
 class MainAdapter(

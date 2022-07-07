@@ -60,5 +60,6 @@ dependencies {
     implementation bindingDelegate
     implementation dataStore
     implementation fragment
+    implementation circleRecyclerIndicator
 
 }

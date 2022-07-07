@@ -11,8 +11,15 @@
         android:id="@+id/recyclerImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_only"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <me.relex.circleindicator.CircleIndicator2
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerImageView" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_only"

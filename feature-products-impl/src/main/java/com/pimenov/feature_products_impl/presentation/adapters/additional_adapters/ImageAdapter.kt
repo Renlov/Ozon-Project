@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.pimenov.core_utils.recyclerUtils.inflate
 import com.pimenov.feature_products_impl.databinding.ItemImageRecyclerBinding
-import com.pimenov.feature_products_impl.presentation.utils.inflate
 
 
 class ImageAdapter(private var images: List<String> = emptyList()
