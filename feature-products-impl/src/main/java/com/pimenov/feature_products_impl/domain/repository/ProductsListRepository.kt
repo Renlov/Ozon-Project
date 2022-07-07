@@ -10,4 +10,5 @@ import kotlinx.coroutines.flow.StateFlow
 interface ProductsListRepository {
     suspend fun getData()
     fun productListStateFlow() : Flow<List<ProductInListDO>?>
+    fun updateCartState(guidId: String)
 }

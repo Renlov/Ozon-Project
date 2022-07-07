@@ -12,5 +12,6 @@ interface ProductDatabase {
     fun getProducts() : List<ProductPrefs>
     fun getProductByGuid(guid:String): ProductPrefs?
     fun getCountDatabase() : Int
+    fun updateCartState(guid:String)
     fun addProductRandom()
 }

@@ -27,29 +27,20 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
         }.launchIn(viewModelScope)
     }
 
-    fun setInCart(guidId : String){
+    fun addToCart(guid: String) {
         viewModelScope.launch {
-            _productInListSharedFlow.value = withContext(Dispatchers.IO){
-                _productInListSharedFlow.value.map { model ->
-                    val newModel =  if (model is BaseRvModel.ProductInListRv){
-                        if (guidId == model.guid){
-                            model.copy(isLoading = !model.isInCart)
-                        } else model
-                    } else model
-                    newModel
-                }
-            }
+            productsInteractor.addToCart(guid)
             delay(SECOND_FOR_WAITING)
-            _productInListSharedFlow.value = withContext(Dispatchers.IO){
-                _productInListSharedFlow.value.map { model ->
-                    val newModel =  if (model is BaseRvModel.ProductInListRv){
-                        if (guidId == model.guid){
-                            model.copy(isInCart = true, isLoading = false)
-                        } else model
-                    } else model
-                    newModel
-                }
+            val newData = _productInListSharedFlow.value.map {
+                if (it is BaseRvModel.ProductInListRv) {
+                    if (it.guid == guid) {
+                        it.copy(
+                            isInCart = !it.isInCart
+                        )
+                    }else it
+                } else it
             }
+            _productInListSharedFlow.value = newData
         }
     }
 

@@ -30,8 +30,6 @@ fun ProductInListVO.toRvModel(): BaseRvModel.ProductInListRv =
         price = price,
         rating = rating,
         isFavorite = isFavorite,
-        isInCart = isInCart,
-        isLoading = false
-    )
+        isInCart = isInCart)
 
 

@@ -37,7 +37,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         MainAdapter(::onClick, ::onClickInCart)
     }
 
-
     private val binding by viewBinding(FragmentMainBinding::bind)
 
     override fun onAttach(context: Context) {
@@ -65,7 +64,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
         viewModel.productInListSharedFlow.onEach{
             productListAdapter.submitList(it)
-            if (it.isNotEmpty())switchLoadingShimmer()
+            if (it.isNotEmpty()) switchLoadingShimmer()
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
     }
@@ -84,7 +83,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun onClickInCart(guidId: String) {
-        viewModel.setInCart(guidId)
+        viewModel.addToCart(guidId)
     }
 
     private fun switchLoadingShimmer() {

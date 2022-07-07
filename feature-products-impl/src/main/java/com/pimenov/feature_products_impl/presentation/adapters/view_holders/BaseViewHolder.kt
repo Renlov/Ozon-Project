@@ -1,5 +1,6 @@
 package com.pimenov.feature_products_impl.presentation.adapters.view_holders
 
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
@@ -13,6 +14,10 @@ abstract class BaseViewHolder<T : BaseRvModel>(
         (model as? T)?.let {
             bindModel(it)
         }
+    }
+
+    open fun update(bundle: Bundle){
+
     }
 
     protected abstract fun bindModel(model: T)

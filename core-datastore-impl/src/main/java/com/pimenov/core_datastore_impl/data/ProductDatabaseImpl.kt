@@ -54,6 +54,19 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         return getProductList().size
     }
 
+    override fun updateCartState(guid:String) {
+        addProducts(getProducts().toMutableList().map {
+            if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
+        })
+        addProductInList(getProductList().map {
+            if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
+        })
+        if (getProductAdditional().isEmpty()) return
+        addProductAdditional(getProductAdditional().map {
+            if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
+        })
+    }
+
     override fun addProductRandom() {
         val productInList = getProductList().toMutableList()
         val productList = getProducts().toMutableList()

@@ -1,6 +1,7 @@
 package com.pimenov.feature_products_impl.presentation.adapters
 
 import android.graphics.Rect
+import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -33,8 +34,11 @@ class MainAdapter(
                 currentProduct?.let(onClick)
             }
 
+
+
             binding.btnCart.binding.btnCartOn.setOnClickListener {
                 currentProduct?.let(onClickInCart)
+                binding.btnCart.buttonState.value = binding.btnCart.buttonState.value.copy(isLoading = true)
             }
 
             with(binding.imageRecycler) {
@@ -58,16 +62,14 @@ class MainAdapter(
                     priceProductList.text = binding.root.resources.getString(R.string.ruble, price)
                     nameProductList.text = name
                     ratingProductList.rating = rating
-                    btnCart.renderViewState(isInCart, isLoading)
+                    btnCart.buttonState.value = btnCart.buttonState.value.copy(isInCart, isLoading = false)
                 }
             }
         }
-        fun bindInCart(isInCart: Boolean){
-            binding.btnCart.binding.btnCartOn.isVisible = isInCart
-        }
 
-        fun bindLoading(isLoading : Boolean){
-            binding.btnCart.binding.progressBarState.isVisible = isLoading
+        override fun update(bundle: Bundle) {
+            val isInCart = bundle.getBoolean(PRODUCT_IN_CART)
+            binding.btnCart.buttonState.value = binding.btnCart.buttonState.value.copy(isInCart = isInCart, isLoading = false)
         }
     }
 
@@ -82,7 +84,7 @@ class MainAdapter(
         return when (viewType) {
             R.layout.item_list_recycler -> ProductInLiveViewHolder(
                 parent.inflate(
-                    com.pimenov.feature_products_impl.databinding.ItemListRecyclerBinding::inflate
+                    ItemListRecyclerBinding::inflate
                 ), onClick
             )
             R.layout.item_header_recycler -> HeaderViewHolder(
@@ -98,20 +100,18 @@ class MainAdapter(
         holder.bind(currentList[position])
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isEmpty()) super.onBindViewHolder(holder, position, payloads)
-        (holder as? ProductInLiveViewHolder)?.let { curHolder ->
-            val item = (currentList[position] as? BaseRvModel.ProductInListRv) ?: return
-            payloads.forEach { payload ->
-                when(payload){
-                    PRODUCT_IN_CART -> curHolder.bindInCart(item.isInCart)
-                    PRODUCT_LOADING -> curHolder.bindLoading(item.isLoading)
-                    else ->super.onBindViewHolder(holder, position, payloads)
-                }
-            }
+    override fun onBindViewHolder(
+        holder: BaseViewHolder<*>,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty() || payloads[0] !is Bundle) {
+            holder.bind(currentList[position])
+        } else {
+            val bundle = payloads[0] as Bundle
+            holder.update(bundle)
         }
     }
-
 
     override fun getItemCount() = currentList.size
 
@@ -133,21 +133,31 @@ class MainAdapter(
                         && oldItem.rating == newItem.rating
                         && oldItem.isFavorite
                         && newItem.isFavorite
-                        && oldItem.price == newItem.price && oldItem.isLoading == newItem.isLoading
+                        && oldItem.price == newItem.price
+                        && oldItem.isInCart == newItem.isInCart
             } else true
         }
 
         override fun getChangePayload(oldItem: BaseRvModel, newItem: BaseRvModel): Any? {
-            return if(oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv){
-                if (oldItem.isInCart != newItem.isInCart) return PRODUCT_IN_CART
-                if (oldItem.isLoading != newItem.isLoading) return PRODUCT_LOADING
-                null
-            } else null
+            val bundle = Bundle()
+                return if(oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv){
+                    if (oldItem.guid == newItem.guid) {
+                        return if (oldItem.isInCart != newItem.isInCart) {
+                            bundle.putBoolean(PRODUCT_IN_CART, newItem.isInCart)
+                            bundle
+                        }
+                        else {
+                            super.getChangePayload(oldItem, newItem)
+                        }
+                    }
+                    return super.getChangePayload(oldItem, newItem)
+                }
+            else super.getChangePayload(oldItem, newItem)
         }
     }
+
     private companion object{
-        const val PRODUCT_IN_CART = 1
-        const val PRODUCT_LOADING = 2
+        const val PRODUCT_IN_CART = "productInCart"
     }
 }
 

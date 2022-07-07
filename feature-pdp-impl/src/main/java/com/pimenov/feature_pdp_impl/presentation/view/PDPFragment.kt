@@ -61,7 +61,6 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
             recyclerImageView.adapter = imageAdapter
             recyclerImageView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             pagerSnapHelper.attachToRecyclerView(recyclerImageView)
-            //indicator.attachToRecyclerView(recyclerImageView, pagerSnapHelper)
         }
     }
 

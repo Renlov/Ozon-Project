@@ -7,6 +7,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.CustomViewButtonBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 class ButtonInList @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
@@ -19,42 +23,54 @@ class ButtonInList @JvmOverloads constructor(
     val binding: CustomViewButtonBinding
         get() = _binding
 
+    val buttonState: MutableStateFlow<ButtonState> = MutableStateFlow(
+        ButtonState(isInCart = false, isLoading = true))
+
     init {
-        renderViewState(false, false)
-    }
-
-    private sealed class ButtonState(val text: Int, val color: Int){
-        class InCartOff : ButtonState(R.string.inCartOff, R.color.ozonColor)
-        class InCartOn : ButtonState(R.string.inCartOn, R.color.ozonColorOn)
-    }
-
-    fun renderViewState(isInCart: Boolean, isLoading: Boolean) {
-        with(_binding) {
-            if (isInCart) {
-                btnCartOn.isVisible = true
-                progressBarState.isVisible = false
-                btnCartOn.setBackgroundColor(
-                    resources.getColor(
-                        ButtonState.InCartOn().color,
-                        null
-                    )
-                )
-                btnCartOn.text = resources.getString(ButtonState.InCartOn().text)
-            } else if (isLoading) {
-                btnCartOn.isVisible = false
-                progressBarState.isVisible = true
-            } else {
-                btnCartOn.isVisible = true
-                progressBarState.isVisible = false
-                btnCartOn.setBackgroundColor(
-                    resources.getColor(
-                        ButtonState.InCartOff().color,
-                        null
-                    )
-                )
-                btnCartOn.text = resources.getString(ButtonState.InCartOff().text)
+        CoroutineScope(Dispatchers.Main).launch {
+            buttonState.collect {
+                renderViewState(it)
             }
         }
     }
-}
 
+    private enum class State(val text: Int, val color: Int) {
+        IN_CART_OFF(R.string.inCartOff, R.color.ozonColor),
+        IN_CART_ON(R.string.inCartOn, R.color.ozonColorOn)
+    }
+
+    fun renderViewState(buttonState: ButtonState) {
+        with(_binding) {
+            when (buttonState) {
+                ButtonState(isInCart = true, isLoading = false) -> {
+                    btnCartOn.isVisible = true
+                    progressBarState.isVisible = false
+                    btnCartOn.setBackgroundColor(
+                        resources.getColor(
+                            State.IN_CART_ON.color,
+                            null
+                        )
+                    )
+                    btnCartOn.text = resources.getString(State.IN_CART_ON.text)
+                }
+                ButtonState(isInCart = false, isLoading = false) -> {
+                    btnCartOn.isVisible = true
+                    progressBarState.isVisible = false
+                    btnCartOn.setBackgroundColor(resources
+                        .getColor(State.IN_CART_OFF.color, null)
+                    )
+                    btnCartOn.text = resources.getString(State.IN_CART_OFF.text)
+                }
+                else -> {
+                    btnCartOn.isVisible = false
+                    progressBarState.isVisible = true
+                }
+            }
+        }
+    }
+
+    data class ButtonState(
+        val isInCart: Boolean,
+        val isLoading: Boolean
+    )
+}
