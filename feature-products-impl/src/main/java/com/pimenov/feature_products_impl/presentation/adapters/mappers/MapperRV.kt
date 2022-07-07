@@ -15,9 +15,9 @@ fun List<ProductInListVO>.toRV(): List<BaseRvModel> {
         it.toRvModel()
     }
     return mutableListOf<BaseRvModel>().apply {
-        add(BaseRvModel.HeaderRv(header = "Cheap"))
+        add(BaseRvModel.HeaderRv(header = "Скидки"))
         addAll(cheap)
-        add(BaseRvModel.HeaderRv(header = "Expensive"))
+        add(BaseRvModel.HeaderRv(header = "Продукты"))
         addAll(expensive)
     }
 }

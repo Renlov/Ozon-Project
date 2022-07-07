@@ -60,4 +60,5 @@ dependencies {
     kapt daggerCompiler
     implementation fragment
     implementation coroutines.values()
+    implementation shimmer
 }

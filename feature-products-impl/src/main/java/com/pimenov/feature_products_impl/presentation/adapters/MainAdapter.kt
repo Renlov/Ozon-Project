@@ -1,5 +1,7 @@
 package com.pimenov.feature_products_impl.presentation.adapters
 
+import android.graphics.Rect
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.*
@@ -31,7 +33,6 @@ class MainAdapter(
                 currentProduct?.let(onClick)
             }
 
-
             binding.btnCart.binding.btnCartOn.setOnClickListener {
                 currentProduct?.let(onClickInCart)
             }
@@ -39,9 +40,13 @@ class MainAdapter(
             with(binding.imageRecycler) {
                 adapter = imageAdapter
                 setRecycledViewPool(viewPool)
-                layoutManager =
-                    LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
                 PagerSnapHelper().attachToRecyclerView(this)
+                addItemDecoration(object : RecyclerView.ItemDecoration(){
+                    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                        outRect.set(5,0,5,0)
+                    }
+                })
             }
         }
 
@@ -77,7 +82,7 @@ class MainAdapter(
         return when (viewType) {
             R.layout.item_list_recycler -> ProductInLiveViewHolder(
                 parent.inflate(
-                    ItemListRecyclerBinding::inflate
+                    com.pimenov.feature_products_impl.databinding.ItemListRecyclerBinding::inflate
                 ), onClick
             )
             R.layout.item_header_recycler -> HeaderViewHolder(

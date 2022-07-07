@@ -3,7 +3,6 @@ package com.pimenov.feature_products_impl.presentation.view_custom
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.pimenov.feature_products_impl.R

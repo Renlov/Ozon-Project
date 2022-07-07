@@ -1,11 +1,13 @@
 package com.pimenov.feature_products_impl.presentation.adapters.additional_adapters
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.pimenov.feature_products_impl.databinding.ItemImageRecyclerBinding
 import com.pimenov.feature_products_impl.presentation.utils.inflate
+
 
 class ImageAdapter(private var images: List<String> = emptyList()
 ): RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
@@ -29,7 +31,9 @@ class ImageAdapter(private var images: List<String> = emptyList()
 
     inner class ImageViewHolder(private val binding: ItemImageRecyclerBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(image : String){
-            Glide.with(binding.root).load(image).into(binding.imageProductList)
+            Glide.with(binding.root).load(image)
+                .transform(CenterCrop(), RoundedCorners(15))
+                .into(binding.imageProductList)
         }
     }
 }
