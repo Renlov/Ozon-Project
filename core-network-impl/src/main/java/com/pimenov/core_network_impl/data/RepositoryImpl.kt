@@ -24,10 +24,22 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun getProductsInList() :Unit = withContext(Dispatchers.IO) {
         try {
-            val list = productsApi.getListProducts()
-            database.addProductInList(list.map { it.toProductInListDTOSharedPrefs() })
-            val listToEmit = list + database.getProductAdditional().map { it.toProductInListDTO() }
-            flowDataApi._productListSharedFlow.emit(listToEmit)
+            productsApi.getListProducts().also { ptoductExternal->
+                val cashProducts = database.getProductList().map { it.toProductInListDTO() }.toMutableList()
+                cashProducts.addAll(
+                    ptoductExternal.filter { extProduct->
+                        cashProducts.find {
+                            it.guid == extProduct.guid
+                        } == null
+                    }
+                )
+                flowDataApi._productListSharedFlow.emit(cashProducts)
+                database.addProductInList(cashProducts.map { it.toProductInListDTOSharedPrefs() })
+            }
+//            val list = productsApi.getListProducts()
+//            database.addProductInList(list.map { it.toProductInListDTOSharedPrefs() })
+//            val listToEmit = list + database.getProductAdditional().map { it.toProductInListDTO() }
+//            flowDataApi._productListSharedFlow.emit(listToEmit)
         }catch (e : Exception){
             flowDataApi._productListSharedFlow.emit(database.getProductList().map {
                 it.toProductInListDTO()

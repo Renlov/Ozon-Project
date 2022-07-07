@@ -16,7 +16,7 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
     private val sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE)
 
     override fun addProductInList(list: List<ProductInListPrefs>) {
-        sharedPreferences.edit().putString(PREFERENCE_PRODUCT_LIST, Gson().toJson((getProductList() + list).toSet()))
+        sharedPreferences.edit().putString(PREFERENCE_PRODUCT_LIST, Gson().toJson((list)))
             .apply()
     }
 
@@ -75,9 +75,9 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         val product = productInList.random()
         val newGuid = UUID.randomUUID().toString()
 
-        productList.add(productList.find { it.guid == product.guid }?.copy(guid = newGuid) ?: error("cant create new product"))
-        productInList.add(product.copy(guid = newGuid))
-        productAdditional.add(product.copy(guid = newGuid))
+        productList.add(productList.find { it.guid == product.guid }?.copy(guid = newGuid, isInCart = false) ?: error("cant create new product"))
+        productInList.add(product.copy(guid = newGuid, isInCart = false))
+        productAdditional.add(product.copy(guid = newGuid, isInCart = false))
 
         addProductInList(productInList)
         addProducts(productList)
