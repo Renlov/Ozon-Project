@@ -1,68 +1,149 @@
 package com.pimenov.feature_products_impl.presentation.adapters
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.pimenov.feature_products_impl.presentation.utils.inflate
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.*
 import com.pimenov.feature_products_impl.R
+import com.pimenov.feature_products_impl.databinding.ItemHeaderRecyclerBinding
 import com.pimenov.feature_products_impl.databinding.ItemListRecyclerBinding
-import com.pimenov.feature_products_impl.presentation.view_object.ProductInListVO
+import com.pimenov.feature_products_impl.presentation.adapters.additional_adapters.ImageAdapter
+import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
+import com.pimenov.feature_products_impl.presentation.adapters.view_holders.BaseViewHolder
+import com.pimenov.feature_products_impl.presentation.utils.inflate
 
 
-class  MainAdapter(
-    private val onClick: (String) -> Unit
-) : ListAdapter<ProductInListVO, MainAdapter.ViewHolder>(ProductListDiffUtil()) {
+class MainAdapter(
+    private val onClick: (String) -> Unit,
+    private val onClickInCart: (String) -> Unit
+) : ListAdapter<BaseRvModel, BaseViewHolder<*>>(ProductListDiffUtil()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(parent.inflate(ItemListRecyclerBinding::inflate), onClick)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position])
-    }
-
-    override fun getItemCount() = currentList.size
-
-    inner class ViewHolder(
+    inner class ProductInLiveViewHolder(
         private val binding: ItemListRecyclerBinding,
-        onClick: (guid: String) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
+        private val onClick: (String) -> Unit
+    ) : BaseViewHolder<BaseRvModel.ProductInListRv>(binding.root) {
+
+        private var currentProduct: String? = null
+        var viewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+        private val imageAdapter = ImageAdapter()
 
         init {
             itemView.setOnClickListener {
-                onClick(currentList[absoluteAdapterPosition].guid)
+                currentProduct?.let(onClick)
+            }
+
+
+            binding.btnCart.binding.btnCartOn.setOnClickListener {
+                currentProduct?.let(onClickInCart)
+            }
+
+            with(binding.imageRecycler) {
+                adapter = imageAdapter
+                setRecycledViewPool(viewPool)
+                layoutManager =
+                    LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
+                PagerSnapHelper().attachToRecyclerView(this)
             }
         }
 
-        fun bind(data: ProductInListVO) {
-            with(binding) {
-                Glide.with(itemView)
-                    .load(data.image)
-                    .into(imageProductList)
-                priceProductList.text = binding.root.resources.getString(R.string.ruble, data.price)
-                nameProductList.text = data.name
-                ratingProductList.rating = data.rating
+        override fun bindModel(model: BaseRvModel.ProductInListRv) {
+            currentProduct = model.guid
+            with(model) {
+                with(binding) {
+                    imageAdapter.submitList(image)
+                    priceProductList.text = binding.root.resources.getString(R.string.ruble, price)
+                    nameProductList.text = name
+                    ratingProductList.rating = rating
+                    btnCart.renderViewState(isInCart, isLoading)
+                }
+            }
+        }
+        fun bindInCart(isInCart: Boolean){
+            binding.btnCart.binding.btnCartOn.isVisible = isInCart
+        }
+
+        fun bindLoading(isLoading : Boolean){
+            binding.btnCart.binding.progressBarState.isVisible = isLoading
+        }
+    }
+
+    inner class HeaderViewHolder(private val binding: ItemHeaderRecyclerBinding) :
+        BaseViewHolder<BaseRvModel.HeaderRv>(binding.root) {
+        override fun bindModel(model: BaseRvModel.HeaderRv) {
+            binding.headerTitle.text = model.header
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+        return when (viewType) {
+            R.layout.item_list_recycler -> ProductInLiveViewHolder(
+                parent.inflate(
+                    ItemListRecyclerBinding::inflate
+                ), onClick
+            )
+            R.layout.item_header_recycler -> HeaderViewHolder(
+                parent.inflate(
+                    ItemHeaderRecyclerBinding::inflate
+                )
+            )
+            else -> throw Exception()
+        }
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
+        holder.bind(currentList[position])
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isEmpty()) super.onBindViewHolder(holder, position, payloads)
+        (holder as? ProductInLiveViewHolder)?.let { curHolder ->
+            val item = (currentList[position] as? BaseRvModel.ProductInListRv) ?: return
+            payloads.forEach { payload ->
+                when(payload){
+                    PRODUCT_IN_CART -> curHolder.bindInCart(item.isInCart)
+                    PRODUCT_LOADING -> curHolder.bindLoading(item.isLoading)
+                    else ->super.onBindViewHolder(holder, position, payloads)
+                }
             }
         }
     }
-    class ProductListDiffUtil : DiffUtil.ItemCallback<ProductInListVO>() {
 
-        override fun areItemsTheSame(oldItem: ProductInListVO, newItem: ProductInListVO): Boolean {
-            return oldItem.guid == newItem.guid
+
+    override fun getItemCount() = currentList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return currentList[position].viewType
+    }
+    class ProductListDiffUtil : DiffUtil.ItemCallback<BaseRvModel>() {
+
+        override fun areItemsTheSame(oldItem: BaseRvModel, newItem: BaseRvModel): Boolean {
+            return if (oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv) {
+                oldItem.guid == newItem.guid
+            } else true
         }
 
-        override fun areContentsTheSame(
-            oldItem: ProductInListVO,
-            newItem: ProductInListVO
-        ): Boolean {
-            if (oldItem.image != newItem.image) return false
-            if (oldItem.name != newItem.name) return false
-            if (oldItem.price != newItem.price) return false
-            if (oldItem.rating != newItem.rating) return false
-            return true
+        override fun areContentsTheSame(oldItem: BaseRvModel, newItem: BaseRvModel): Boolean {
+            return if (oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv) {
+                oldItem.isInCart == newItem.isInCart
+                        && oldItem.name == newItem.name
+                        && oldItem.rating == newItem.rating
+                        && oldItem.isFavorite
+                        && newItem.isFavorite
+                        && oldItem.price == newItem.price && oldItem.isLoading == newItem.isLoading
+            } else true
         }
+
+        override fun getChangePayload(oldItem: BaseRvModel, newItem: BaseRvModel): Any? {
+            return if(oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv){
+                if (oldItem.isInCart != newItem.isInCart) return PRODUCT_IN_CART
+                if (oldItem.isLoading != newItem.isLoading) return PRODUCT_LOADING
+                null
+            } else null
+        }
+    }
+    private companion object{
+        const val PRODUCT_IN_CART = 1
+        const val PRODUCT_LOADING = 2
     }
 }
+
 

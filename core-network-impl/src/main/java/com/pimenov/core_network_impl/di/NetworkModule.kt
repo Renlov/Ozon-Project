@@ -22,6 +22,4 @@ interface NetworkModule {
     @Binds
     @Singleton
     fun bindFlowData(data : FlowDataImpl) : FlowDataApi
-
-
 }

@@ -2,7 +2,6 @@ package com.pimenov.feature_products_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -19,7 +18,6 @@ import com.pimenov.feature_products_impl.presentation.adapters.MainAdapter
 import com.pimenov.feature_products_impl.presentation.utils.autoCleared
 import com.pimenov.feature_products_impl.presentation.view_models.ProductsListViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -35,8 +33,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private val productListAdapter  by autoCleared {
-        MainAdapter(::onClick)
+        MainAdapter(::onClick, ::onClickInCart)
     }
+
+
     private val binding by viewBinding(FragmentMainBinding::bind)
 
     override fun onAttach(context: Context) {
@@ -79,6 +79,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun onClick(guid : String){
         productNavigationApi.navigateToPDP(fragment = this, guid = guid)
     }
+
+    private fun onClickInCart(guidId: String) {
+        viewModel.setInCart(guidId)
+    }
+
 
     override fun onPause() {
         if(isRemoving) {

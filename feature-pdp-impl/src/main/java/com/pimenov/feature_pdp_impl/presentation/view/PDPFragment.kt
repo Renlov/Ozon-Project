@@ -2,7 +2,6 @@ package com.pimenov.feature_pdp_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -24,6 +23,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
 
     private val binding by viewBinding(FragmentPDPBinding::bind)
     private var productId: String ?= null
+    private var countProduct : Int ?= null
 
     private val viewModel: PDPViewModel by viewModels() {
         PDPFeatureComponent.pdpFeatureComponent!!.fabric()
@@ -37,22 +37,40 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-
             productId = it.getString(PRODUCT_ID)
-            viewModel.getCounter(productId ?: "error" )
+            viewModel.getCounterProduct(productId ?: "error" )
         }
-        productId?.let { getProduct(it) }
+        productId?.let {
+            getProduct(it)
+        }
         observeViewModelState()
+
+        binding.countButton.binding.buttonCart.setOnClickListener {
+            binding.countButton.showCounter()
+        }
+        binding.countButton.binding.buttonMinus.setOnClickListener {
+            binding.countButton.decreaseCount(countProduct ?: 0)
+        }
+        binding.countButton.binding.buttonPlus.setOnClickListener {
+            binding.countButton.increaseCount(countProduct ?: 0)
+        }
+
     }
 
     private fun observeViewModelState() {
         viewModel.productLiveData.observe(viewLifecycleOwner) {
             updateProduct(it)
-            viewModel.incrementCounter(it.guid)
+            viewModel.incrementCounterProduct(it.guid)
         }
-        viewModel.counterLiveData.observe(viewLifecycleOwner) {
+        viewModel.counterProductLiveData.observe(viewLifecycleOwner) {
             binding.productEntry.text = requireContext().resources.getString(
-                R.string.countEntry, viewModel.counterLiveData.value)
+                R.string.countEntry, viewModel.counterProductLiveData.value)
+        }
+        viewModel.countLiveData.observe(viewLifecycleOwner){
+            if (it == 0){
+                binding.countButton.isAvailable()
+            }
+            countProduct = it
         }
     }
 
