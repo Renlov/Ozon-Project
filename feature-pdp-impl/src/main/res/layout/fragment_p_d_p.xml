@@ -6,13 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.view.PDPFragment">
 
-    <ImageView
-        android:id="@+id/productImage"
-        android:layout_width="0dp"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerImageView"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_only"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -31,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImage"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerImageView"
         tools:text="139"/>
 
     <TextView

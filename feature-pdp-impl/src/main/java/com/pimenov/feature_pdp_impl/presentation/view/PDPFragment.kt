@@ -1,16 +1,22 @@
 package com.pimenov.feature_pdp_impl.presentation.view
 
 import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.pimenov.feature_pdp_api.PDPNavigationApi
 import com.pimenov.feature_pdp_impl.R
 import com.pimenov.feature_pdp_impl.databinding.FragmentPDPBinding
 import com.pimenov.feature_pdp_impl.di.PDPFeatureComponent
+import com.pimenov.feature_pdp_impl.presentation.adapters.MainAdapter
+import com.pimenov.feature_pdp_impl.presentation.adapters.utils.autoCleared
 import com.pimenov.feature_pdp_impl.presentation.view_models.PDPViewModel
 import com.pimenov.feature_pdp_impl.presentation.view_object.ProductVO
 import javax.inject.Inject
@@ -27,6 +33,10 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
 
     private val viewModel: PDPViewModel by viewModels() {
         PDPFeatureComponent.pdpFeatureComponent!!.fabric()
+    }
+
+    private val imageAdapter  by autoCleared {
+        MainAdapter()
     }
 
     override fun onAttach(context: Context) {
@@ -55,6 +65,17 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
             binding.countButton.increaseCount(countProduct ?: 0)
         }
 
+        with(binding.recyclerImageView) {
+            adapter = imageAdapter
+            layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
+            PagerSnapHelper().attachToRecyclerView(this)
+            addItemDecoration(object : RecyclerView.ItemDecoration(){
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                    outRect.set(5,0,5,0)
+                }
+            })
+        }
+
     }
 
     private fun observeViewModelState() {
@@ -76,7 +97,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
 
     private fun updateProduct(product: ProductVO) {
         with(binding){
-            Glide.with(requireContext()).load(product.images[0]).into(productImage)
+            imageAdapter.submitList(product.images)
             productPrice.text = root.resources.getString(R.string.ruble, product.price)
             productName.text = product.name
             productRating.rating = product.rating.toFloat()
