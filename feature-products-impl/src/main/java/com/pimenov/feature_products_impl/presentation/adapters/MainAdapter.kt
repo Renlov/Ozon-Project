@@ -34,8 +34,6 @@ class MainAdapter(
                 currentProduct?.let(onClick)
             }
 
-
-
             binding.btnCart.binding.btnCartOn.setOnClickListener {
                 currentProduct?.let(onClickInCart)
                 binding.btnCart.buttonState.value = binding.btnCart.buttonState.value.copy(isLoading = true)
@@ -128,21 +126,19 @@ class MainAdapter(
 
         override fun areContentsTheSame(oldItem: BaseRvModel, newItem: BaseRvModel): Boolean {
             return if (oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv) {
-                oldItem.isInCart == newItem.isInCart
-                        && oldItem.name == newItem.name
+                        oldItem.name == newItem.name
                         && oldItem.rating == newItem.rating
-                        && oldItem.isFavorite
-                        && newItem.isFavorite
+                        && oldItem.isFavorite == newItem.isFavorite
                         && oldItem.price == newItem.price
                         && oldItem.isInCart == newItem.isInCart
             } else true
         }
 
         override fun getChangePayload(oldItem: BaseRvModel, newItem: BaseRvModel): Any? {
-            val bundle = Bundle()
                 return if(oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv){
                     if (oldItem.guid == newItem.guid) {
                         return if (oldItem.isInCart != newItem.isInCart) {
+                            val bundle = Bundle()
                             bundle.putBoolean(PRODUCT_IN_CART, newItem.isInCart)
                             bundle
                         }

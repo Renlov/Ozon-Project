@@ -16,9 +16,7 @@ abstract class BaseViewHolder<T : BaseRvModel>(
         }
     }
 
-    open fun update(bundle: Bundle){
-
-    }
+    open fun update(bundle: Bundle){}
 
     protected abstract fun bindModel(model: T)
 }
