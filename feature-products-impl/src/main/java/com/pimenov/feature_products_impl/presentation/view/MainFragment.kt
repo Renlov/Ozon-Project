@@ -5,17 +5,18 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.pimenov.core_utils.recyclerUtils.autoCleared
 import com.pimenov.feature_products_api.ProductNavigationApi
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.FragmentMainBinding
 import com.pimenov.feature_products_impl.di.ProductFeatureComponent
 import com.pimenov.feature_products_impl.presentation.adapters.MainAdapter
-import com.pimenov.feature_products_impl.presentation.utils.autoCleared
 import com.pimenov.feature_products_impl.presentation.view_models.ProductsListViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +36,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val productListAdapter  by autoCleared {
         MainAdapter(::onClick, ::onClickInCart)
     }
-
 
     private val binding by viewBinding(FragmentMainBinding::bind)
 
@@ -63,8 +63,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
         viewModel.productInListSharedFlow.onEach{
-            productListAdapter.submitList(it)}
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+            productListAdapter.submitList(it)
+            if (it.isNotEmpty()) switchLoadingShimmer()
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
     }
 
     private fun initList() {
@@ -81,7 +83,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun onClickInCart(guidId: String) {
-        viewModel.setInCart(guidId)
+        viewModel.addToCart(guidId)
+    }
+
+    private fun switchLoadingShimmer() {
+        binding.shimmerView.isVisible = false
+        binding.mainRecyclerView.isVisible = true
     }
 
 

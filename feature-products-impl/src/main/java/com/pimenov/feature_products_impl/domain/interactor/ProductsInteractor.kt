@@ -16,6 +16,7 @@ import javax.inject.Inject
 interface ProductsInteractor {
     suspend fun getData()
     fun productListStateFlow() : Flow<List<ProductInListVO>>
+    fun addToCart(guidId : String)
 }
 
 class ProductsInteractorImpl @Inject constructor(private val repository: ProductsListRepository): ProductsInteractor {
@@ -29,5 +30,9 @@ class ProductsInteractorImpl @Inject constructor(private val repository: Product
                 it.toVO()
             } ?: emptyList()
         }
+    }
+
+    override fun addToCart(guidId: String) {
+        repository.updateCartState(guidId)
     }
 }

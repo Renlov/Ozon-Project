@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="ozonColor">#005bff</color>
     <color name="ozonColorOn">#10c44c</color>
-    <color name="background_color">#24282f</color>
-    <color name="background_item">#3c3e44</color>
+    <color name="background_color">#BCC5D5</color>
+    <color name="background_item">#E6E8F1</color>
 </resources>

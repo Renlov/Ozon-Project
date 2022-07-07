@@ -2,17 +2,22 @@ package com.pimenov.feature_pdp_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bumptech.glide.Glide
+import com.pimenov.core_utils.recyclerUtils.autoCleared
 import com.pimenov.feature_pdp_api.PDPNavigationApi
 import com.pimenov.feature_pdp_impl.R
 import com.pimenov.feature_pdp_impl.databinding.FragmentPDPBinding
 import com.pimenov.feature_pdp_impl.di.PDPFeatureComponent
+import com.pimenov.feature_pdp_impl.presentation.adapters.MainAdapter
 import com.pimenov.feature_pdp_impl.presentation.view_models.PDPViewModel
 import com.pimenov.feature_pdp_impl.presentation.view_object.ProductVO
+import me.relex.circleindicator.CircleIndicator2
 import javax.inject.Inject
 
 
@@ -23,10 +28,15 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
 
     private val binding by viewBinding(FragmentPDPBinding::bind)
     private var productId: String ?= null
-    private var countProduct : Int ?= null
+    private var countProductInt : Int ?= null
+    private lateinit var pagerSnapHelper : PagerSnapHelper
 
     private val viewModel: PDPViewModel by viewModels() {
         PDPFeatureComponent.pdpFeatureComponent!!.fabric()
+    }
+
+    private val imageAdapter  by autoCleared {
+        MainAdapter()
     }
 
     override fun onAttach(context: Context) {
@@ -43,18 +53,29 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         productId?.let {
             getProduct(it)
         }
+        pagerSnapHelper = PagerSnapHelper()
         observeViewModelState()
+        setListeners()
 
-        binding.countButton.binding.buttonCart.setOnClickListener {
-            binding.countButton.showCounter()
+        with(binding) {
+            recyclerImageView.adapter = imageAdapter
+            recyclerImageView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            pagerSnapHelper.attachToRecyclerView(recyclerImageView)
         }
-        binding.countButton.binding.buttonMinus.setOnClickListener {
-            binding.countButton.decreaseCount(countProduct ?: 0)
-        }
-        binding.countButton.binding.buttonPlus.setOnClickListener {
-            binding.countButton.increaseCount(countProduct ?: 0)
-        }
+    }
 
+    private fun setListeners(){
+        with(binding.countButton.binding){
+            buttonCart.setOnClickListener {
+                binding.countButton.showCounter()
+            }
+            buttonMinus.setOnClickListener {
+                binding.countButton.decreaseCount(countProductInt ?: 0)
+            }
+            buttonPlus.setOnClickListener {
+                binding.countButton.increaseCount(countProductInt ?: 0)
+            }
+        }
     }
 
     private fun observeViewModelState() {
@@ -64,26 +85,25 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         }
         viewModel.counterProductLiveData.observe(viewLifecycleOwner) {
             binding.productEntry.text = requireContext().resources.getString(
-                R.string.countEntry, viewModel.counterProductLiveData.value)
+                com.pimenov.feature_pdp_impl.R.string.countEntry, viewModel.counterProductLiveData.value)
         }
         viewModel.countLiveData.observe(viewLifecycleOwner){
-            if (it == 0){
-                binding.countButton.isAvailable()
-            }
-            countProduct = it
+            if (it == 0) binding.countButton.isAvailable()
+            countProductInt = it
         }
     }
 
     private fun updateProduct(product: ProductVO) {
         with(binding){
-            Glide.with(requireContext()).load(product.images[0]).into(productImage)
-            productPrice.text = root.resources.getString(R.string.ruble, product.price)
+            imageAdapter.submitList(product.images)
+            indicator.attachToRecyclerView(recyclerImageView, pagerSnapHelper)
+            productPrice.text = root.resources.getString(com.pimenov.feature_pdp_impl.R.string.ruble, product.price)
             productName.text = product.name
             productRating.rating = product.rating.toFloat()
-            productAvailableCount.text = root.resources.getString(R.string.available, product.availableCount)
+            productAvailableCount.text = root.resources.getString(com.pimenov.feature_pdp_impl.R.string.available, product.availableCount)
             productDescription.text = product.description
-            productWeight.text = root.resources.getString(R.string.weightProduct, product.weight)
-            productCount.text = root.resources.getString(R.string.countAvailable, product.count)
+            productWeight.text = root.resources.getString(com.pimenov.feature_pdp_impl.R.string.weightProduct, product.weight)
+            productCount.text = root.resources.getString(com.pimenov.feature_pdp_impl.R.string.countAvailable, product.count)
         }
     }
 

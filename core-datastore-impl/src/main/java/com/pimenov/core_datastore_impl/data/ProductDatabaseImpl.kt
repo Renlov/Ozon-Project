@@ -16,7 +16,7 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
     private val sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE)
 
     override fun addProductInList(list: List<ProductInListPrefs>) {
-        sharedPreferences.edit().putString(PREFERENCE_PRODUCT_LIST, Gson().toJson((getProductList() + list).toSet()))
+        sharedPreferences.edit().putString(PREFERENCE_PRODUCT_LIST, Gson().toJson((list)))
             .apply()
     }
 
@@ -54,6 +54,19 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         return getProductList().size
     }
 
+    override fun updateCartState(guid:String) {
+        addProducts(getProducts().toMutableList().map {
+            if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
+        })
+        addProductInList(getProductList().map {
+            if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
+        })
+        if (getProductAdditional().isEmpty()) return
+        addProductAdditional(getProductAdditional().map {
+            if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
+        })
+    }
+
     override fun addProductRandom() {
         val productInList = getProductList().toMutableList()
         val productList = getProducts().toMutableList()
@@ -62,9 +75,9 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         val product = productInList.random()
         val newGuid = UUID.randomUUID().toString()
 
-        productList.add(productList.find { it.guid == product.guid }?.copy(guid = newGuid) ?: error("cant create new product"))
-        productInList.add(product.copy(guid = newGuid))
-        productAdditional.add(product.copy(guid = newGuid))
+        productList.add(productList.find { it.guid == product.guid }?.copy(guid = newGuid, isInCart = false) ?: error("cant create new product"))
+        productInList.add(product.copy(guid = newGuid, isInCart = false))
+        productAdditional.add(product.copy(guid = newGuid, isInCart = false))
 
         addProductInList(productInList)
         addProducts(productList)

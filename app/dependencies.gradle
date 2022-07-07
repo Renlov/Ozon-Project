@@ -24,7 +24,9 @@ ext {
             okhttp           : '4.9.3',
             worker           : '2.7.1',
             workerCoroutines : '2.7.1',
-            coroutines        : '1.6.1'
+            coroutines       : '1.6.1',
+            shimmer          : '0.5.0',
+            circleRecyclerIndicator : '2.1.6'
     ]
 
     coroutines = ['core'   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}",
@@ -75,8 +77,7 @@ ext {
 
     workerCoroutines = "androidx.work:work-runtime-ktx:${versions.workerCoroutines}"
 
+    shimmer = "com.facebook.shimmer:shimmer:${versions.shimmer}"
 
-
-
-
+    circleRecyclerIndicator = "me.relex:circleindicator:${versions.circleRecyclerIndicator}"
 }

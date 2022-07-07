@@ -1,7 +1,9 @@
 package com.pimenov.feature_pdp_impl.presentation.view_custom
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +29,10 @@ class ButtonInCart @JvmOverloads constructor(
     private fun showButton() {
         count = 0
         with(_binding) {
-            buttonCart.visibility = View.VISIBLE
+            buttonCart.apply {
+                visibility = View.VISIBLE
+                text = "В корзину"
+            }
             buttonPlus.visibility = View.GONE
             buttonMinus.visibility = View.GONE
             countProduct.visibility = View.GONE
@@ -38,8 +43,14 @@ class ButtonInCart @JvmOverloads constructor(
         count++
         with(_binding) {
             buttonCart.visibility = View.GONE
-            buttonPlus.visibility = View.VISIBLE
-            buttonMinus.visibility = View.VISIBLE
+            buttonMinus.apply {
+                visibility = View.VISIBLE
+                text = "-"
+            }
+            buttonPlus.apply {
+                visibility = View.VISIBLE
+                text = "+"
+            }
             countProduct.visibility = View.VISIBLE
             countProduct.text = count.toString()
         }

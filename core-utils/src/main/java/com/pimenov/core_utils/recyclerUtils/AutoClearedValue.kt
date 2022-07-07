@@ -1,4 +1,4 @@
-package com.pimenov.feature_products_impl.presentation.utils
+package com.pimenov.core_utils.recyclerUtils
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
