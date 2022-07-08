@@ -7,6 +7,8 @@ import com.pimenov.core_network_impl.di.CoreNetworkComponent
 import com.pimenov.core_network_impl.di.DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent
 import com.pimenov.feature_add_product_impl.di.AddProductFeatureComponent
 import com.pimenov.feature_add_product_impl.di.DaggerAddProductFeatureComponent_AddProductFeatureDependenciesComponent
+import com.pimenov.feature_cart_impl.di.CartFeatureComponent
+import com.pimenov.feature_cart_impl.di.DaggerCartFeatureComponent_CartFeatureDependenciesComponent
 import com.pimenov.feature_pdp_impl.di.DaggerPDPFeatureComponent_PDPFeatureDependenciesComponent
 import com.pimenov.feature_pdp_impl.di.PDPFeatureComponent
 import com.pimenov.feature_products_impl.di.DaggerProductFeatureComponent_ProductFeatureDependenciesComponent
@@ -25,6 +27,15 @@ object FeatureInjectorProxy {
         )
     }
 
+
+    fun initFeatureCartDI(context: Context) {
+        CartFeatureComponent.initAndGet(
+            DaggerCartFeatureComponent_CartFeatureDependenciesComponent.builder()
+                .databaseApi(CoreDatabaseComponent.initAndGet(context))
+                .cartNavigationApi(DaggerCoreNavigationComponent.builder().build().getCartNavigation())
+                .build()
+        )
+    }
 
 
     fun initFeaturePDPDI(context: Context) {

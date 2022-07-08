@@ -53,6 +53,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.addActionButton.setOnClickListener {
             productNavigationApi.navigateToAdd(fragment = this)
         }
+
+        binding.cartActionButton.setOnClickListener {
+            productNavigationApi.navigateCart(fragment = this)
+        }
     }
 
     private suspend fun observeViewModelState() {

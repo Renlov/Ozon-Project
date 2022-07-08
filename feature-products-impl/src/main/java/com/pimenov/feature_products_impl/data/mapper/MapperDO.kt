@@ -15,22 +15,22 @@ fun ProductInListDTO.toDO() : ProductInListDO =
         isInCart = isInCart
     )
 
-fun ProductInListDTO.toProductInListPrefs() = ProductInListPrefs(
-    guid = guid,
-    image = image,
-    name = name,
-    price = price,
-    rating = rating,
-    isFavorite = isFavorite,
-    isInCart = isInCart
-)
-
-fun ProductInListPrefs.toProductInListDO() = ProductInListDO(
-    guid = guid,
-    image = image,
-    name = name,
-    price = price,
-    rating = rating,
-    isFavorite = isFavorite,
-    isInCart = isInCart
-)
+//fun ProductInListDTO.toProductInListPrefs() = ProductInListPrefs(
+//    guid = guid,
+//    image = image,
+//    name = name,
+//    price = price,
+//    rating = rating,
+//    isFavorite = isFavorite,
+//    isInCart = isInCart
+//)
+//
+//fun ProductInListPrefs.toProductInListDO() = ProductInListDO(
+//    guid = guid,
+//    image = image,
+//    name = name,
+//    price = price,
+//    rating = rating,
+//    isFavorite = isFavorite,
+//    isInCart = isInCart
+//)

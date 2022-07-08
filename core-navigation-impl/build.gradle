@@ -46,6 +46,8 @@ dependencies {
     implementation project(":feature-pdp-impl")
     implementation project(":feature-add-product-api")
     implementation project(":feature-add-product-impl")
+    implementation project(":feature-cart-api")
+    implementation project(":feature-cart-impl")
     implementation project(":core-datastore-api")
     implementation project(":core-datastore-impl")
 

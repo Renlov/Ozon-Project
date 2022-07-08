@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.pimenov.core_navigation_impl.R
 import com.pimenov.core_navigation_impl.di.FeatureInjectorProxy
 import com.pimenov.feature_add_product_impl.presentation.view.AddFragment
+import com.pimenov.feature_cart_impl.presentaion.view.CartFragment
 import com.pimenov.feature_pdp_impl.presentation.view.PDPFragment
 import com.pimenov.feature_products_api.ProductNavigationApi
 import com.pimenov.feature_products_impl.presentation.view.MainFragment
@@ -27,6 +28,16 @@ class ProductNavigationImpl @Inject constructor() : ProductNavigationApi {
             ?.supportFragmentManager
             ?.beginTransaction()
             ?.replace(R.id.fragmentContainer, AddFragment(), AddFragment::class.java.simpleName)
+            ?.addToBackStack(null)
+            ?.commit()
+    }
+
+    override fun navigateCart(fragment: Fragment) {
+        FeatureInjectorProxy.initFeatureCartDI(fragment.requireActivity().applicationContext)
+        fragment.activity
+            ?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.fragmentContainer, CartFragment(), CartFragment::class.java.simpleName)
             ?.addToBackStack(null)
             ?.commit()
     }

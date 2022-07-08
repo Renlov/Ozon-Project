@@ -84,6 +84,20 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         addProductAdditional(productAdditional)
     }
 
+    override fun getProductListCart(): List<ProductInListPrefs?> {
+        return getProductList().filter {
+            it.isInCart
+        }
+    }
+
+    override fun deleteAllProductCart() {
+
+    }
+
+    override fun deleteCurrentProductCart(guid: String) {
+
+    }
+
     companion object {
         private const val PREFERENCE = "Preference"
         private const val PREFERENCE_PRODUCT_LIST = "ProductInList"
