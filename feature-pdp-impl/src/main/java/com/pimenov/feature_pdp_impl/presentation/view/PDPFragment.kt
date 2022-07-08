@@ -1,7 +1,9 @@
 package com.pimenov.feature_pdp_impl.presentation.view
 
 import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +16,7 @@ import com.pimenov.feature_pdp_api.PDPNavigationApi
 import com.pimenov.feature_pdp_impl.R
 import com.pimenov.feature_pdp_impl.databinding.FragmentPDPBinding
 import com.pimenov.feature_pdp_impl.di.PDPFeatureComponent
+import com.pimenov.feature_pdp_impl.presentation.adapters.AdditionalAdapter
 import com.pimenov.feature_pdp_impl.presentation.adapters.MainAdapter
 import com.pimenov.feature_pdp_impl.presentation.view_models.PDPViewModel
 import com.pimenov.feature_pdp_impl.presentation.view_object.ProductVO
@@ -39,6 +42,10 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         MainAdapter()
     }
 
+    private val additionalAdapter by autoCleared {
+        AdditionalAdapter()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         PDPFeatureComponent.pdpFeatureComponent?.inject(this)
@@ -61,6 +68,15 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
             recyclerImageView.adapter = imageAdapter
             recyclerImageView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             pagerSnapHelper.attachToRecyclerView(recyclerImageView)
+        }
+    }
+
+    private fun setAdapter(value : Map<String, String>){
+        with(binding){
+            productAdditional.adapter = additionalAdapter
+            productAdditional.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            additionalAdapter.submitList(value)
+            productAdditional.visibility = View.VISIBLE
         }
     }
 
@@ -97,6 +113,7 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         with(binding){
             imageAdapter.submitList(product.images)
             indicator.attachToRecyclerView(recyclerImageView, pagerSnapHelper)
+            if (product.additionalParams.isNotEmpty()) setAdapter(product.additionalParams)
             productPrice.text = root.resources.getString(com.pimenov.feature_pdp_impl.R.string.ruble, product.price)
             productName.text = product.name
             productRating.rating = product.rating.toFloat()

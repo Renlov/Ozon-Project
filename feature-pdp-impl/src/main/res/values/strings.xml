@@ -6,4 +6,5 @@
     <string name="weightProduct">вес : %1$f</string>
     <string name="countAvailable">остаток : %1$d</string>
     <string name="countEntry">заходов : %1$x</string>
+    <string name="divideString">%1$s : </string>
 </resources>
