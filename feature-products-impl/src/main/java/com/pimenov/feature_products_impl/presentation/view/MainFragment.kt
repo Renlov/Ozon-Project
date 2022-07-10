@@ -21,6 +21,7 @@ import com.pimenov.feature_products_impl.presentation.view_models.ProductsListVi
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -50,12 +51,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             observeViewModelState()
         }
         initList()
-        binding.addActionButton.setOnClickListener {
-            productNavigationApi.navigateToAdd(fragment = this)
-        }
+        navigation()
+    }
 
-        binding.cartActionButton.setOnClickListener {
-            productNavigationApi.navigateCart(fragment = this)
+    private fun navigation(){
+        with(binding){
+            addActionButton.setOnClickListener {
+                productNavigationApi.navigateToAdd(fragment = this@MainFragment)
+            }
+            cartActionButton.setOnClickListener {
+                productNavigationApi.navigateCart(fragment = this@MainFragment)
+            }
         }
     }
 
@@ -104,8 +110,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
         super.onPause()
     }
-    private fun getMinutesFromMills(minutes : Int) : Long{
-        return minutes.toLong() * 1000L * 60L
 
+    private fun getMinutesFromMills(minutes : Long) : Long{
+        return TimeUnit.MINUTES.toMillis(minutes)
     }
 }

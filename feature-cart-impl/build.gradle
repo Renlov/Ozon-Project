@@ -57,4 +57,5 @@ dependencies {
     kapt daggerCompiler
     implementation fragment
     implementation coroutines.values()
+    implementation 'com.github.Renlov:ShadowLibrary:0.1.0'
 }

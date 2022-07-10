@@ -4,54 +4,50 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.pimenov.core_utils.recyclerUtils.inflate
 import com.pimenov.feature_cart_impl.databinding.FragmentCartBinding
+import com.pimenov.feature_cart_impl.databinding.ItemCartBinding
 import com.pimenov.feature_cart_impl.presentaion.view_object.ProductInCartVO
 
-private class CartAdapter() : ListAdapter<ProductInCartVO, CartAdapter.CartViewHolder>(CartDiffUtil()) {
-
-    inner class CartViewHolder(val binding: FragmentCartBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(){
-
-        }
-    }
+class CartAdapter : ListAdapter<ProductInCartVO, CartAdapter.CartViewHolder>(CartDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        TODO("Not yet implemented")
+        return CartViewHolder(parent.inflate(ItemCartBinding::inflate))
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        //holder.bind(getItem(position))
+        holder.bind(getItem(position))
     }
 
     override fun getItemCount(): Int {
-        return super.getItemCount()
+        return currentList.size
+    }
+
+    inner class CartViewHolder(private val binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(model : ProductInCartVO){
+            with(binding){
+                //Потому что без разницы какая фотография будет в корзине, раз ты уже добавил его
+                Glide.with(root).load(model.image[0]).into(imageCart)
+                nameCart.text = model.name
+                priceCart.text = model.price
+            }
+        }
     }
 
     class CartDiffUtil : DiffUtil.ItemCallback<ProductInCartVO>() {
 
         override fun areItemsTheSame(oldItem: ProductInCartVO, newItem: ProductInCartVO): Boolean {
-//            return if (oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv) {
-//                oldItem.guid == newItem.guid
-//            } else true
-            return true
+            return oldItem.guid == newItem.guid
         }
 
-        override fun areContentsTheSame(
-            oldItem: ProductInCartVO,
-            newItem: ProductInCartVO
-        ): Boolean {
-//            return if (oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv) {
-//                oldItem.name == newItem.name
-//                        && oldItem.rating == newItem.rating
-//                        && oldItem.isFavorite == newItem.isFavorite
-//                        && oldItem.price == newItem.price
-//                        && oldItem.isInCart == newItem.isInCart
-//            } else true
-            return true
-
+        override fun areContentsTheSame(oldItem: ProductInCartVO, newItem: ProductInCartVO): Boolean {
+            return oldItem.name == newItem.name
+                        && oldItem.price == newItem.price
+                        && oldItem.isInCart == newItem.isInCart
         }
 
-        override fun getChangePayload(oldItem: ProductInCartVO, newItem: ProductInCartVO): Any? {
+//        override fun getChangePayload(oldItem: ProductInCartVO, newItem: ProductInCartVO): Any? {
 //            return if(oldItem is BaseRvModel.ProductInListRv && newItem is BaseRvModel.ProductInListRv){
 //                if (oldItem.guid == newItem.guid) {
 //                    return if (oldItem.isInCart != newItem.isInCart) {
@@ -67,16 +63,11 @@ private class CartAdapter() : ListAdapter<ProductInCartVO, CartAdapter.CartViewH
 //            }
 //            else super.getChangePayload(oldItem, newItem)
 //        }
-            return true
-
-        }
+//            return true
+//        }
     }
 
     private companion object{
         const val PRODUCT_IN_CART = "productInCart"
     }
-
-
-
-
 }
