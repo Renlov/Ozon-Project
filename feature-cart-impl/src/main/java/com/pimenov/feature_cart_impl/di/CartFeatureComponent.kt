@@ -4,7 +4,7 @@ import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
 import com.pimenov.core_utils.ViewModelFactory
 import com.pimenov.core_utils.di.PerFeature
 import com.pimenov.feature_cart_api.CartNavigationApi
-import com.pimenov.feature_cart_impl.presentaion.view.CartFragment
+import com.pimenov.feature_cart_impl.presentation.view.CartFragment
 import dagger.Component
 
 

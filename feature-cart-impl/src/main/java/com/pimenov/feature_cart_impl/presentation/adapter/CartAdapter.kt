@@ -1,4 +1,4 @@
-package com.pimenov.feature_cart_impl.presentaion.adapter
+package com.pimenov.feature_cart_impl.presentation.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -6,9 +6,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pimenov.core_utils.recyclerUtils.inflate
-import com.pimenov.feature_cart_impl.databinding.FragmentCartBinding
 import com.pimenov.feature_cart_impl.databinding.ItemCartBinding
-import com.pimenov.feature_cart_impl.presentaion.view_object.ProductInCartVO
+import com.pimenov.feature_cart_impl.presentation.view_object.ProductInCartVO
 
 class CartAdapter : ListAdapter<ProductInCartVO, CartAdapter.CartViewHolder>(CartDiffUtil()) {
 

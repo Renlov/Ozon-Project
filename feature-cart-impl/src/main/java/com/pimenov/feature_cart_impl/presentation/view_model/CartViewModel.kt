@@ -1,12 +1,13 @@
-package com.pimenov.feature_cart_impl.presentaion.view_model
+package com.pimenov.feature_cart_impl.presentation.view_model
 
 import androidx.lifecycle.ViewModel
 import com.pimenov.feature_cart_impl.domain.interactors.CartInteractor
-import com.pimenov.feature_cart_impl.presentaion.view_object.ProductInCartVO
+import com.pimenov.feature_cart_impl.presentation.view_object.ProductInCartVO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,5 +19,8 @@ class CartViewModel @Inject constructor(private val interactor: CartInteractor) 
         CoroutineScope(Dispatchers.IO).launch {
             _productCartSharedFlow.emit(interactor.getProductCart())
         }
+    }
+    fun buyProduct(){
+        interactor.deleteAllProductCart()
     }
 }

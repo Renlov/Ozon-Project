@@ -2,5 +2,6 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="ozon">#2196F3</color>
+    <color name="ozon">#005bff</color>
+    <color name="ozon_end">#FF00D5</color>
 </resources>

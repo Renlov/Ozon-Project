@@ -1,4 +1,4 @@
-package com.pimenov.feature_cart_impl.presentaion.view_object
+package com.pimenov.feature_cart_impl.presentation.view_object
 
 data class ProductInCartVO(
     val guid: String,

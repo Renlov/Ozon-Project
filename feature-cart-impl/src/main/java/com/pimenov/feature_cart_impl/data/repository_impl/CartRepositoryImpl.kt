@@ -15,7 +15,7 @@ class CartRepositoryImpl@Inject constructor(private val database: ProductDatabas
     }
 
     override fun deleteAllProductCart() {
-        TODO("Not yet implemented")
+        database.deleteAllProductCart()
     }
 
     override fun deleteCurrentProductCart(guidId: String) {

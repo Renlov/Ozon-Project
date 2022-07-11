@@ -1,32 +1,27 @@
-package com.pimenov.feature_cart_impl.presentaion.view
+package com.pimenov.feature_cart_impl.presentation.view
 
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.hedgehog.shadowLibrary.ShadowLibrary
 import com.pimenov.core_utils.recyclerUtils.autoCleared
 import com.pimenov.feature_cart_api.CartNavigationApi
 import com.pimenov.feature_cart_impl.R
 import com.pimenov.feature_cart_impl.databinding.FragmentCartBinding
 import com.pimenov.feature_cart_impl.di.CartFeatureComponent
-import com.pimenov.feature_cart_impl.presentaion.adapter.CartAdapter
-import com.pimenov.feature_cart_impl.presentaion.view_model.CartViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.pimenov.feature_cart_impl.presentation.adapter.CartAdapter
+import com.pimenov.feature_cart_impl.presentation.view_model.CartViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CartFragment : Fragment(R.layout.fragment_cart) {
@@ -51,7 +46,15 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe()
+        setAdapter()
+        binding.billCustomView.actionListener = {
+                if (it){
+                    viewModel.buyProduct()
+                }
+            }
+        }
 
+    private fun setAdapter(){
         binding.cartRecycler.apply {
             adapter = cartAdapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -64,15 +67,19 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
 
    private fun observe(){
-       viewModel.productCartSharedFlow.onEach {
-           cartAdapter.submitList(it)
-           val a = it.sumOf {
-               it?.price?.toInt() ?: 0
+       viewModel.productCartSharedFlow.onEach { list ->
+           cartAdapter.submitList(list)
+           if (list.isNotEmpty()){
+               with(binding.billCustomView){
+                   textValueSum = list.sumOf {
+                       it?.price?.toInt() ?: 0
+                   }.toString()
+               }
            }
-           Log.d("spectra", a.toString())
-
        }.launchIn(viewLifecycleOwner.lifecycleScope)
    }
+
+
     override fun onPause() {
         if(isRemoving) {
             if (cartNavigationApi.isFeatureClosed(this)) {
