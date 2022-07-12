@@ -1,5 +1,6 @@
 package com.pimenov.feature_products_impl.presentation.view_models
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.pimenov.feature_products_impl.domain.interactor.ProductsInteractor
 import com.pimenov.feature_products_impl.presentation.adapters.mappers.toRV
@@ -25,6 +26,10 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
                 product.price.toInt()
             }.toRV())
         }.launchIn(viewModelScope)
+    }
+
+    fun isInCart() : Boolean{
+        return productsInteractor.isInCart()
     }
 
     fun addToCart(guid: String) {

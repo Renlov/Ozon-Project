@@ -3,16 +3,14 @@ package com.pimenov.feature_cart_impl.presentation.view
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
 import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.hedgehog.shadowLibrary.BaseShadowBuilder.Companion.ShadowLibrary
 import com.pimenov.core_utils.recyclerUtils.autoCleared
 import com.pimenov.feature_cart_api.CartNavigationApi
 import com.pimenov.feature_cart_impl.R
@@ -20,6 +18,7 @@ import com.pimenov.feature_cart_impl.databinding.FragmentCartBinding
 import com.pimenov.feature_cart_impl.di.CartFeatureComponent
 import com.pimenov.feature_cart_impl.presentation.adapter.CartAdapter
 import com.pimenov.feature_cart_impl.presentation.view_model.CartViewModel
+import kotlinx.android.synthetic.main.fragment_cart.view.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -47,9 +46,21 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         super.onViewCreated(view, savedInstanceState)
         observe()
         setAdapter()
+
+        ShadowLibrary.load(R.drawable.ic_shopping)
+            .withShadowColor(R.color.shadow)
+            .withShadowRadius(25)
+            .withShadowScale(1.05f)
+            .withShadowTransition(start = 10, end = 10)
+            .withShadowTransition(top = 10, start = 10)
+            .into(binding.shadowCart)
+
         binding.billCustomView.actionListener = {
                 if (it){
                     viewModel.buyProduct()
+                    view.cartRecycler.visibility = View.GONE
+                    view.shadowCart.visibility = View.VISIBLE
+                    view.billCustomView.visibility = View.GONE
                 }
             }
         }

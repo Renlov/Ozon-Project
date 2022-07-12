@@ -1,6 +1,5 @@
 package com.pimenov.feature_cart_impl.data.repository_impl
 
-import com.pimenov.core_datastore_api.data.data_object.ProductInListPrefs
 import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
 import com.pimenov.feature_cart_impl.data.mapper.toDO
 import com.pimenov.feature_cart_impl.domain.domain_object.ProductInCartDO
@@ -15,7 +14,7 @@ class CartRepositoryImpl@Inject constructor(private val database: ProductDatabas
     }
 
     override fun deleteAllProductCart() {
-        database.deleteAllProductCart()
+        database.buyAllProductCart()
     }
 
     override fun deleteCurrentProductCart(guidId: String) {

@@ -17,6 +17,7 @@ import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.FragmentMainBinding
 import com.pimenov.feature_products_impl.di.ProductFeatureComponent
 import com.pimenov.feature_products_impl.presentation.adapters.MainAdapter
+import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.view_models.ProductsListViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
@@ -50,6 +51,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         CoroutineScope(Dispatchers.IO).launch {
             observeViewModelState()
         }
+        isInCart()
         initList()
         navigation()
     }
@@ -76,7 +78,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             productListAdapter.submitList(it)
             if (it.isNotEmpty()) switchLoadingShimmer()
         }.launchIn(viewLifecycleOwner.lifecycleScope)
-
     }
 
     private fun initList() {
@@ -93,7 +94,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun onClickInCart(guidId: String) {
+        isInCart()
         viewModel.addToCart(guidId)
+    }
+    private fun isInCart() {
+        with(binding.cartActionButton){
+            visibility = if (viewModel.isInCart()) View.VISIBLE
+            else View.GONE
+        }
     }
 
     private fun switchLoadingShimmer() {

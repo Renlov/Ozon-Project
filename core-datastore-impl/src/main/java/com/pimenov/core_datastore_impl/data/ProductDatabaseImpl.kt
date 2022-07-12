@@ -90,8 +90,17 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         }
     }
 
-    override fun deleteAllProductCart() {
-
+    override fun buyAllProductCart() {
+        addProducts(getProducts().toMutableList().map {
+            it.copy(isInCart = false)
+        })
+        addProductInList(getProductList().map {
+            it.copy(isInCart = false)
+        })
+        if (getProductAdditional().isEmpty()) return
+        addProductAdditional(getProductAdditional().map {
+            it.copy(isInCart = false)
+        })
     }
 
     override fun deleteCurrentProductCart(guid: String) {

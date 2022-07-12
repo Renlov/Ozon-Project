@@ -32,6 +32,11 @@ class ProductsListRepositoryImpl @Inject constructor(private val flowDataApi: Fl
     override fun updateCartState(guidId: String) {
         dataBase.updateCartState(guidId)
     }
+
+    override fun inInCart(): Boolean {
+        return dataBase.getProductListCart().isNotEmpty()
+    }
 }
+
 
 

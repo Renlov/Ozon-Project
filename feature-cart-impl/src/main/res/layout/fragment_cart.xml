@@ -19,6 +19,19 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
+    <com.hedgehog.shadowLibrary.ShadowLibrary
+        android:visibility="gone"
+        android:id="@+id/shadowCart"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <com.pimenov.feature_cart_impl.presentation.custom_view.BillCustomView
         android:id="@+id/billCustomView"
         android:layout_width="match_parent"

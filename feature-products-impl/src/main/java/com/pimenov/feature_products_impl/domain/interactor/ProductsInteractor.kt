@@ -17,6 +17,7 @@ interface ProductsInteractor {
     suspend fun getData()
     fun productListStateFlow() : Flow<List<ProductInListVO>>
     fun addToCart(guidId : String)
+    fun isInCart() : Boolean
 }
 
 class ProductsInteractorImpl @Inject constructor(private val repository: ProductsListRepository): ProductsInteractor {
@@ -34,5 +35,9 @@ class ProductsInteractorImpl @Inject constructor(private val repository: Product
 
     override fun addToCart(guidId: String) {
         repository.updateCartState(guidId)
+    }
+
+    override fun isInCart(): Boolean {
+        return repository.inInCart()
     }
 }
