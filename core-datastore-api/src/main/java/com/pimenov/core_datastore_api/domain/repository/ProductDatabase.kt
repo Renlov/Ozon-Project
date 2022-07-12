@@ -16,6 +16,4 @@ interface ProductDatabase {
     fun addProductRandom()
     fun getProductListCart() : List<ProductInListPrefs?>
     fun buyAllProductCart()
-    //TODO
-    fun deleteCurrentProductCart(guid: String)
 }

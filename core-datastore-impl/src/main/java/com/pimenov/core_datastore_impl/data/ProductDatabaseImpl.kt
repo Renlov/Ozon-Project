@@ -103,10 +103,6 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         })
     }
 
-    override fun deleteCurrentProductCart(guid: String) {
-
-    }
-
     companion object {
         private const val PREFERENCE = "Preference"
         private const val PREFERENCE_PRODUCT_LIST = "ProductInList"
