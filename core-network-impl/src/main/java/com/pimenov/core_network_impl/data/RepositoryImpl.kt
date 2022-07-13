@@ -6,6 +6,7 @@ import com.pimenov.core_network_api.FlowDataApi
 import com.pimenov.core_network_api.ProductRepository
 import com.pimenov.core_network_api.data_object.ProductInListDTO
 import com.pimenov.core_network_api.ServiceApi
+import com.pimenov.core_network_impl.mapper.toProductDTO
 import com.pimenov.core_network_impl.mapper.toProductDTOSharedPrefs
 import com.pimenov.core_network_impl.mapper.toProductInListDTO
 import com.pimenov.core_network_impl.mapper.toProductInListDTOSharedPrefs
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -36,10 +38,6 @@ class RepositoryImpl @Inject constructor(
                 flowDataApi._productListSharedFlow.emit(cashProducts)
                 database.addProductInList(cashProducts.map { it.toProductInListDTOSharedPrefs() })
             }
-//            val list = productsApi.getListProducts()
-//            database.addProductInList(list.map { it.toProductInListDTOSharedPrefs() })
-//            val listToEmit = list + database.getProductAdditional().map { it.toProductInListDTO() }
-//            flowDataApi._productListSharedFlow.emit(listToEmit)
         }catch (e : Exception){
             flowDataApi._productListSharedFlow.emit(database.getProductList().map {
                 it.toProductInListDTO()
@@ -48,8 +46,20 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun getProducts() {
-        database.addProducts(productsApi.getProducts().map {
-            it.toProductDTOSharedPrefs()
-        })
+        productsApi.getProducts().also { productExternal ->
+            val cashProduct = database.getProducts().map {
+                it.toProductDTO()
+            }.toMutableList()
+            cashProduct.addAll(
+                productExternal.filter { extProduct->
+                    cashProduct.find {
+                        it.guid == extProduct.guid
+                    } == null
+                }
+            )
+            database.addProducts(cashProduct.map {
+                it.toProductDTOSharedPrefs()
+            })
+        }
     }
 }

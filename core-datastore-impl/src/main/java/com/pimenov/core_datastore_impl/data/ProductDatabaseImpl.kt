@@ -16,7 +16,7 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
     private val sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE)
 
     override fun addProductInList(list: List<ProductInListPrefs>) {
-        sharedPreferences.edit().putString(PREFERENCE_PRODUCT_LIST, Gson().toJson((list)))
+        sharedPreferences.edit().putString(PREFERENCE_PRODUCT_LIST, Gson().toJson(list))
             .apply()
     }
 
@@ -37,7 +37,8 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
     }
 
     override fun addProducts(list: List<ProductPrefs>) {
-        sharedPreferences.edit().putString(PREFERENCE_PRODUCTS, Gson().toJson((getProducts() + list).toSet())).apply()
+        sharedPreferences.edit().putString(PREFERENCE_PRODUCTS, Gson().toJson(list))
+            .apply()
     }
 
     override fun getProducts(): List<ProductPrefs> {
@@ -58,11 +59,12 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         addProducts(getProducts().toMutableList().map {
             if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
         })
+        
         addProductInList(getProductList().map {
-            if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
+            if (it.guid == guid)it.copy(isInCart = !it.isInCart) else it
         })
         if (getProductAdditional().isEmpty()) return
-        addProductAdditional(getProductAdditional().map {
+         (getProductAdditional().map {
             if (it.guid == guid) it.copy(isInCart = !it.isInCart) else it
         })
     }

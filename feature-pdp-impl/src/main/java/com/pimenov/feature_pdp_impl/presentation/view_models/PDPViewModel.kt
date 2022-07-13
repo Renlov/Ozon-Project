@@ -27,11 +27,14 @@ class PDPViewModel @Inject constructor(private val pdpInteractor: PDPInteractor,
         _counterLiveData.postValue(pdpInteractor.getProductById(guid).availableCount)
     }
 
-
     fun incrementCounterProduct(guid: String) {
         viewModelScope.launch {
             dataStore.incrementCounter(guid)
         }
+    }
+
+    fun setInCart(guid: String){
+        pdpInteractor.setInCart(guid)
     }
 
     fun getCounterProduct(guid: String) {

@@ -20,7 +20,7 @@ class ButtonInCart @JvmOverloads constructor(
     val binding: CustomViewPdpBinding
         get() = _binding
 
-    private var count = 0
+    var count = 0
 
     init {
         showButton()

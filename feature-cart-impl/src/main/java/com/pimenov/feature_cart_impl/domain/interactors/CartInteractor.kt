@@ -24,6 +24,6 @@ class CartInteractorImpl@Inject constructor(private val repository: CartReposito
     }
 
     override fun deleteCurrentProductCart(guidId: String) {
-        TODO("Not yet implemented")
+        repository.deleteCurrentProductCart(guidId)
     }
 }

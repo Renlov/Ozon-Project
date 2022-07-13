@@ -36,6 +36,10 @@ class ProductsListRepositoryImpl @Inject constructor(private val flowDataApi: Fl
     override fun inInCart(): Boolean {
         return dataBase.getProductListCart().isNotEmpty()
     }
+
+    override fun updateSoldOut() {
+
+    }
 }
 
 

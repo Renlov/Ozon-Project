@@ -11,6 +11,4 @@ fun ProductInListDTO.toDO() : ProductInListDO =
         price = price,
         rating = rating,
         isFavorite = isFavorite,
-        isInCart = isInCart,
-        isSoldOut = false
-    )
+        isInCart = isInCart)

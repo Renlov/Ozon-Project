@@ -23,4 +23,8 @@ class CartViewModel @Inject constructor(private val interactor: CartInteractor) 
     fun buyProduct(){
         interactor.deleteAllProductCart()
     }
+
+    fun deleteProduct(guidId : String){
+        interactor.deleteCurrentProductCart(guidId)
+    }
 }

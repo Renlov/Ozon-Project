@@ -5,4 +5,5 @@ import com.pimenov.feature_pdp_impl.domain.domain_object.ProductDO
 
 interface PDPRepository {
     fun getProductById(guid: String): ProductDO?
+    fun setInCart(guid: String)
 }

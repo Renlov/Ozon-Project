@@ -39,7 +39,7 @@ class ButtonInList @JvmOverloads constructor(
         IN_CART_ON(R.string.inCartOn, R.color.ozonColorOn)
     }
 
-    fun renderViewState(buttonState: ButtonState) {
+    private fun renderViewState(buttonState: ButtonState) {
         with(_binding) {
             when (buttonState) {
                 ButtonState(isInCart = true, isLoading = false) -> {

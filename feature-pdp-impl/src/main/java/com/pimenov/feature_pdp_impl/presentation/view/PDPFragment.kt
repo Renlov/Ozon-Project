@@ -1,7 +1,6 @@
 package com.pimenov.feature_pdp_impl.presentation.view
 
 import android.content.Context
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,7 +19,6 @@ import com.pimenov.feature_pdp_impl.presentation.adapters.AdditionalAdapter
 import com.pimenov.feature_pdp_impl.presentation.adapters.MainAdapter
 import com.pimenov.feature_pdp_impl.presentation.view_models.PDPViewModel
 import com.pimenov.feature_pdp_impl.presentation.view_object.ProductVO
-import me.relex.circleindicator.CircleIndicator2
 import javax.inject.Inject
 
 
@@ -84,9 +82,11 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         with(binding.countButton.binding){
             buttonCart.setOnClickListener {
                 binding.countButton.showCounter()
+                productId?.let { it1 -> setInCart(it1) }
             }
             buttonMinus.setOnClickListener {
                 binding.countButton.decreaseCount(countProductInt ?: 0)
+                if (binding.countButton.count == 0) viewModel.setInCart(guid = productId ?: "")
             }
             buttonPlus.setOnClickListener {
                 binding.countButton.increaseCount(countProductInt ?: 0)
@@ -94,10 +94,17 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         }
     }
 
+    private fun setInCart(guidId: String){
+        viewModel.setInCart(guidId)
+    }
+
     private fun observeViewModelState() {
         viewModel.productLiveData.observe(viewLifecycleOwner) {
             updateProduct(it)
             viewModel.incrementCounterProduct(it.guid)
+            if (it.isInCart){
+                binding.countButton.showCounter()
+            }
         }
         viewModel.counterProductLiveData.observe(viewLifecycleOwner) {
             binding.productEntry.text = requireContext().resources.getString(
@@ -128,7 +135,6 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         viewModel.getProductByGuid(guid)
     }
 
-
     companion object {
         private const val PRODUCT_ID = "productId"
         @JvmStatic
@@ -136,8 +142,8 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
             PDPFragment().apply {
                 arguments = Bundle().apply {
                     putString(PRODUCT_ID, productId)
-                }
             }
+        }
     }
 
     override fun onPause() {
@@ -148,6 +154,4 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
         }
         super.onPause()
     }
-
-
 }

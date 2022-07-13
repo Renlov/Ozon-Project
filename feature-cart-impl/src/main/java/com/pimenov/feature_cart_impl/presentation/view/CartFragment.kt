@@ -3,10 +3,12 @@ package com.pimenov.feature_cart_impl.presentation.view
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -17,6 +19,7 @@ import com.pimenov.feature_cart_impl.R
 import com.pimenov.feature_cart_impl.databinding.FragmentCartBinding
 import com.pimenov.feature_cart_impl.di.CartFeatureComponent
 import com.pimenov.feature_cart_impl.presentation.adapter.CartAdapter
+import com.pimenov.feature_cart_impl.presentation.adapter.SwipeController
 import com.pimenov.feature_cart_impl.presentation.view_model.CartViewModel
 import kotlinx.android.synthetic.main.fragment_cart.view.*
 import kotlinx.coroutines.flow.launchIn
@@ -74,6 +77,15 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                     outRect.set(10,15,15,10)
                 }
             })
+
+            val swipeController = object : SwipeController(){
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.absoluteAdapterPosition
+                }
+            }
+
+            val itemTouchHelper = ItemTouchHelper(swipeController)
+            itemTouchHelper.attachToRecyclerView(this)
         }
     }
 

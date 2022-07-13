@@ -44,3 +44,10 @@ fun ProductInListPrefs.toProductInListDTO(): ProductInListDTO {
         isInCart = isInCart,
     )
 }
+
+fun ProductPrefs.toProductDTO(): ProductDTO {
+    return ProductDTO(
+        guid, name, price, description, rating, isFavorite, isInCart, images, weight, count, availableCount, additionalParams
+    )
+}
+

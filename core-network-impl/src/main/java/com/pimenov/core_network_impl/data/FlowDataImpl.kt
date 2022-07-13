@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class FlowDataImpl@Inject constructor() : FlowDataApi {
     override val _productListSharedFlow: MutableSharedFlow<List<ProductInListDTO>>
-    = MutableSharedFlow<List<ProductInListDTO>>()
+    = MutableSharedFlow()
     override val productListSharedFlow: SharedFlow<List<ProductInListDTO>>
     = _productListSharedFlow.asSharedFlow()
 }
