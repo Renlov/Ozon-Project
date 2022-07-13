@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.*
+import com.bumptech.glide.Glide
 import com.pimenov.core_utils.recyclerUtils.inflate
 import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.ItemHeaderRecyclerBinding
 import com.pimenov.feature_products_impl.databinding.ItemListRecyclerBinding
+import com.pimenov.feature_products_impl.databinding.ItemUnavailableRecyclerBinding
 import com.pimenov.feature_products_impl.presentation.adapters.additional_adapters.ImageAdapter
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.adapters.view_holders.BaseViewHolder
@@ -79,6 +81,24 @@ class MainAdapter(
         }
     }
 
+    inner class UnavailableViewHolder(private val binding : ItemUnavailableRecyclerBinding) :
+        BaseViewHolder<BaseRvModel.ProductUnavailableRv>(binding.root){
+        private var currentProduct: String? = null
+        override fun bindModel(model: BaseRvModel.ProductUnavailableRv) {
+            itemView.setOnClickListener {
+                currentProduct?.let(onClick)
+            }
+
+            with(binding) {
+                currentProduct = model.guid
+                Glide.with(binding.root).load(model.image[0]).into(imageProduct)
+                priceProductList.text = binding.root.resources.getString(R.string.ruble, model.price)
+                nameProductList.text = model.name
+                ratingProductList.rating = model.rating
+            }
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return when (viewType) {
             R.layout.item_list_recycler -> ProductInLiveViewHolder(
@@ -89,6 +109,11 @@ class MainAdapter(
             R.layout.item_header_recycler -> HeaderViewHolder(
                 parent.inflate(
                     ItemHeaderRecyclerBinding::inflate
+                )
+            )
+            R.layout.item_unavailable_recycler -> UnavailableViewHolder(
+                parent.inflate(
+                    ItemUnavailableRecyclerBinding::inflate
                 )
             )
             else -> throw Exception()

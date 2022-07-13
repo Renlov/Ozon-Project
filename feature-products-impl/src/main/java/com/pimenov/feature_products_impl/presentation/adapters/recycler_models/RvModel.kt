@@ -14,4 +14,14 @@ sealed class BaseRvModel(val viewType : Int) {
         val isFavorite: Boolean,
         val isInCart: Boolean
     ) : BaseRvModel(R.layout.item_list_recycler)
+
+    data class ProductUnavailableRv(
+        val guid: String,
+        val image: List<String>,
+        val name: String,
+        val price: String,
+        val rating: Float,
+        val isFavorite: Boolean,
+        val isInCart: Boolean
+    ) : BaseRvModel(R.layout.item_unavailable_recycler)
 }

@@ -17,7 +17,7 @@ fun List<ProductInListVO>.toRV(): List<BaseRvModel> {
     val unavailable = this.filter {
         it.price.toInt() == 0
     }.map {
-        it.toRvModel()
+        it.ToRvModelUnavailable()
     }
 
     return mutableListOf<BaseRvModel>().apply {
@@ -25,6 +25,7 @@ fun List<ProductInListVO>.toRV(): List<BaseRvModel> {
         addAll(cheap)
         add(BaseRvModel.HeaderRv(header = "Продукты"))
         addAll(expensive)
+        if (unavailable.isEmpty()) return@apply
         add(BaseRvModel.HeaderRv(header = "Закончилось"))
         addAll(unavailable)
     }
@@ -39,6 +40,11 @@ fun ProductInListVO.toRvModel(): BaseRvModel.ProductInListRv =
         rating = rating,
         isFavorite = isFavorite,
         isInCart = isInCart
+    )
+
+fun ProductInListVO.ToRvModelUnavailable() : BaseRvModel.ProductUnavailableRv =
+    BaseRvModel.ProductUnavailableRv(
+        guid, image, name, price, rating, isFavorite, isInCart
     )
 
 
