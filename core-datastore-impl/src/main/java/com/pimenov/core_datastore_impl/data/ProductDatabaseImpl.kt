@@ -69,6 +69,12 @@ class ProductDatabaseImpl@Inject constructor(context: Context) : ProductDatabase
         })
     }
 
+    override fun availablePrice(guid:String, price : Int){
+        addProductInList(getProductList().map {
+            if (it.guid == guid)it.copy(price = price.toString()) else it
+        })
+    }
+
     override fun addProductRandom() {
         val productInList = getProductList().toMutableList()
         val productList = getProducts().toMutableList()

@@ -16,4 +16,5 @@ interface ProductDatabase {
     fun addProductRandom()
     fun getProductListCart() : List<ProductInListPrefs?>
     fun buyAllProductCart()
+    fun availablePrice(guid:String, price : Int)
 }

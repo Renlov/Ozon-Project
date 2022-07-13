@@ -1,5 +1,6 @@
 package com.pimenov.core_network_impl.data
 
+import android.os.Build.VERSION_CODES.P
 import android.util.Log
 import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
 import com.pimenov.core_network_api.FlowDataApi
@@ -57,9 +58,21 @@ class RepositoryImpl @Inject constructor(
                     } == null
                 }
             )
+
             database.addProducts(cashProduct.map {
                 it.toProductDTOSharedPrefs()
             })
+
+            val cashPriceList = database.getProductList().map { it.toProductInListDTO() }.toMutableList()
+            cashProduct.filter{
+                it.availableCount == 0 }.map { productDTO ->
+                cashPriceList.map { productInListDTO ->
+                    if (productDTO.guid == productInListDTO.guid) {
+                        database.availablePrice(productInListDTO.guid, 0)
+                    }
+                }
+            }
+            flowDataApi._productListSharedFlow.emit(cashPriceList)
         }
     }
 }

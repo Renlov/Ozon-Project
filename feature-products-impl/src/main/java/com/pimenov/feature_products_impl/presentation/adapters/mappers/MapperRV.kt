@@ -5,12 +5,17 @@ import com.pimenov.feature_products_impl.presentation.view_object.ProductInListV
 
 fun List<ProductInListVO>.toRV(): List<BaseRvModel> {
     val cheap = this.filter {
-        it.price.toInt() < 100
+        it.price.toInt() < 100 && it.price.toInt() != 0
     }.map {
         it.toRvModel()
     }
     val expensive = this.filter {
         it.price.toInt() >= 100
+    }.map {
+        it.toRvModel()
+    }
+    val unavailable = this.filter {
+        it.price.toInt() == 0
     }.map {
         it.toRvModel()
     }
@@ -20,6 +25,8 @@ fun List<ProductInListVO>.toRV(): List<BaseRvModel> {
         addAll(cheap)
         add(BaseRvModel.HeaderRv(header = "Продукты"))
         addAll(expensive)
+        add(BaseRvModel.HeaderRv(header = "Закончилось"))
+        addAll(unavailable)
     }
 }
 
@@ -32,6 +39,6 @@ fun ProductInListVO.toRvModel(): BaseRvModel.ProductInListRv =
         rating = rating,
         isFavorite = isFavorite,
         isInCart = isInCart
-        )
+    )
 
 

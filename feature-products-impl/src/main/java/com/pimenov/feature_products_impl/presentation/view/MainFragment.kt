@@ -78,7 +78,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
         viewModel.productInListSharedFlow.onEach{
             productListAdapter.submitList(it)
-            Log.d("spectra", it.toString())
             if (it.isNotEmpty()) switchLoadingShimmer()
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
