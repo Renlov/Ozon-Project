@@ -17,6 +17,7 @@ class ProductNavigationImpl @Inject constructor() : ProductNavigationApi {
         fragment.activity
             ?.supportFragmentManager
             ?.beginTransaction()
+            ?.setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left, R.anim.enter_left_to_right, R.anim.exit_left_to_right)
             ?.replace(R.id.fragmentContainer, newFragment, PDPFragment::class.java.simpleName)
             ?.addToBackStack(null)
             ?.commit()
@@ -27,6 +28,7 @@ class ProductNavigationImpl @Inject constructor() : ProductNavigationApi {
         fragment.activity
             ?.supportFragmentManager
             ?.beginTransaction()
+            ?.setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left, R.anim.enter_left_to_right, R.anim.exit_left_to_right)
             ?.replace(R.id.fragmentContainer, AddFragment(), AddFragment::class.java.simpleName)
             ?.addToBackStack(null)
             ?.commit()
@@ -37,6 +39,7 @@ class ProductNavigationImpl @Inject constructor() : ProductNavigationApi {
         fragment.activity
             ?.supportFragmentManager
             ?.beginTransaction()
+            ?.setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left, R.anim.enter_left_to_right, R.anim.exit_left_to_right)
             ?.replace(R.id.fragmentContainer, CartFragment(), CartFragment::class.java.simpleName)
             ?.addToBackStack(null)
             ?.commit()
