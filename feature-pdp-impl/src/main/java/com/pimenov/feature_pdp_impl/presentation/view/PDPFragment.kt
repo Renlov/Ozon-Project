@@ -91,6 +91,9 @@ class PDPFragment : Fragment(R.layout.fragment_p_d_p) {
             buttonPlus.setOnClickListener {
                 binding.countButton.increaseCount(countProductInt ?: 0)
             }
+            buy.setOnClickListener {
+                pdpNavigationApi.navigateCart(fragment = this@PDPFragment)
+            }
         }
     }
 

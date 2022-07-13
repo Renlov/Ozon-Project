@@ -7,4 +7,9 @@
     <string name="countAvailable">остаток : %1$d</string>
     <string name="countEntry">заходов : %1$x</string>
     <string name="divideString">%1$s : </string>
+    <string name="inCart">В корзину</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="unavailable">Закончилось</string>
+    <string name="toCart">К оформлению</string>
 </resources>

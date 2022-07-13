@@ -31,8 +31,9 @@ class ButtonInCart @JvmOverloads constructor(
         with(_binding) {
             buttonCart.apply {
                 visibility = View.VISIBLE
-                text = "В корзину"
+                text = resources.getString(R.string.inCart)
             }
+            buy.visibility = View.GONE
             buttonPlus.visibility = View.GONE
             buttonMinus.visibility = View.GONE
             countProduct.visibility = View.GONE
@@ -45,11 +46,16 @@ class ButtonInCart @JvmOverloads constructor(
             buttonCart.visibility = View.GONE
             buttonMinus.apply {
                 visibility = View.VISIBLE
-                text = "-"
+                text = resources.getString(R.string.minus)
             }
             buttonPlus.apply {
                 visibility = View.VISIBLE
-                text = "+"
+                text = resources.getString(R.string.plus)
+            }
+            buy.apply {
+                visibility = View.VISIBLE
+                text = resources.getString(R.string.toCart)
+
             }
             countProduct.visibility = View.VISIBLE
             countProduct.text = count.toString()
@@ -58,7 +64,7 @@ class ButtonInCart @JvmOverloads constructor(
 
     fun isAvailable() {
         binding.buttonCart.setBackgroundColor(resources.getColor(R.color.black, null))
-        binding.buttonCart.text = "Закончилось"
+        binding.buttonCart.text = resources.getString(R.string.unavailable)
         binding.buttonCart.isClickable = false
     }
 
