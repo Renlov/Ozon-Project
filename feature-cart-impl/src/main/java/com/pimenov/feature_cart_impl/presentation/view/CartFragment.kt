@@ -60,8 +60,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             .withShadowTransition(start = 10, end = 10)
             .withShadowTransition(top = 10, start = 10)
             .into(binding.shadowCart)
-
-
     }
 
     private fun setBuyListener(){
