@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,6 +22,7 @@ import com.pimenov.feature_cart_impl.di.CartFeatureComponent
 import com.pimenov.feature_cart_impl.presentation.adapter.CartAdapter
 import com.pimenov.feature_cart_impl.presentation.adapter.SwipeController
 import com.pimenov.feature_cart_impl.presentation.view_model.CartViewModel
+import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.fragment_cart.view.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -49,6 +51,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         super.onViewCreated(view, savedInstanceState)
         observe()
         setAdapter()
+        setBuyListener()
 
         ShadowLibrary.load(R.drawable.ic_shopping)
             .withShadowColor(R.color.shadow)
@@ -58,15 +61,20 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             .withShadowTransition(top = 10, start = 10)
             .into(binding.shadowCart)
 
+
+    }
+
+    private fun setBuyListener(){
         binding.billCustomView.actionListener = {
-                if (it){
-                    viewModel.buyProduct()
-                    view.cartRecycler.visibility = View.GONE
-                    view.shadowCart.visibility = View.VISIBLE
-                    view.billCustomView.visibility = View.GONE
-                }
+            if (it){
+                viewModel.buyProduct()
+                cartRecycler.visibility = View.GONE
+                shadowCart.visibility = View.VISIBLE
+                billCustomView.visibility = View.GONE
+                text_empty_cart.visibility = View.VISIBLE
             }
         }
+    }
 
     private fun setAdapter(){
         binding.cartRecycler.apply {
@@ -81,6 +89,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             val swipeController = object : SwipeController(){
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val position = viewHolder.absoluteAdapterPosition
+                    //TODO()
                 }
             }
 
@@ -101,8 +110,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
            }
        }.launchIn(viewLifecycleOwner.lifecycleScope)
    }
-
-
     override fun onPause() {
         if(isRemoving) {
             if (cartNavigationApi.isFeatureClosed(this)) {
