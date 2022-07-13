@@ -16,15 +16,22 @@ class CartViewModel @Inject constructor(private val interactor: CartInteractor) 
     val productCartSharedFlow : SharedFlow<List<ProductInCartVO?>> = _productCartSharedFlow
 
     init {
-        CoroutineScope(Dispatchers.IO).launch {
-            _productCartSharedFlow.emit(interactor.getProductCart())
-        }
+        updateData()
     }
     fun buyProduct(){
         interactor.deleteAllProductCart()
     }
 
-    fun deleteProduct(guidId : String){
-        interactor.deleteCurrentProductCart(guidId)
+    fun deleteProduct(position : Int){
+        _productCartSharedFlow.value[position]?.guid?.let {
+            interactor.deleteCurrentProductCart(it)
+        }
+        updateData()
+    }
+
+    private fun updateData(){
+        CoroutineScope(Dispatchers.IO).launch {
+            _productCartSharedFlow.emit(interactor.getProductCart())
+        }
     }
 }

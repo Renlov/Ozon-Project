@@ -86,11 +86,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
             val swipeController = object : SwipeController(){
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val position = viewHolder.absoluteAdapterPosition
-                    //TODO()
+                    viewModel.deleteProduct(viewHolder.absoluteAdapterPosition)
                 }
             }
-
             val itemTouchHelper = ItemTouchHelper(swipeController)
             itemTouchHelper.attachToRecyclerView(this)
         }
