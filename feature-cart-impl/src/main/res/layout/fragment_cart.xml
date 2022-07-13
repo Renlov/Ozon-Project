@@ -35,9 +35,18 @@
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Корзина пуста"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="@string/success"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/shadowCart" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:visibility="gone"
+        android:id="@+id/success_loading_lottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_rawRes="@raw/loading_success" />
 
 
     <com.pimenov.feature_cart_impl.presentation.custom_view.BillCustomView

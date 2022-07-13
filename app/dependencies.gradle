@@ -26,7 +26,9 @@ ext {
             workerCoroutines : '2.7.1',
             coroutines       : '1.6.1',
             shimmer          : '0.5.0',
-            circleRecyclerIndicator : '2.1.6'
+            circleRecyclerIndicator : '2.1.6',
+            lottie           :'5.2.0',
+            shadowLib        : '0.1.0'
     ]
 
     coroutines = ['core'   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}",
@@ -80,4 +82,8 @@ ext {
     shimmer = "com.facebook.shimmer:shimmer:${versions.shimmer}"
 
     circleRecyclerIndicator = "me.relex:circleindicator:${versions.circleRecyclerIndicator}"
+
+    lottie = "com.airbnb.android:lottie:${versions.lottie}"
+
+    shadowLib = "com.github.Renlov:ShadowLibrary:${versions.shadowLib}"
 }

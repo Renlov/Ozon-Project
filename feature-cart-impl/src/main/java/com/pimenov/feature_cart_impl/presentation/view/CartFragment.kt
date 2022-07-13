@@ -1,5 +1,6 @@
 package com.pimenov.feature_cart_impl.presentation.view
 
+import android.animation.Animator
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
@@ -65,12 +66,35 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private fun setBuyListener(){
         binding.billCustomView.actionListener = {
             if (it){
-                viewModel.buyProduct()
-                cartRecycler.visibility = View.GONE
-                shadowCart.visibility = View.VISIBLE
-                billCustomView.visibility = View.GONE
-                text_empty_cart.visibility = View.VISIBLE
+                startAnimation()
             }
+        }
+    }
+
+    private fun startAnimation(){
+        viewModel.buyProduct()
+        with(binding){
+            successLoadingLottie.visibility = View.VISIBLE
+            successLoadingLottie.addAnimatorListener(object : Animator.AnimatorListener{
+                override fun onAnimationStart(p0: Animator?) {
+                    cartRecycler.visibility = View.GONE
+                    billCustomView.visibility = View.GONE
+
+                }
+
+                override fun onAnimationEnd(p0: Animator?) {
+                    successLoadingLottie.visibility = View.GONE
+                    shadowCart.visibility = View.VISIBLE
+                    text_empty_cart.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationCancel(p0: Animator?) {
+                }
+
+                override fun onAnimationRepeat(p0: Animator?) {
+                }
+            })
+            successLoadingLottie.playAnimation()
         }
     }
 

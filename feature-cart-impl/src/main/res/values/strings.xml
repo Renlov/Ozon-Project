@@ -1,4 +1,5 @@
 <resources>
     <string name="text_sum">Сумма %1$s₽</string>
     <string name="text_on_button">Оплатить</string>
+    <string name="success">Спасибо за покупку!</string>
 </resources>
