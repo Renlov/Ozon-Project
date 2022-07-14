@@ -2,10 +2,8 @@ package com.pimenov.feature_products_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -19,7 +17,6 @@ import com.pimenov.feature_products_impl.R
 import com.pimenov.feature_products_impl.databinding.FragmentMainBinding
 import com.pimenov.feature_products_impl.di.ProductFeatureComponent
 import com.pimenov.feature_products_impl.presentation.adapters.MainAdapter
-import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
 import com.pimenov.feature_products_impl.presentation.view_models.ProductsListViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
@@ -56,6 +53,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         isInCart()
         initList()
         navigation()
+        setRefreshLayout()
+    }
+
+    private fun setRefreshLayout(){
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.getData()
+            }
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun navigation(){
