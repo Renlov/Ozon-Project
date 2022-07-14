@@ -54,8 +54,6 @@ class ImageAdapter(private var images: List<String> = emptyList()
             val shimmerDrawable = ShimmerDrawable()
             shimmerDrawable.setShimmer(shimmer)
             return shimmerDrawable
-
         }
-
     }
 }

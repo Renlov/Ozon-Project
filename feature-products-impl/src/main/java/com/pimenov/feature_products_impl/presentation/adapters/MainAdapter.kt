@@ -2,10 +2,8 @@ package com.pimenov.feature_products_impl.presentation.adapters
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.pimenov.core_utils.recyclerUtils.inflate
@@ -63,7 +61,7 @@ class MainAdapter(
                     priceProductList.text = binding.root.resources.getString(R.string.ruble, price)
                     nameProductList.text = name
                     ratingProductList.rating = rating
-                    btnCart.buttonState.value = btnCart.buttonState.value.copy(isInCart, isLoading = false)
+                    btnCart.buttonState.value = btnCart.buttonState.value.copy(isInCart = isInCart, isLoading = false)
                 }
             }
         }

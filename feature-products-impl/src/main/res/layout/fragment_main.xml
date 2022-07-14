@@ -37,6 +37,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white" />
 
+    <TextView
+        android:id="@+id/counter_in_cart"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:elevation="7dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toEndOf="@+id/cartActionButton"
+        app:layout_constraintTop_toTopOf="@+id/cartActionButton" />
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerView"
         app:shimmer_highlight_alpha="0.2"

@@ -73,7 +73,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewLifecycleOwner.lifecycleScope.launch {
             while (isActive){
                 viewModel.getData()
-                delay(getMinutesFromMills(5))
+                delay(getMinutesFromMills(TIME_TO_UPDATE))
             }
         }
         viewModel.productInListSharedFlow.onEach{
@@ -98,11 +98,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun onClickInCart(guidId: String) {
         isInCart()
         viewModel.addToCart(guidId)
+        binding.counterInCart.text = viewModel.getCountInCart().toString()
+        if (viewModel.getCountInCart() == 0) hideInCartStart()
     }
+
     private fun isInCart() {
-        with(binding.cartActionButton){
-            visibility = if (viewModel.isInCart()) View.VISIBLE
-            else View.GONE
+        viewModel.isInCart()
+        binding.counterInCart.text = viewModel.getCountInCart().toString()
+        if (viewModel.isInCart()){
+            showInCartStart()
+        } else {
+            hideInCartStart()
         }
     }
 
@@ -111,6 +117,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.mainRecyclerView.isVisible = true
     }
 
+    private fun showInCartStart(){
+        with(binding){
+            cartActionButton.visibility = View.VISIBLE
+            counterInCart.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideInCartStart(){
+        with(binding){
+            cartActionButton.visibility = View.GONE
+            counterInCart.visibility = View.GONE
+        }
+    }
 
     override fun onPause() {
         if(isRemoving) {
@@ -123,5 +142,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun getMinutesFromMills(minutes : Long) : Long{
         return TimeUnit.MINUTES.toMillis(minutes)
+    }
+    companion object{
+        private const val TIME_TO_UPDATE : Long = 5
     }
 }

@@ -33,13 +33,9 @@ interface CoreDatabaseComponent : DatabaseApi {
 
         fun get(): CoreDatabaseComponent? {
             if (coreDatabaseComponent == null) {
-                throw RuntimeException("You must call 'initAndGet(coreNetworkDependencies: CoreNetworkDependencies)' method")
+                throw RuntimeException("You must call 'initAndGet(coreDatabaseComponent: CoreDatabaseComponent)' method")
             }
             return coreDatabaseComponent
-        }
-
-        fun resetComponent() {
-            coreDatabaseComponent = null
         }
     }
 }

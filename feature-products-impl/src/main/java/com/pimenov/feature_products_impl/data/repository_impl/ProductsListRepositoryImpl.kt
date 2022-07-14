@@ -1,10 +1,7 @@
 package com.pimenov.feature_products_impl.data.repository_impl
 
-import android.util.Log
-import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
 import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
 import com.pimenov.core_network_api.FlowDataApi
-import com.pimenov.core_network_api.ProductRepository
 import com.pimenov.core_network_api.WorkerApi
 import com.pimenov.feature_products_impl.data.mapper.toDO
 import com.pimenov.feature_products_impl.domain.repository.ProductsListRepository
@@ -37,8 +34,8 @@ class ProductsListRepositoryImpl @Inject constructor(private val flowDataApi: Fl
         return dataBase.getProductListCart().isNotEmpty()
     }
 
-    override fun updateSoldOut() {
-
+    override fun countInCart(): Int {
+        return dataBase.getProductListCart().size
     }
 }
 

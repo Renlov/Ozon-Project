@@ -7,11 +7,9 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
-import com.pimenov.core_datastore_impl.di.CoreDatabaseComponent
 import com.pimenov.core_navigation_impl.databinding.ActivityMainBinding
 import com.pimenov.core_navigation_impl.di.FeatureInjectorProxy
 import com.pimenov.feature_products_impl.presentation.view.MainFragment

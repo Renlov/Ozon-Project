@@ -1,6 +1,5 @@
 package com.pimenov.core_datastore_impl.di
 
-import com.pimenov.core_datastore_api.domain.repository.DatabaseApi
 import com.pimenov.core_datastore_api.domain.repository.ProductDatabase
 import com.pimenov.core_datastore_impl.data.ProductDatabaseImpl
 import dagger.Binds

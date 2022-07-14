@@ -15,15 +15,13 @@ import com.pimenov.feature_products_impl.di.DaggerProductFeatureComponent_Produc
 import com.pimenov.feature_products_impl.di.ProductFeatureComponent
 
 object FeatureInjectorProxy {
-
-        fun initFeatureProductsDI(context: Context) {
-        ProductFeatureComponent.initAndGet(
-            DaggerProductFeatureComponent_ProductFeatureDependenciesComponent.builder()
-                .networkApi(CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder().databaseApi(CoreDatabaseComponent.initAndGet(context)).build(),
-                    WorkManager.getInstance(context)))
-                .productNavigationApi(DaggerCoreNavigationComponent.builder().build().getProductNavigation())
-                .databaseApi(CoreDatabaseComponent.initAndGet(context))
-                .build()
+    fun initFeatureProductsDI(context: Context) { ProductFeatureComponent.initAndGet(
+        DaggerProductFeatureComponent_ProductFeatureDependenciesComponent.builder()
+            .networkApi(CoreNetworkComponent.initAndGet(DaggerCoreNetworkComponent_CoreNetworkDependenciesComponent.builder().databaseApi(CoreDatabaseComponent.initAndGet(context)).build(),
+                WorkManager.getInstance(context)))
+            .productNavigationApi(DaggerCoreNavigationComponent.builder().build().getProductNavigation())
+            .databaseApi(CoreDatabaseComponent.initAndGet(context))
+            .build()
         )
     }
 

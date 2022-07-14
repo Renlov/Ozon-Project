@@ -1,15 +1,12 @@
 package com.pimenov.feature_products_impl.presentation.view_models
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.pimenov.feature_products_impl.domain.interactor.ProductsInteractor
 import com.pimenov.feature_products_impl.presentation.adapters.mappers.toRV
 import com.pimenov.feature_products_impl.presentation.adapters.recycler_models.BaseRvModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProductsListViewModel@Inject constructor(private val productsInteractor: ProductsInteractor) : ViewModel() {
@@ -30,6 +27,10 @@ class ProductsListViewModel@Inject constructor(private val productsInteractor: P
 
     fun isInCart() : Boolean{
         return productsInteractor.isInCart()
+    }
+
+    fun getCountInCart() : Int{
+        return productsInteractor.countInCart()
     }
 
     fun addToCart(guid: String) {

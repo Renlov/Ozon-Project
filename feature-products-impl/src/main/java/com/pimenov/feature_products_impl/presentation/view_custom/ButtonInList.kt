@@ -24,7 +24,8 @@ class ButtonInList @JvmOverloads constructor(
         get() = _binding
 
     val buttonState: MutableStateFlow<ButtonState> = MutableStateFlow(
-        ButtonState(isInCart = false, isLoading = true))
+        ButtonState(isInCart = false, isLoading = true)
+    )
 
     init {
         CoroutineScope(Dispatchers.Main).launch {

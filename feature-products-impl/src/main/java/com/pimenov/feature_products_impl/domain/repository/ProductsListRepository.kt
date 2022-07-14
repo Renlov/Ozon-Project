@@ -11,6 +11,6 @@ interface ProductsListRepository {
     suspend fun getData()
     fun productListStateFlow() : Flow<List<ProductInListDO>?>
     fun updateCartState(guidId: String)
-    fun updateSoldOut()
     fun inInCart() : Boolean
+    fun countInCart() : Int
 }

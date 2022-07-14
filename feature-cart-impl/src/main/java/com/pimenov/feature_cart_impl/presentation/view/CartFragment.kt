@@ -4,10 +4,8 @@ import android.animation.Animator
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -24,7 +22,6 @@ import com.pimenov.feature_cart_impl.presentation.adapter.CartAdapter
 import com.pimenov.feature_cart_impl.presentation.adapter.SwipeController
 import com.pimenov.feature_cart_impl.presentation.view_model.CartViewModel
 import kotlinx.android.synthetic.main.fragment_cart.*
-import kotlinx.android.synthetic.main.fragment_cart.view.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -79,13 +76,13 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 override fun onAnimationStart(p0: Animator?) {
                     cartRecycler.visibility = View.GONE
                     billCustomView.visibility = View.GONE
-
                 }
 
                 override fun onAnimationEnd(p0: Animator?) {
                     successLoadingLottie.visibility = View.GONE
                     shadowCart.visibility = View.VISIBLE
                     text_empty_cart.visibility = View.VISIBLE
+                    binding.textEmptyCart.text = resources.getString(R.string.success)
                 }
 
                 override fun onAnimationCancel(p0: Animator?) {
@@ -127,6 +124,10 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                        it?.price?.toInt() ?: 0
                    }.toString()
                }
+               cartState(true)
+           } else {
+               cartState(false)
+
            }
        }.launchIn(viewLifecycleOwner.lifecycleScope)
    }
@@ -137,5 +138,18 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             }
         }
         super.onPause()
+    }
+
+    private fun cartState(state : Boolean){
+        if (state){
+            binding.shadowCart.visibility = View.GONE
+            binding.textEmptyCart.visibility = View.GONE
+            binding.billCustomView.visibility = View.VISIBLE
+        } else {
+            binding.shadowCart.visibility = View.VISIBLE
+            binding.textEmptyCart.visibility = View.VISIBLE
+            binding.billCustomView.visibility = View.GONE
+            binding.textEmptyCart.text = resources.getString(R.string.empty_cart)
+        }
     }
 }
